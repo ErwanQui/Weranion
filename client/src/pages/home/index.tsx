@@ -1,9 +1,10 @@
 // client/src/pages/home/index.js
 import { useNavigate } from 'react-router-dom'; // Add this
+import React from 'react';
 
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
-const Home = ({ username, setUsername, room, setRoom, socket }) => {
+function Home({ username, setUsername, room, setRoom, socket }: { username: any, setUsername: any, room: any, setRoom: any, socket: any }) {
 
   const navigate = useNavigate(); // Add this
 

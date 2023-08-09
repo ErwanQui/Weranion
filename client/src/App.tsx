@@ -3,9 +3,10 @@
 import './App.css';
 import { useState } from 'react';
 import Home from './pages/home';
-import Chat from './pages/chat';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import Chat from './pages/chat';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import io from 'socket.io-client';
+import React from 'react';
 
 const socket = io.connect('http://localhost:4000');
 
@@ -16,8 +17,8 @@ function App() {
   return (
     <Router>
       <div className='App'>
-        p
-        <Routes>
+        Weranion
+        {/* <Route> */}
           <Route
             path='/'
             element={
@@ -31,11 +32,11 @@ function App() {
             }
           />
           {/* Add this */}
-          <Route
+          {/* <Route
             path='/chat'
             element={<Chat username={username} room={room} socket={socket} />}
-          />
-        </Routes>
+          /> */}
+        {/* </Route> */}
       </div>
     </Router>
   );
