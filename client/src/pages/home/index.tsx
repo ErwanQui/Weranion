@@ -18,11 +18,18 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
   };
 
   function test() {
-    const __createdtime__ = Date.now();
     const message = 'oooooo'
     console.log(message)
     // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
-    socket.emit('send_message', { username, room, message, __createdtime__ });
+    socket.emit('join_room', { username, room });
+    // setMessage('');
+  }
+
+  function test2() {
+    const message = 'zzzzzzoo'
+    console.log(message)
+    // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
+    socket.emit('connection', {});
     // setMessage('');
   }
 
@@ -32,6 +39,11 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
       onClick={test}
     >
       Test
+    </button>
+    <button
+      onClick={test2}
+    >
+      Test2
     </button>
     <div className="container">
       <div className="formContainer">

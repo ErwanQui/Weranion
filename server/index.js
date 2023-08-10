@@ -1,5 +1,5 @@
 require('dotenv').config();
-console.log(process.env.HARPERDB_URL); // remove this after you've confirmed it working
+// console.log(process.env.HARPERDB_URL); // remove this after you've confirmed it working
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -22,7 +22,8 @@ let allUsers = []; // All users in current chat room
 // Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
 const io = new Server(server, {
   cors: {
-    origin: 'https://weranion.vercel.app/*',
+    origin: '*',
+    // origin: 'https://weranion.vercel.app/*',
     methods: ['GET', 'POST'],
   },
 });
