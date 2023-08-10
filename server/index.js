@@ -29,10 +29,10 @@ const io = new Server(server, {
 });
 
 // Endpoint pour rejoindre une salle
-app.post('/test', (req, res) => {
-  const { username } = req.body;
+app.get('/test', (req, res) => {
+  // const { username } = req.body;
   // Logique pour ajouter un utilisateur à une salle
-  res.send(`${username} has joined the chat room`);
+  res.send('has joined the chat room');
 });
   
 // Add this
