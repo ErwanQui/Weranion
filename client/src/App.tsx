@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import * as io from 'socket.io-client';
 import React from 'react';
 
-const socket = io.connect('http://localhost:4000');
+const socket = io.connect('https://weranion-server.vercel.app');
 
 function App() {
   const [username, setUsername] = useState('');
