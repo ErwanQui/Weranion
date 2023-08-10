@@ -1,6 +1,6 @@
 // client/src/pages/chat/room-and-users.js
 
-import './styles.module.css';
+import './styles.module.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react'

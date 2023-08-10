@@ -1,6 +1,6 @@
 // client/src/pages/chat/send-message.js
 
-import './styles.module.css';
+import './styles.module.scss';
 import React, { useState } from 'react';
 
 const SendMessage = ({ socket, username, room }: { socket: any, username: any, room: any}) => {

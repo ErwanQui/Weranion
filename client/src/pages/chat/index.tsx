@@ -1,6 +1,6 @@
 // client/src/pages/chat/index.js
 
-import './styles.module.css';
+import './styles.module.scss';
 import RoomAndUsersColumn from './room-and-users'; // Add this
 import SendMessage from './send-message';
 import MessagesReceived from './messages';

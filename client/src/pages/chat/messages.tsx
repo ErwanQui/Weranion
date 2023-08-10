@@ -1,6 +1,6 @@
 // client/src/pages/chat/messages.js
 
-import './styles.module.css';
+import './styles.module.scss';
 import { useState, useEffect, useRef } from 'react';
 import React from 'react';
 
@@ -13,14 +13,14 @@ function Messages({ socket }: any) {
   useEffect(() => {
     socket.on('receive_message', (data: any) => {
       console.log(data);
-      setMessagesReceived((state: any[]) => [
-        ...state,
-        {
-          message: data.message,
-          username: data.username,
-          __createdtime__: data.__createdtime__,
-        },
-      ]);
+      // // // // // setMessagesReceived((state: any[]) => [
+      // // // // //   ...state,
+      // // // // //   {
+      // // // // //     message: data.message,
+      // // // // //     username: data.username,
+      // // // // //     __createdtime__: data.__createdtime__,
+      // // // // //   },
+      // // // // // ]);
     });
 
     // Remove event listener on component unmount
@@ -35,7 +35,7 @@ function Messages({ socket }: any) {
       last100Messages = JSON.parse(last100Messages);
       // Sort these messages by __createdtime__
       last100Messages = sortMessagesByDate(last100Messages);
-      setMessagesReceived((state: any) => [...last100Messages, ...state]);
+      // // // // // setMessagesReceived((state: any) => [...last100Messages, ...state]);
     });
 
     return () => socket.off('last_100_messages');
@@ -43,10 +43,10 @@ function Messages({ socket }: any) {
 
   // Add this
   // Scroll to the most recent message
-  useEffect(() => {
-    messagesColumnRef.current.scrollTop =
-      messagesColumnRef.current.scrollHeight;
-  }, [messagesRecieved]);
+  // // // // // useEffect(() => {
+  // // // // //   messagesColumnRef.current.scrollTop =
+  // // // // //     messagesColumnRef.current.scrollHeight;
+  // // // // // }, [messagesRecieved]);
 
   // Add this
   function sortMessagesByDate(messages: any) {
