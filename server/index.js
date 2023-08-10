@@ -27,6 +27,13 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
   },
 });
+
+// Endpoint pour rejoindre une salle
+app.post('/test', (req, res) => {
+  const { username } = req.body;
+  // Logique pour ajouter un utilisateur à une salle
+  res.send(`${username} has joined the chat room`);
+});
   
 // Add this
 // Listen for when the client connects via socket.io-client
