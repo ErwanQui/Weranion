@@ -17,7 +17,21 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
     navigate('/chat', { replace: true }); // Add this
   };
 
+  function test() {
+    const __createdtime__ = Date.now();
+    const message = 'oooooo'
+    // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
+    socket.emit('send_message', { username, room, message, __createdtime__ });
+    // setMessage('');
+  }
+
   return (
+    <>
+    <button
+      onClick={test}
+    >
+      Test
+    </button>
     <div className="container">
       <div className="formContainer">
         <h1>{`<>DevRooms</>`}</h1>
@@ -47,6 +61,7 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
         </button>
       </div>
     </div>
+    </>
   );
 };
 
