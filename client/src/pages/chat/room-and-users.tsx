@@ -1,16 +1,17 @@
 // client/src/pages/chat/room-and-users.js
 
-import styles from './styles.module.css';
+import './styles.module.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import React from 'react'
 
-const RoomAndUsers = ({ socket, username, room }) => {
+function RoomAndUsers({ socket, username, room }: {socket: any, username: any, room: any}) {
   const [roomUsers, setRoomUsers] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    socket.on('chatroom_users', (data) => {
+    socket.on('chatroom_users', (data: any) => {
       console.log(data);
       setRoomUsers(data);
     });
@@ -26,13 +27,13 @@ const RoomAndUsers = ({ socket, username, room }) => {
   };
 
   return (
-    <div className={styles.roomAndUsersColumn}>
-      <h2 className={styles.roomTitle}>{room}</h2>
+    <div className="styles.roomAndUsersColumn">
+      <h2 className="roomTitle">{room}</h2>
 
       <div>
-        {roomUsers.length > 0 && <h5 className={styles.usersTitle}>Users:</h5>}
-        <ul className={styles.usersList}>
-          {roomUsers.map((user) => (
+        {roomUsers.length > 0 && <h5 className="usersTitle">Users:</h5>}
+        <ul className="usersList">
+          {roomUsers.map((user: any) => (
             <li
               style={{
                 fontWeight: `${user.username === username ? 'bold' : 'normal'}`,

@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React from 'react';
 
-import styles from './styles.module.scss';
+import './styles.module.scss';
 
 function Home({ username, setUsername, room, setRoom, socket }: { username: any, setUsername: any, room: any, setRoom: any, socket: any }) {
 
@@ -18,17 +18,17 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.formContainer}>
+    <div className="container">
+      <div className="formContainer">
         <h1>{`<>DevRooms</>`}</h1>
         <input
-          className={styles.input}
+          className="input"
           placeholder='Username...'
           onChange={(e) => setUsername(e.target.value)} // Add this
         />
 
         <select
-          className={styles.input}
+          className="input"
           onChange={(e) => setRoom(e.target.value)} // Add this
         >
           <option>-- Select Room --</option>

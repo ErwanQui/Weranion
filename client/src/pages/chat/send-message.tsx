@@ -1,9 +1,9 @@
 // client/src/pages/chat/send-message.js
 
-import styles from './styles.module.css';
+import './styles.module.css';
 import React, { useState } from 'react';
 
-const SendMessage = ({ socket, username, room }) => {
+const SendMessage = ({ socket, username, room }: { socket: any, username: any, room: any}) => {
   const [message, setMessage] = useState('');
 
   const sendMessage = () => {
@@ -16,9 +16,9 @@ const SendMessage = ({ socket, username, room }) => {
   };
 
   return (
-    <div className={styles.sendMessageContainer}>
+    <div className="sendMessageContainer">
       <input
-        className={styles.messageInput}
+        className="messageInput"
         placeholder='Message...'
         onChange={(e) => setMessage(e.target.value)}
         value={message}

@@ -1,13 +1,14 @@
 // client/src/pages/chat/index.js
 
-import styles from './styles.module.css';
+import './styles.module.css';
 import RoomAndUsersColumn from './room-and-users'; // Add this
 import SendMessage from './send-message';
 import MessagesReceived from './messages';
+import React from 'react';
 
-const Chat = ({ username, room, socket }) => {
+const Chat = ({ username, room, socket }: any) => {
   return (
-    <div className={styles.chatContainer}>
+    <div className="chatContainer">
       {/* Add this */}
       <RoomAndUsersColumn socket={socket} username={username} room={room} />
 
