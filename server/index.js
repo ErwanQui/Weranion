@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 // const http = require('http');
-// const cors = require('cors');
+const cors = require('cors');
 
 // const { Server } = require('socket.io'); // Add this
 
@@ -11,7 +11,13 @@ const app = express();
 // const harperGetMessages = require('./services/harper-get-messages'); // Add this
 // const leaveRoom = require('./utils/leave-room'); // Add this
 
-// app.use(cors()); // Add cors middleware
+app.use(
+  cors({
+    origin: 'https://weranion.vercel.app',
+    methods: ['GET', 'POST'],
+    credentials: true
+  })
+); // Add cors middleware
 
 // const server = http.createServer(app);
 // const CHAT_BOT = 'ChatBot'; // Add this
@@ -22,17 +28,14 @@ const app = express();
 // Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
 // const io = new Server(server, {
 //   cors: {
-//     origin: '*',
-//     // origin: 'https://weranion.vercel.app/*',
+//     origin: 'https://weranion.vercel.app',
 //     methods: ['GET', 'POST'],
+//     credentials: true
 //   },
 // });
 
-// Endpoint pour rejoindre une salle
-app.get('/test', (req, res) => {
-  // const { username } = req.body;
-  // Logique pour ajouter un utilisateur à une salle
-  res.send('has joined the chat room');
+app.get('/', (req, res) => {
+  res.json('hello');
 });
   
 // // Add this
@@ -122,3 +125,4 @@ app.get('/test', (req, res) => {
 // });
 
 // server.listen(4000, () => 'Server is running on port 4000');
+app.listen(4000, () => 'Server is running on port 4000');
