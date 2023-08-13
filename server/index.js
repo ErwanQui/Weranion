@@ -37,6 +37,10 @@ app.use(
 app.get('/', (req, res) => {
   res.json('hello');
 });
+
+app.get('/patate', (req, res) => {
+  res.json('on dit banane');
+});
   
 // // Add this
 // // Listen for when the client connects via socket.io-client
