@@ -12,7 +12,7 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
     // e.preventDefault();
     
     try {
-      const response = await axios.get('https://weranion-server.vercel.app/banane');
+      const response = await axios.get('https://weranion-server.vercel.app/patate');
       console.log(response.data); // Response from the server
     } catch (error) {
       console.error('Error submitting form:', error);
