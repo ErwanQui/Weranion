@@ -1,6 +1,7 @@
 // client/src/pages/home/index.js
 import { useNavigate } from 'react-router-dom'; // Add this
 import React from 'react';
+// import http from httpC;
 
 import './styles.module.scss';
 
@@ -10,7 +11,8 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
 
   const joinRoom = () => {
     if (room !== '' && username !== '') {
-      socket.emit('join_room', { username, room });
+      // socket.emit('join_room', { username, room });
+      // http
     }
 
     // Redirect to /chat
