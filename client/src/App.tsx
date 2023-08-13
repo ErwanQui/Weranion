@@ -5,12 +5,24 @@ import Chat from './pages/chat';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import * as io from 'socket.io-client';
 import React from 'react';
+import axios from 'axios';
 
 const socket = io.connect('https://weranion-server.vercel.app');
 
 function App() {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
+    
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+    
+  //   try {
+  //     const response = await axios.post('/api/submit', formData);
+  //     console.log(response.data); // Response from the server
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   }
+  // };
 
   return (
     <Router>

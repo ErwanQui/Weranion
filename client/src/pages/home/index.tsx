@@ -1,11 +1,23 @@
 // client/src/pages/home/index.js
 import { useNavigate } from 'react-router-dom'; // Add this
 import React from 'react';
+import axios from 'axios';
 // import http from httpC;
 
 import './styles.module.scss';
 
 function Home({ username, setUsername, room, setRoom, socket }: { username: any, setUsername: any, room: any, setRoom: any, socket: any }) {
+  
+  async function test() {
+    // e.preventDefault();
+    
+    try {
+      const response = await axios.get('weranion-server.vercel.app/banane');
+      console.log(response.data); // Response from the server
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
 
   const navigate = useNavigate(); // Add this
 
@@ -19,13 +31,13 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
     navigate('/chat', { replace: true }); // Add this
   };
 
-  function test() {
-    const message = 'oooooo'
-    console.log(message)
-    // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
-    socket.emit('join_room', { username, room });
-    // setMessage('');
-  }
+  // function test() {
+  //   const message = 'oooooo'
+  //   console.log(message)
+  //   // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
+  //   socket.emit('join_room', { username, room });
+  //   // setMessage('');
+  // }
 
   function test2() {
     const message = 'zzzzzzoo'
