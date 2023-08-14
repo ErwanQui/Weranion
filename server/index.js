@@ -42,7 +42,7 @@ app.get('/patate', (req, res) => {
   res.json('on dit banane');
 });
 
-app.get('/login', (req, res) => {
+app.post('/login', (req, res) => {
   console.log(req);
   console.log(req.query);
   if (req.query.username === 'a' && req.query.password === 'a') {
