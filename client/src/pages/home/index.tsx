@@ -17,7 +17,7 @@ function Home({ username, setUsername, room, setRoom }: { username: any, setUser
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-  };
+  }
 
   async function test2() {
     axios.post('https://weranion-server.vercel.app/login', {
@@ -26,27 +26,24 @@ function Home({ username, setUsername, room, setRoom }: { username: any, setUser
     }, {
       withCredentials: true
     })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });  
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   async function test3() {
-    axios.post('https://weranion-server.vercel.app/login', {
-      username: 'a',
-      password: 'b'
-    }, {
+    axios.get('https://weranion-server.vercel.app/cookies', {
       withCredentials: true
     })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });  
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });  
   }
 
   const navigate = useNavigate(); // Add this
@@ -79,52 +76,52 @@ function Home({ username, setUsername, room, setRoom }: { username: any, setUser
 
   return (
     <>
-    <button
-      onClick={test}
-    >
+      <button
+        onClick={test}
+      >
       Test
-    </button>
-    <button
-      onClick={test2}
-    >
+      </button>
+      <button
+        onClick={test2}
+      >
       Test2
-    </button>
-    <button
-      onClick={test3}
-    >
+      </button>
+      <button
+        onClick={test3}
+      >
       Test2
-    </button>
-    <div className="container">
-      <div className="formContainer">
-        <h1>{`<>DevRooms</>`}</h1>
-        <input
-          className="input"
-          placeholder='Username...'
-          onChange={(e) => setUsername(e.target.value)} // Add this
-        />
+      </button>
+      <div className="container">
+        <div className="formContainer">
+          <h1>{'<>DevRooms</>'}</h1>
+          <input
+            className="input"
+            placeholder='Username...'
+            onChange={(e) => setUsername(e.target.value)} // Add this
+          />
 
-        <select
-          className="input"
-          onChange={(e) => setRoom(e.target.value)} // Add this
-        >
-          <option>-- Select Room --</option>
-          <option value='javascript'>JavaScript</option>
-          <option value='node'>Node</option>
-          <option value='express'>Express</option>
-          <option value='react'>React</option>
-        </select>
+          <select
+            className="input"
+            onChange={(e) => setRoom(e.target.value)} // Add this
+          >
+            <option>-- Select Room --</option>
+            <option value='javascript'>JavaScript</option>
+            <option value='node'>Node</option>
+            <option value='express'>Express</option>
+            <option value='react'>React</option>
+          </select>
 
-        <button
-          className='btn btn-secondary'
-          style={{ width: '100%' }}
-          onClick={joinRoom} // Add this
-        >
+          <button
+            className='btn btn-secondary'
+            style={{ width: '100%' }}
+            onClick={joinRoom} // Add this
+          >
           Join Room
-        </button>
+          </button>
+        </div>
       </div>
-    </div>
     </>
   );
-};
+}
 
 export default Home;

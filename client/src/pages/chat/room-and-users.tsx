@@ -3,7 +3,7 @@
 import './styles.module.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import React from 'react'
+import React from 'react';
 
 function RoomAndUsers({ socket, username, room }: {socket: any, username: any, room: any}) {
   const [roomUsers, setRoomUsers] = useState([]);
@@ -51,6 +51,6 @@ function RoomAndUsers({ socket, username, room }: {socket: any, username: any, r
       </button>
     </div>
   );
-};
+}
 
 export default RoomAndUsers;

@@ -78,6 +78,6 @@ function Messages({ socket }: any) {
       ))}
     </div>
   );
-};
+}
 
 export default Messages;

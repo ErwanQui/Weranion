@@ -1,9 +1,11 @@
-require('dotenv').config();
+// require('dotenv').config();
 // console.log(process.env.HARPERDB_URL); // remove this after you've confirmed it working
 const express = require('express');
 const app = express();
 // const http = require('http');
 const cors = require('cors');
+const cp = require('cookie-parser');
+const jwt = require('jsonwebtoken ');
 
 // const { Server } = require('socket.io'); // Add this
 
@@ -17,7 +19,8 @@ app.use(
     methods: ['GET', 'POST'],
     credentials: true
   }),
-  express.json()
+  express.json(),
+  cp()
 ); // Add cors middleware
 
 // const server = http.createServer(app);
@@ -45,13 +48,34 @@ app.get('/patate', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  console.log(req);
-  console.log(req.query);
+  // console.log(req);
+  // console.log(req.query);
+
+
   if (username === 'a' && password === 'a') {
-    res.json({ success: true });
+    // res.json({ success: true });
+
+    const payload = {
+      username: username,
+      // password: password
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
+
+    res.cookie('token', token, {
+      httpOnly: true
+    }).send('Cookie shipped');
   } else {
     res.json({ message: username, try: 'true' });
   }
+});
+
+app.get('/cookies', (req, res) => {
+  const token = req.cookies.token;
+  const payload = jwt.verify(token, process.env.JWT_SECRET);
+  res.json({
+    token, payload
+  });
 });
   
 // // Add this
