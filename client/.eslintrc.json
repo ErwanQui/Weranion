@@ -20,6 +20,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "eslint-disable": "off",
         "indent": [
             "error",
             2
