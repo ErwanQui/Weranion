@@ -43,6 +43,8 @@ app.get('/patate', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
+  console.log(req);
+  console.log(req.query);
   if (req.query.username === 'a' && req.query.password === 'a') {
     res.json('true');
   } else {
