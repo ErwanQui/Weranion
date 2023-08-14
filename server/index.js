@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
   if (req.query.username === 'a' && req.query.password === 'a') {
     res.json({ success: true });
   } else {
-    res.json({ message: req.query });
+    res.json({ message: req.data });
   }
 });
   
