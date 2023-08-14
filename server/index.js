@@ -41,6 +41,14 @@ app.get('/', (req, res) => {
 app.get('/patate', (req, res) => {
   res.json('on dit banane');
 });
+
+app.get('/login', (req, res) => {
+  if (req.query.username === 'a' && req.query.password === 'a') {
+    res.json('true');
+  } else {
+    res.json(false);
+  }
+});
   
 // // Add this
 // // Listen for when the client connects via socket.io-client

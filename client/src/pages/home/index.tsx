@@ -19,6 +19,36 @@ function Home({ username, setUsername, room, setRoom }: { username: any, setUser
     }
   };
 
+  async function test2() {
+    axios.post('https://weranion-server.vercel.app/login', {
+      username: 'a',
+      password: 'a'
+    }, {
+      withCredentials: true
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });  
+  }
+
+  async function test3() {
+    axios.post('https://weranion-server.vercel.app/login', {
+      username: 'a',
+      password: 'b'
+    }, {
+      withCredentials: true
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });  
+  }
+
   const navigate = useNavigate(); // Add this
 
   const joinRoom = () => {
@@ -39,13 +69,13 @@ function Home({ username, setUsername, room, setRoom }: { username: any, setUser
   //   // setMessage('');
   // }
 
-  function test2() {
-    const message = 'zzzzzzoo'
-    console.log(message)
-    // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
-    // socket.emit('connection', {});
-    // setMessage('');
-  }
+  // function test2() {
+  //   const message = 'zzzzzzoo'
+  //   console.log(message)
+  //   // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
+  //   // socket.emit('connection', {});
+  //   // setMessage('');
+  // }
 
   return (
     <>
@@ -56,6 +86,11 @@ function Home({ username, setUsername, room, setRoom }: { username: any, setUser
     </button>
     <button
       onClick={test2}
+    >
+      Test2
+    </button>
+    <button
+      onClick={test3}
     >
       Test2
     </button>
