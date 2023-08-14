@@ -43,12 +43,13 @@ app.get('/patate', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
+  const { username, password } = req.body;
   console.log(req);
   console.log(req.query);
-  if (req.params.username === 'a' && req.params.password === 'a') {
+  if (username === 'a' && password === 'a') {
     res.json({ success: true });
   } else {
-    res.json({ message: req.params.username, try: 'true' });
+    res.json({ message: username, try: 'true' });
   }
 });
   
