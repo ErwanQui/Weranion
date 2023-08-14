@@ -16,7 +16,8 @@ app.use(
     origin: 'https://weranion.vercel.app',
     methods: ['GET', 'POST'],
     credentials: true
-  })
+  }),
+  express.json()
 ); // Add cors middleware
 
 // const server = http.createServer(app);
@@ -43,7 +44,7 @@ app.get('/patate', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const { username, password } = req.params;
+  const { username, password } = req.body;
   console.log(req);
   console.log(req.query);
   if (username === 'a' && password === 'a') {
