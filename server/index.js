@@ -72,10 +72,26 @@ app.post('/login', (req, res) => {
 
 app.get('/cookies', (req, res) => {
   const token = req.cookies.token;
-  const payload = jwt.verify(token, process.env.JWT_SECRET);
-  res.json({
-    token, payload
-  });
+
+  
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err) => {
+      if (err) {
+        // Le token est invalide, rediriger vers la page de connexion
+        res.redirect('/chat');
+      } else {
+        // Le token est valide, passez à l'étape suivante
+        res.json('c est ok');
+      }
+    });
+  } else {
+    // Le token est manquant, rediriger vers la page de connexion
+    res.redirect('/login');
+  }
+  // const payload = jwt.verify(token, process.env.JWT_SECRET);
+  // res.json({
+  //   token, payload
+  // });
 });
   
 // // Add this

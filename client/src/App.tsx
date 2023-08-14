@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import Home from './pages/home';
+import Home1 from './pages/home';
 import Chat from './pages/chat';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import * as io from 'socket.io-client';
@@ -29,10 +29,16 @@ function App() {
       <div className='App'>
         Weranion
         <Routes>
+          {/* <Route
+            path='/'
+            element={
+              <Home />
+            }
+          /> */}
           <Route
             path='/'
             element={
-              <Home
+              <Home1
                 username={username}
                 setUsername={setUsername}
                 room={room}

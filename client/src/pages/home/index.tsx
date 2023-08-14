@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import './styles.module.scss';
 
-function Home({ username, setUsername, room, setRoom }: { username: any, setUsername: any, room: any, setRoom: any }) {
+function Home1({ username, setUsername, room, setRoom }: { username: any, setUsername: any, room: any, setRoom: any }) {
   
   async function test() {
     // e.preventDefault();
@@ -124,4 +124,4 @@ function Home({ username, setUsername, room, setRoom }: { username: any, setUser
   );
 }
 
-export default Home;
+export default Home1;
