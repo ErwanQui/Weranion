@@ -43,7 +43,7 @@ app.get('/patate', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.params;
   console.log(req);
   console.log(req.query);
   if (username === 'a' && password === 'a') {
