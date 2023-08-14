@@ -61,10 +61,10 @@ app.post('/login', (req, res) => {
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET);
-    res.json('mouais');
-    // res.cookie('token', token, {
-    //   httpOnly: true
-    // }).send('Cookie shipped');
+    // res.json('mouais');
+    res.cookie('token', token, {
+      httpOnly: true
+    }).send('Cookie shipped');
   } else {
     res.json({ message: username, try: 'true' });
   }
