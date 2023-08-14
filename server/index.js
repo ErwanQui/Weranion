@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
   if (req.params.username === 'a' && req.params.password === 'a') {
     res.json({ success: true });
   } else {
-    res.json({ message: req.body, try: 'true' });
+    res.json({ message: req.params.username, try: 'true' });
   }
 });
   
