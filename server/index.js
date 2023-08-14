@@ -45,10 +45,10 @@ app.get('/patate', (req, res) => {
 app.post('/login', (req, res) => {
   console.log(req);
   console.log(req.query);
-  if (req.query.username === 'a' && req.query.password === 'a') {
+  if (req.params.username === 'a' && req.params.password === 'a') {
     res.json({ success: true });
   } else {
-    res.json({ message: req.data });
+    res.json({ message: req.params });
   }
 });
   
