@@ -3,11 +3,11 @@ import { useState } from 'react';
 import Home from './pages/home';
 import Chat from './pages/chat';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import * as io from 'socket.io-client';
+// import * as io from 'socket.io-client';
 import React from 'react';
 import axios from 'axios';
 
-const socket = io.connect('https://weranion-server.vercel.app');
+// const socket = io.connect('https://weranion-server.vercel.app');
 
 function App() {
   const [username, setUsername] = useState('');
@@ -37,13 +37,12 @@ function App() {
                 setUsername={setUsername}
                 room={room}
                 setRoom={setRoom}
-                socket={socket}
               />
             }
           />
           <Route
             path='/chat'
-            element={<Chat username={username} room={room} socket={socket} />}
+            element={<Chat username={username} room={room} />}
           />
         </Routes>
       </div>

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import './styles.module.scss';
 
-function Home({ username, setUsername, room, setRoom, socket }: { username: any, setUsername: any, room: any, setRoom: any, socket: any }) {
+function Home({ username, setUsername, room, setRoom }: { username: any, setUsername: any, room: any, setRoom: any }) {
   
   async function test() {
     // e.preventDefault();
@@ -43,7 +43,7 @@ function Home({ username, setUsername, room, setRoom, socket }: { username: any,
     const message = 'zzzzzzoo'
     console.log(message)
     // Send message to server. We can't specify who we send the message to from the frontend. We can only send to server. Server can then send message to rest of users in room
-    socket.emit('connection', {});
+    // socket.emit('connection', {});
     // setMessage('');
   }
 
