@@ -5,7 +5,7 @@ const app = express();
 // const http = require('http');
 const cors = require('cors');
 const cp = require('cookie-parser');
-const jwt = require('jsonwebtoken ');
+const jwt = require('jsonwebtoken');
 
 // const { Server } = require('socket.io'); // Add this
 
