@@ -48,7 +48,7 @@ app.get('/login', (req, res) => {
   if (req.query.username === 'a' && req.query.password === 'a') {
     res.json('true');
   } else {
-    res.json(false);
+    res.json('false');
   }
 });
   
