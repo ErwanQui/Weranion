@@ -39,7 +39,7 @@ mongoose.connect(process.env.MONGODB_URL, options)
   });
 
 app.get('/', (req, res) => {
-  res.json(process.env.CLIENT_PATH);
+  res.json('hello');
 });
 
 // app.get('/patate', (req, res) => {
