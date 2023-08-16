@@ -78,7 +78,7 @@ app.get('/cookies', (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET, (err) => {
       if (err) {
         // Le token est invalide, rediriger vers la page de connexion
-        res.error(process.env.CLIENT_PATH + '/chat');
+        res.redirect(process.env.CLIENT_PATH);
       } else {
         // Le token est valide, passez à l'étape suivante
         res.json('c est ok');
