@@ -89,39 +89,24 @@ mongoose.connect(process.env.MONGODB_URL, options)
 //   },
 // });
 
-async function fetchPersons() {
-  try {
-
-    // Créer le modèle
-    const Person = mongoose.model('Person', personSchema);
-    const persons = await Person.find();
-    console.log(persons);
-  } catch (error) {
-    console.error('Erreur lors de la récupération des personnes :', error);
-  }
-}
-
-
 app.get('/', (req, res) => {
   res.json('hello');
 });
 
-// app.get('/patate', (req, res) => {
-//   res.json('on dit banane');
-
-//   fetchPersons();
-// });
-
-
-app.get('/patate', async (request, response) => {
-  const users = await Person.find({});
-
-  try {
-    response.send(users);
-  } catch (error) {
-    response.status(500).send(error);
-  }
+app.get('/patate', (req, res) => {
+  res.json('on dit banane');
 });
+
+
+// app.get('/patate', async (request, response) => {
+//   const users = await Person.find({});
+
+//   try {
+//     response.send(users);
+//   } catch (error) {
+//     response.status(500).send(error);
+//   }
+// });
 
 app.post('/add_test', async (request, response) => {
   const user = new Person(request.body);
