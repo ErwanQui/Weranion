@@ -94,7 +94,7 @@ app.get('/', (req, res) => {
 });
 
 // app.get('/patate', (req, res) => {
-//   res.json('on dit banane');
+//   res.json('on dit bananeuh');
 // });
 
 
