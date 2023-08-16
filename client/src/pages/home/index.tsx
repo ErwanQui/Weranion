@@ -46,6 +46,20 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
       });  
   }
 
+  async function addTest() {
+    axios.post('add_test', {
+      name: 'oh',
+    }, {
+      withCredentials: true
+    })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });  
+  }
+
   const navigate = useNavigate(); // Add this
 
   const joinRoom = () => {
@@ -89,7 +103,12 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
       <button
         onClick={test3}
       >
-      Test2
+      Test3
+      </button>
+      <button
+        onClick={addTest}
+      >
+      addTest
       </button>
       <div className="container">
         <div className="formContainer">

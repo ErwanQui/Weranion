@@ -6,8 +6,13 @@ const app = express();
 const cors = require('cors');
 const cp = require('cookie-parser');
 const mongoose = require('mongoose');
+// const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const login = require('./src/login');
+
+
+const personSchema = require('./models/person');
+const Person = require('./models/person');
 
 // const { Server } = require('socket.io'); // Add this
 
@@ -25,6 +30,32 @@ app.use(
   cp()
 );
 
+// const uri = process.env.MONGODB_URL;
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
+
+// async function run() {
+//   console.log(uri);
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     // Send a ping to confirm a successful connection
+//     await client.db('admin').command({ ping: 1 });
+//     console.log('Pinged your deployment. You successfully connected to MongoDB!');
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
+
+
 // Options de configuration pour la connexion
 const options = {
   useNewUrlParser: true,
@@ -35,6 +66,9 @@ const options = {
 mongoose.connect(process.env.MONGODB_URL, options)
   .then(() => {
     console.log('Connexion à la base de données établie');
+    // User.find().forEach((user) => {
+    //   console.log(user);
+    // });
   })
   .catch((error) => {
     console.error('Erreur de connexion à la base de données :', error);
@@ -55,12 +89,49 @@ mongoose.connect(process.env.MONGODB_URL, options)
 //   },
 // });
 
+async function fetchPersons() {
+  try {
+
+    // Créer le modèle
+    const Person = mongoose.model('Person', personSchema);
+    const persons = await Person.find();
+    console.log(persons);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des personnes :', error);
+  }
+}
+
+
 app.get('/', (req, res) => {
   res.json('hello');
 });
 
-app.get('/patate', (req, res) => {
-  res.json('on dit banane');
+// app.get('/patate', (req, res) => {
+//   res.json('on dit banane');
+
+//   fetchPersons();
+// });
+
+
+app.get('/patate', async (request, response) => {
+  const users = await Person.find({});
+
+  try {
+    response.send(users);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+app.post('/add_test', async (request, response) => {
+  const user = new Person(request.body);
+
+  try {
+    await user.save();
+    response.send(user);
+  } catch (error) {
+    response.status(500).send(error);
+  }
 });
 
 app.use('/login', login);
