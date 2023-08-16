@@ -25,7 +25,6 @@ app.use(
   cp()
 );
 
-
 // Options de configuration pour la connexion
 const options = {
   useNewUrlParser: true,
@@ -42,7 +41,7 @@ mongoose.connect((config.dbProd ? process.env.MONGODB_URL : process.env.MONGODB_
   });
 
 app.get('/', (req, res) => {
-  res.json('hello');
+  res.json((config.dbProd ? process.env.CLIENT_PATH : process.env.CLIENT_TEST_PATH));
 });
 
 // app.get('/patate', (req, res) => {
