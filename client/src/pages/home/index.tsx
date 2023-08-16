@@ -12,7 +12,7 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
     // e.preventDefault();
     
     try {
-      const response = await axios.get('https://weranion-server.vercel.app/patate');
+      const response = await axios.get('/patate');
       console.log(response.data); // Response from the server
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -20,7 +20,7 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
   }
 
   async function test2() {
-    axios.post('https://weranion-server.vercel.app/login', {
+    axios.post('login', {
       username: 'a',
       password: 'a'
     }, {
@@ -35,7 +35,7 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
   }
 
   async function test3() {
-    axios.get('https://weranion-server.vercel.app/cookies', {
+    axios.get('/cookies', {
       withCredentials: true
     })
       .then(response => {
