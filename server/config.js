@@ -1,5 +1,5 @@
 const config = {
-  dbProd: false
+  dbProd: true
 };
 
 module.exports = config;
