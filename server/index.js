@@ -47,7 +47,7 @@ app.get('/patate', (req, res) => {
   res.json('on dit banane');
 });
 
-app.use('login', login);
+app.use('/login', login);
 
 // app.post('/login', (req, res) => {
 //   const { username, password } = req.body;
