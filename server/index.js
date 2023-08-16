@@ -93,20 +93,20 @@ app.get('/', (req, res) => {
   res.json('hello');
 });
 
-app.get('/patate', (req, res) => {
-  res.json('on dit banane');
-});
-
-
-// app.get('/patate', async (request, response) => {
-//   const users = await Person.find({});
-
-//   try {
-//     response.send(users);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
+// app.get('/patate', (req, res) => {
+//   res.json('on dit banane');
 // });
+
+
+app.get('/patate', async (request, response) => {
+  const users = await Person.find({});
+
+  try {
+    response.send(users);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 
 app.post('/add_test', async (request, response) => {
   const user = new Person(request.body);
