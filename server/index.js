@@ -86,7 +86,7 @@ app.get('/cookies', (req, res) => {
     });
   } else {
     // Le token est manquant, rediriger vers la page de connexion
-    res.redirect('/chat');
+    res.redirect(process.env.CLIENT_PATH);
   }
   // const payload = jwt.verify(token, process.env.JWT_SECRET);
   // res.json({
