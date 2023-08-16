@@ -1,10 +1,8 @@
 import axios from 'axios';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
+import config from './config';
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_PATH
+  baseURL: (config.dbProd ? process.env.REACT_APP_SERVER_PATH : process.env.REACT_APP_SERVER_TEST_PATH)
 });
 
 export default instance;
