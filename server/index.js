@@ -15,7 +15,7 @@ const jwt = require('jsonwebtoken');
 
 app.use(
   cors({
-    origin: 'https://weranion.vercel.app',
+    origin: process.env.CLIENT_PATH,
     methods: ['GET', 'POST'],
     credentials: true
   }),
