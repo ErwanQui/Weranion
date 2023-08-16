@@ -8,8 +8,6 @@ const cp = require('cookie-parser');
 const mongoose = require('mongoose');
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const config = require('./config');
-
 const login = require('./src/login');
 
 
@@ -17,7 +15,7 @@ const login = require('./src/login');
 
 app.use(
   cors({
-    origin: (config.dbProd ? process.env.CLIENT_PATH : process.env.CLIENT_TEST_PATH),
+    origin: process.env.CLIENT_PATH,
     methods: ['GET', 'POST'],
     credentials: true
   }),
@@ -33,7 +31,7 @@ const options = {
 };
 
 // Établir la connexion à la base de données
-mongoose.connect((config.dbProd ? process.env.MONGODB_URL : process.env.MONGODB_TEST_URL), options)
+mongoose.connect(process.env.MONGODB_URL, options)
   .then(() => {
     console.log('Connexion à la base de données établie');
   })
@@ -42,7 +40,7 @@ mongoose.connect((config.dbProd ? process.env.MONGODB_URL : process.env.MONGODB_
   });
 
 app.get('/', (req, res) => {
-  res.json((config.dbProd ? process.env.CLIENT_PATH : process.env.CLIENT_TEST_PATH));
+  res.json('hello');
 });
 
 // app.get('/patate', (req, res) => {
