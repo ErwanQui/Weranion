@@ -5,6 +5,7 @@ const app = express();
 // const http = require('http');
 const cors = require('cors');
 const cp = require('cookie-parser');
+const mongoose = require('mongoose');
 
 const login = require('./src/login');
 
@@ -23,7 +24,22 @@ app.use(
   express.json(),
   cp()
 );
- 
+
+// Options de configuration pour la connexion
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+// Établir la connexion à la base de données
+mongoose.connect(process.env.MONGODB_URL, options)
+  .then(() => {
+    console.log('Connexion à la base de données établie');
+  })
+  .catch((error) => {
+    console.error('Erreur de connexion à la base de données :', error);
+  });
+
 // const server = http.createServer(app);
 // const CHAT_BOT = 'ChatBot'; // Add this
 // let chatRoom = ''; // E.g. javascript, node,...
