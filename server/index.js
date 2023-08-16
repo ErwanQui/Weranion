@@ -21,7 +21,7 @@ app.use(
   }),
   express.json(),
   cp()
-); // Add cors middleware
+);
 
 // const server = http.createServer(app);
 // const CHAT_BOT = 'ChatBot'; // Add this
@@ -78,7 +78,7 @@ app.get('/cookies', (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET, (err) => {
       if (err) {
         // Le token est invalide, rediriger vers la page de connexion
-        res.redirect('/chat');
+        res.error(process.env.CLIENT_PATH + '/chat');
       } else {
         // Le token est valide, passez à l'étape suivante
         res.json('c est ok');

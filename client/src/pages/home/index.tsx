@@ -12,7 +12,7 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
     // e.preventDefault();
     
     try {
-      const response = await axios.get('/patate');
+      const response = await axios.get('patate');
       console.log(response.data); // Response from the server
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -35,7 +35,7 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
   }
 
   async function test3() {
-    axios.get('/cookies', {
+    axios.get('cookies', {
       withCredentials: true
     })
       .then(response => {
