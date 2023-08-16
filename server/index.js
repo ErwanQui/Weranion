@@ -11,14 +11,7 @@ const mongoose = require('mongoose');
 const login = require('./src/login');
 
 
-const personSchema = require('./models/person');
-const Person = require('./models/person');
-
-// const { Server } = require('socket.io'); // Add this
-
-// const harperSaveMessage = require('./services/harper-save-message'); // Add this
-// const harperGetMessages = require('./services/harper-get-messages'); // Add this
-// const leaveRoom = require('./utils/leave-room'); // Add this
+// const Person = require('./models/person');
 
 app.use(
   cors({
@@ -29,31 +22,6 @@ app.use(
   express.json(),
   cp()
 );
-
-// const uri = process.env.MONGODB_URL;
-// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-// const client = new MongoClient(uri, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   }
-// });
-
-// async function run() {
-//   console.log(uri);
-//   try {
-//     // Connect the client to the server	(optional starting in v4.7)
-//     await client.connect();
-//     // Send a ping to confirm a successful connection
-//     await client.db('admin').command({ ping: 1 });
-//     console.log('Pinged your deployment. You successfully connected to MongoDB!');
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-//     await client.close();
-//   }
-// }
-// run().catch(console.dir);
 
 
 // Options de configuration pour la connexion
@@ -66,28 +34,10 @@ const options = {
 mongoose.connect(process.env.MONGODB_URL, options)
   .then(() => {
     console.log('Connexion à la base de données établie');
-    // User.find().forEach((user) => {
-    //   console.log(user);
-    // });
   })
   .catch((error) => {
     console.error('Erreur de connexion à la base de données :', error);
   });
-
-// const server = http.createServer(app);
-// const CHAT_BOT = 'ChatBot'; // Add this
-// let chatRoom = ''; // E.g. javascript, node,...
-// let allUsers = []; // All users in current chat room
-
-// Add this
-// Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
-// const io = new Server(server, {
-//   cors: {
-//     origin: 'https://weranion.vercel.app',
-//     methods: ['GET', 'POST'],
-//     credentials: true
-//   },
-// });
 
 app.get('/', (req, res) => {
   res.json('hello');
@@ -97,28 +47,27 @@ app.get('/', (req, res) => {
 //   res.json('on dit bananeuh');
 // });
 
+// app.get('/patate', async (request, response) => {
+//   const users = await Person.find({});
 
-app.get('/patate', async (request, response) => {
-  const users = await Person.find({});
-
-  try {
-    response.send(users);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-});
+//   try {
+//     response.send(users);
+//   } catch (error) {
+//     response.status(500).send(error);
+//   }
+// });
 
 
-app.post('/add_test', async (request, response) => {
-  const user = new Person(request.body);
+// app.post('/add_test', async (request, response) => {
+//   const user = new Person(request.body);
 
-  try {
-    await user.save();
-    response.send(user);
-  } catch (error) {
-    response.status(500).send(error);
-  }
-});
+//   try {
+//     await user.save();
+//     response.send(user);
+//   } catch (error) {
+//     response.status(500).send(error);
+//   }
+// });
 
 app.use('/login', login);
 

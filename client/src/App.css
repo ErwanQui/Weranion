@@ -1,6 +1,8 @@
-/* client/src/App.css */
+client/src/App.css
 
 html * {
+  margin: 0;
+  padding: 0;
   font-family: Arial;
   box-sizing: border-box;
 }
@@ -10,6 +12,11 @@ body {
   overflow: hidden;
   background: rgb(63, 73, 204);
 }
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
 ::-webkit-scrollbar {
   width: 20px;
 }
