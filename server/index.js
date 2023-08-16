@@ -5,7 +5,8 @@ const app = express();
 // const http = require('http');
 const cors = require('cors');
 const cp = require('cookie-parser');
-const jwt = require('jsonwebtoken');
+
+const login = require('./src/login');
 
 // const { Server } = require('socket.io'); // Add this
 
@@ -46,53 +47,55 @@ app.get('/patate', (req, res) => {
   res.json('on dit banane');
 });
 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  // console.log(req);
-  // console.log(req.query);
+app.use('login', login);
+
+// app.post('/login', (req, res) => {
+//   const { username, password } = req.body;
+//   // console.log(req);
+//   // console.log(req.query);
 
 
-  if (username === 'a' && password === 'a') {
-    // res.json({ success: true });
+//   if (username === 'a' && password === 'a') {
+//     // res.json({ success: true });
 
-    const payload = {
-      username: username,
-      // password: password
-    };
+//     const payload = {
+//       username: username,
+//       // password: password
+//     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET);
-    // res.json('mouais');
-    res.cookie('token', token, {
-      httpOnly: true
-    }).send('Cookie shipped');
-  } else {
-    res.json({ message: username, try: 'true' });
-  }
-});
+//     const token = jwt.sign(payload, process.env.JWT_SECRET);
+//     // res.json('mouais');
+//     res.cookie('token', token, {
+//       httpOnly: true
+//     }).send('Cookie shipped');
+//   } else {
+//     res.json({ message: username, try: 'true' });
+//   }
+// });
 
-app.get('/cookies', (req, res) => {
-  const token = req.cookies.token;
+// app.get('/cookies', (req, res) => {
+//   const token = req.cookies.token;
 
   
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err) => {
-      if (err) {
-        // Le token est invalide, rediriger vers la page de connexion
-        res.status(403).send('Not connected');
-      } else {
-        // Le token est valide, passez à l'étape suivante
-        res.json('c est ok');
-      }
-    });
-  } else {
-    // Le token est manquant, rediriger vers la page de connexion
-    res.status(403).send('Not connected');
-  }
-  // const payload = jwt.verify(token, process.env.JWT_SECRET);
-  // res.json({
-  //   token, payload
-  // });
-});
+//   if (token) {
+//     jwt.verify(token, process.env.JWT_SECRET, (err) => {
+//       if (err) {
+//         // Le token est invalide, rediriger vers la page de connexion
+//         res.status(403).send('Not connected');
+//       } else {
+//         // Le token est valide, passez à l'étape suivante
+//         res.json('c est ok');
+//       }
+//     });
+//   } else {
+//     // Le token est manquant, rediriger vers la page de connexion
+//     res.status(403).send('Not connected');
+//   }
+//   // const payload = jwt.verify(token, process.env.JWT_SECRET);
+//   // res.json({
+//   //   token, payload
+//   // });
+// });
   
 // // Add this
 // // Listen for when the client connects via socket.io-client

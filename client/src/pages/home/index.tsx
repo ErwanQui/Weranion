@@ -20,7 +20,7 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
   }
 
   async function test2() {
-    axios.post('login', {
+    axios.post('login/connect', {
       username: 'a',
       password: 'a'
     }, {
@@ -35,7 +35,7 @@ function Home1({ username, setUsername, room, setRoom }: { username: any, setUse
   }
 
   async function test3() {
-    axios.get('cookies', {
+    axios.get('login/verify', {
       withCredentials: true
     })
       .then(response => {
