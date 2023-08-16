@@ -17,7 +17,7 @@ const login = require('./src/login');
 
 app.use(
   cors({
-    origin: process.env.CLIENT_PATH,
+    origin: (config.dbProd ? process.env.CLIENT_PATH : process.env.CLIENT_TEST_PATH),
     methods: ['GET', 'POST'],
     credentials: true
   }),
