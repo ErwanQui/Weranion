@@ -8,6 +8,8 @@ const cp = require('cookie-parser');
 const mongoose = require('mongoose');
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
+const config = require('./config');
+
 const login = require('./src/login');
 
 
@@ -31,7 +33,7 @@ const options = {
 };
 
 // Établir la connexion à la base de données
-mongoose.connect(process.env.MONGODB_URL, options)
+mongoose.connect((config.dbProd ? process.env.MONGODB_URL : process.env.MONGODB_TEST_URL), options)
   .then(() => {
     console.log('Connexion à la base de données établie');
   })
