@@ -24,7 +24,7 @@ function Inventory() {
   }
 
   return (
-    <div className='main'>
+    <div className='inventory'>
       <div className='page'>
         <div className='menusList'>
           <Button className='menuButton' variant="contained" color="sandyBrown" sx={{ bgcolor: 'sandyBrown.light'}} onClick={() => switchCategory('food')}>

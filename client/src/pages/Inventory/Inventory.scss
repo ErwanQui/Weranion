@@ -1,58 +1,26 @@
-.main {
+.inventory {
   background-color: #AC4F20;
   height: 100vh;
   display: grid;
-}
 
-.page {
-  height: 96vh;
-  display: flex;
-}
+  .page {
+    height: 96vh;
+    display: flex;
 
-.menusList {
-  width: 10rem;
-  height: 100%;
-
-  .menuButton {
-    height: 4rem;
-    width: 100%;
-    border-radius: 1rem;
-    margin-right: auto;
-  }
-}
-
-.container {
-  display: flex;
-}
-
-h1 {
-  padding-top: 8rem;
-  font-size: 4rem;
-}
-
-h3 {
-  padding-top: 2rem;
-}
-
-.connectionFields {
-  display: grid;
-  padding-top: 1rem;
-  gap: 2rem;
-
-  .inputContainer {
-    display: grid;
-    padding-top: 1rem;
-    gap: 0.2rem;
-
-    .textField {
-      width: 18rem;
-      border-radius: 1rem;
-      margin-left: auto;
-      margin-right: auto;
+    .menusList {
+      width: 10rem;
+      height: 100%;
+    
+      .menuButton {
+        height: 4rem;
+        width: 100%;
+        border-radius: 1rem;
+        margin-right: auto;
+      }
     }
-  }
-
-  .errorText {
-    color: #ff5d5d;
+    
+    .container {
+      display: flex
+    }
   }
 }

@@ -47,7 +47,7 @@ function Login() {
 
   return (
     <div className='login'>
-      <div className='container'>
+      <div>
         <h1>
           Weranion
         </h1>
