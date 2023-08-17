@@ -1,0 +1,26 @@
+.inventory {
+  background-color: #AC4F20;
+  height: 100vh;
+  display: grid;
+
+  .page {
+    height: 96vh;
+    display: flex;
+
+    .menusList {
+      width: 10rem;
+      height: 100%;
+    
+      .menuButton {
+        height: 4rem;
+        width: 100%;
+        border-radius: 1rem;
+        margin-right: auto;
+      }
+    }
+    
+    .container {
+      display: flex
+    }
+  }
+}

@@ -4,10 +4,11 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const Player = require('./../models/player');
+const checkConnection = require('../utils/authentification');
 
 router.post('/connect', async (req, res) => {
   const { username, password } = req.body;
-  const player = await Player.findOne({username: username});
+  const player = await Player.findOne({username: username.toString()});
   if (player) {
     bcrypt.compare(password, player.password, (err, result) => {
       if (result) {
@@ -28,18 +29,12 @@ router.post('/connect', async (req, res) => {
   }
 });
 
-router.get('/verify', (req, res) => {
-  const token = req.cookies.token;
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err) => {
-      if (err) {
-        res.status(403).send('Not connected');
-      } else {
-        res.json('c est ok');
-      }
-    });
-  } else {
-    res.status(403).send('Not connected');
+router.get('/verify', async (req, res) => {
+  try {
+    await checkConnection(req);
+    res.json('Connected');
+  } catch (error) {
+    res.status(403).send(error);
   }
 });
 

@@ -1,0 +1,16 @@
+.foodsList {
+  padding: 0.2rem;
+  width: fit-content;
+  height: 100%;
+
+  .listElement {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    height: 2rem;
+
+    &:hover {
+      color: blue;
+      cursor: pointer;
+    }
+  }
+}
