@@ -8,7 +8,7 @@ const checkConnection = require('../utils/authentification');
 
 router.post('/connect', async (req, res) => {
   const { username, password } = req.body;
-  const player = await Player.findOne({username: username});
+  const player = await Player.findOne({username: username.toString()});
   if (player) {
     bcrypt.compare(password, player.password, (err, result) => {
       if (result) {
