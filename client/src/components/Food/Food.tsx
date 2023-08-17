@@ -1,13 +1,8 @@
-import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useEffect, useState } from 'react';
 import axios from '../../api';
-import checkConnection from '../../utils/authentification';
-import { Fab } from '@mui/material';
-import { AttachMoney } from '@mui/icons-material';
 import { FoodObject } from '../../models/food.model';
 
 import './Food.scss';
-// import { Button, TextField } from '@mui/material';
 
 function Food(props: {
   foodId: string;

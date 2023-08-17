@@ -16,20 +16,10 @@ function App() {
       <Router>
         <div className='App'>
           <Routes>
-            {/* <Route
-            path='/'
-            element={
-              <Home />
-            }
-          /> */}
             <Route path='/' element={<Login/>}/>
             <Route path='/main' element={<Main/>}/>
             <Route path='/treasury' element={<Treasury/>}/>
             <Route path='/inventory' element={<Inventory/>}/>
-            {/* <Route
-            path='/chat'
-            element={<Chat username={username} room={room} />}
-          /> */}
           </Routes>
         </div>
       </Router>

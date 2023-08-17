@@ -3,7 +3,6 @@ import axios from '../../api';
 import { FoodObject } from '../../models/food.model';
 
 import './FoodsList.scss';
-// import { Button, TextField } from '@mui/material';
 
 function FoodsList(props: {
   updateFoodId: React.Dispatch<string>;
