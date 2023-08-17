@@ -6,11 +6,12 @@ import Main from './pages/Main/Main';
 
 import theme from './theme';
 import { ThemeProvider } from '@emotion/react';
+import Treasury from './pages/Treasury/Treasury';
+import Inventory from './pages/Inventory/Inventory';
 
 function App() {
 
   return (
-    
     <ThemeProvider theme={theme}>
       <Router>
         <div className='App'>
@@ -21,18 +22,10 @@ function App() {
               <Home />
             }
           /> */}
-            <Route
-              path='/'
-              element={
-                <Login/>
-              }
-            />
-            <Route
-              path='/main'
-              element={
-                <Main/>
-              }
-            />
+            <Route path='/' element={<Login/>}/>
+            <Route path='/main' element={<Main/>}/>
+            <Route path='/treasury' element={<Treasury/>}/>
+            <Route path='/inventory' element={<Inventory/>}/>
             {/* <Route
             path='/chat'
             element={<Chat username={username} room={room} />}

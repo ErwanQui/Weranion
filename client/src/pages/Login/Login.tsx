@@ -16,13 +16,13 @@ function Login() {
   const [password, updatePassword] = useState('');
   const [failed, updateFailed] = useState(false);
 
-  const setUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
+  function setUsername(event: React.ChangeEvent<HTMLInputElement>) {
     updateUsername(event.target.value);
-  };
+  }
 
-  const setPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+  function setPassword(event: React.ChangeEvent<HTMLInputElement>) {
     updatePassword(event.target.value);
-  };
+  }
 
   async function connect() {
     axios.post('login/connect', {
@@ -34,7 +34,7 @@ function Login() {
       .then(response => {
         console.log(response.data);
         if (response.data) {
-          navigate('/main');
+          navigate('/main', { replace: true });
         } else {
           updateFailed(true); 
         }

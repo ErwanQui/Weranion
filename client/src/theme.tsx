@@ -28,6 +28,14 @@ declare module '@mui/material/TextField' {
   }
 }
 
+//Fab
+declare module '@mui/material/Fab' {
+  interface FabPropsColorOverrides {
+    brown: true;
+    sandyBrown: true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     brown: {

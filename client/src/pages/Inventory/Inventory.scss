@@ -1,0 +1,49 @@
+.main {
+  background-color: #AC4F20;
+  height: 100vh;
+  display: flex;
+}
+
+.menusList {
+  height: 96vh;
+  width: 10rem;
+
+  .menuButton {
+    height: 4rem;
+    width: 100%;
+    border-radius: 1rem;
+    margin-right: auto;
+  }
+}
+
+h1 {
+  padding-top: 8rem;
+  font-size: 4rem;
+}
+
+h3 {
+  padding-top: 2rem;
+}
+
+.connectionFields {
+  display: grid;
+  padding-top: 1rem;
+  gap: 2rem;
+
+  .inputContainer {
+    display: grid;
+    padding-top: 1rem;
+    gap: 0.2rem;
+
+    .textField {
+      width: 18rem;
+      border-radius: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .errorText {
+    color: #ff5d5d;
+  }
+}

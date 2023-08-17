@@ -2,23 +2,29 @@ import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useState } from 'react';
 import axios from '../../api';
 import checkConnection from '../../utils/authentification';
-import { Fab } from '@mui/material';
-import { AttachMoney, HomeOutlined, MenuBookOutlined } from '@mui/icons-material';
+import { Button, Fab } from '@mui/material';
+import { AttachMoney } from '@mui/icons-material';
+import { connect } from 'socket.io-client';
+import Food from '../../components/Food/Food';
 
-// import './Login.scss';
+import './Inventory.scss';
 // import { Button, TextField } from '@mui/material';
 
-function Main() {
+function Inventory() {
   checkConnection();
 
   const navigate = useNavigate();
-  // const [username, updateUsername] = useState('');
+  const [category, updateCategory] = useState('');
   // const [password, updatePassword] = useState('');
   // const [failed, updateFailed] = useState(false);
 
   // const setPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   updatePassword(event.target.value);
   // };
+
+  function switchCategory(category: string) {
+    updateCategory(category);
+  }
 
   // async function connect() {
   //   axios.post('login/connect', {
@@ -43,20 +49,27 @@ function Main() {
 
   return (
     <div className='main'>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/main')}>
-        <HomeOutlined/>
-      </Fab>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/treasury')}>
-        <AttachMoney/>
-      </Fab>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/inventory')}>
-        <MenuBookOutlined/>
-      </Fab>
+      <div className='menusList'>
+        <Button className='menuButton' variant="contained" color="sandyBrown" sx={{ bgcolor: 'sandyBrown.light'}} onClick={() => switchCategory('food')}>
+          Food
+        </Button>
+        <Button className='menuButton' variant="contained" color="sandyBrown" sx={{ bgcolor: 'sandyBrown.light'}} onClick={() => switchCategory('food')}>
+          Food
+        </Button>
+      </div>
+      <div className="container">
+        {
+          (() => {
+            switch(category) {
+            case 'food':
+              return(<Food></Food>);
+            default:
+              return(<></>);
+            }})()
+        }
+      </div>
     </div>
   );
 }
 
-export default Main;
+export default Inventory;

@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import axios from '../../api';
 import checkConnection from '../../utils/authentification';
 import { Fab } from '@mui/material';
-import { AttachMoney, HomeOutlined, MenuBookOutlined } from '@mui/icons-material';
+import { AttachMoney } from '@mui/icons-material';
 
 // import './Login.scss';
 // import { Button, TextField } from '@mui/material';
 
-function Main() {
+function Treasury() {
   checkConnection();
 
   const navigate = useNavigate();
@@ -43,20 +43,12 @@ function Main() {
 
   return (
     <div className='main'>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/main')}>
-        <HomeOutlined/>
-      </Fab>
-      <Fab size="small" color="brown"
+      {/* <Fab size="small" color="brown"
         onClick={() => navigate('/treasury')}>
         <AttachMoney/>
-      </Fab>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/inventory')}>
-        <MenuBookOutlined/>
-      </Fab>
+      </Fab> */}
     </div>
   );
 }
 
-export default Main;
+export default Treasury;

@@ -9,6 +9,9 @@ const mongoose = require('mongoose');
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const login = require('./src/login');
+const food = require('./src/food');
+const FoodProduction = require('./models/foodProduction');
+const Food = require('./models/food');
 
 
 // const Person = require('./models/person');
@@ -38,8 +41,10 @@ mongoose.connect(process.env.MONGODB_URL, options)
     console.error('Erreur de connexion à la base de données :', error);
   });
 
-app.get('/', (req, res) => {
-  res.json('hello');
+app.get('/', async (req, res) => {
+  // const test = await FoodProduction.find().populate('city').populate('name');
+  const test = await Food.find().populate('craft.element');
+  res.json(test);
 });
 
 // app.get('/patate', (req, res) => {
@@ -69,6 +74,7 @@ app.get('/', (req, res) => {
 // });
 
 app.use('/login', login);
+app.use('/food', food);
 
 // app.post('/login', (req, res) => {
 //   const { username, password } = req.body;
