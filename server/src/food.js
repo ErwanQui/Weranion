@@ -7,7 +7,7 @@ const checkConnection = require('../utils/authentification');
 router.get('/', async (req, res) => {
   try {
     await checkConnection(req);
-    const food = await Food.find();
+    const food = await Food.find().select('_id, name');
     res.json(food);
   } catch (error) {
     res.status(403).send(error);
