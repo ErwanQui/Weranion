@@ -1,12 +1,17 @@
 .main {
   background-color: #AC4F20;
   height: 100vh;
+  display: grid;
+}
+
+.page {
+  height: 96vh;
   display: flex;
 }
 
 .menusList {
-  height: 96vh;
   width: 10rem;
+  height: 100%;
 
   .menuButton {
     height: 4rem;
@@ -14,6 +19,10 @@
     border-radius: 1rem;
     margin-right: auto;
   }
+}
+
+.container {
+  display: flex;
 }
 
 h1 {

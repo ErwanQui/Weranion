@@ -43,8 +43,8 @@ mongoose.connect(process.env.MONGODB_URL, options)
 
 app.get('/', async (req, res) => {
   // const test = await FoodProduction.find().populate('city').populate('name');
-  const test = await Food.find().populate('craft.element');
-  res.json(test);
+  // const test = await Food.find().populate('craft.element');
+  res.json('test');
 });
 
 // app.get('/patate', (req, res) => {
