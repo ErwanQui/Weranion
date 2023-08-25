@@ -3,58 +3,56 @@ import React, { useState } from 'react';
 import axios from '../../api';
 import checkConnection from '../../utils/authentification';
 import { Fab } from '@mui/material';
-import { AttachMoney, HomeOutlined, MenuBookOutlined } from '@mui/icons-material';
+import { AttachMoney, HomeOutlined, LocationCity, Map, MenuBookOutlined, Person } from '@mui/icons-material';
 
-// import './Login.scss';
+import './Main.scss';
+import { PlayerData } from '../../models/playerData.model';
 // import { Button, TextField } from '@mui/material';
 
 function Main() {
-  checkConnection();
-
+  const player = checkConnection();
   const navigate = useNavigate();
-  // const [username, updateUsername] = useState('');
-  // const [password, updatePassword] = useState('');
-  // const [failed, updateFailed] = useState(false);
-
-  // const setPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   updatePassword(event.target.value);
-  // };
-
-  // async function connect() {
-  //   axios.post('login/connect', {
-  //     username: username,
-  //     password: password
-  //   }, {
-  //     withCredentials: true
-  //   })
-  //     .then(response => {
-  //       console.log(response.data);
-  //       if (response.data) {
-  //         navigate('/main', { replace: true });
-  //       } else {
-  //         updateFailed(true); 
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       updateFailed(true); 
-  //     });
-  // }
-
+  
   return (
     <div className='main'>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/main')}>
-        <HomeOutlined/>
-      </Fab>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/treasury')}>
-        <AttachMoney/>
-      </Fab>
-      <Fab size="small" color="brown"
-        onClick={() => navigate('/inventory')}>
-        <MenuBookOutlined/>
-      </Fab>
+      <div className='menuBar'>
+        <div className='beginMenus'>
+          <Fab size="small" color="brown"
+            onClick={() => navigate('/main')}>
+            <HomeOutlined/>
+          </Fab>
+          <Fab size="small" color="brown"
+            onClick={() => navigate('/treasury')}>
+            <AttachMoney/>
+          </Fab>
+          <Fab size="small" color="brown"
+            onClick={() => navigate('/inventory')}>
+            <MenuBookOutlined/>
+          </Fab>
+        </div>
+        <div className='endMenus'>
+          <Fab size="small" color="brown"
+            onClick={() => navigate('/')}>
+            <LocationCity/>
+          </Fab>
+          <Fab size="small" color="brown"
+            onClick={() => navigate('/')}>
+            <Map/>
+          </Fab>
+          <Fab size="small" color="brown"
+            onClick={() => navigate('/')}>
+            <Person/>
+          </Fab>
+        </div>
+      </div>
+      { (player as PlayerData).mj ? 
+        <div className='mjMenus'>MJ</div> : null}
+      <div className='playingSide'>
+
+      </div>
+      <div className='playerSide'>
+
+      </div>
     </div>
   );
 }

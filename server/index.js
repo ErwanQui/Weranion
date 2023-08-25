@@ -10,8 +10,10 @@ const mongoose = require('mongoose');
 
 const login = require('./src/login');
 const food = require('./src/food');
+const treasury = require('./src/treasury');
 const FoodProduction = require('./models/foodProduction');
 const Food = require('./models/food');
+const TreasurySheet = require('./models/treasurySheet');
 
 
 // const Person = require('./models/person');
@@ -43,7 +45,12 @@ mongoose.connect(process.env.MONGODB_URL, options)
 
 app.get('/', async (req, res) => {
   // const test = await FoodProduction.find().populate('city').populate('name');
-  // const test = await Food.find().populate('craft.element');
+  // const test = await TreasurySheet.find().populate('transactions')
+  //   .populate('earnings.taxes').populate('earnings.common')
+  //   .populate('earnings.other').populate('losses.other').populate('losses.wages')
+  //   .populate('losses.maintenance').populate('losses.commercialPurchases')
+  //   .populate('investments');
+  // res.json(test);
   res.json('hello');
 });
 
@@ -75,6 +82,7 @@ app.get('/', async (req, res) => {
 
 app.use('/login', login);
 app.use('/food', food);
+app.use('/treasury', treasury);
 
 // app.post('/login', (req, res) => {
 //   const { username, password } = req.body;

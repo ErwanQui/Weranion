@@ -35,7 +35,7 @@ function Food(props: {
       {
         food ?
           <div key={food._id}>
-            Nom : {food.name}, Prix : {food.price}
+            Nom : {food.name}, Stock: {} Prix : {food.price}
             {food.craft.map((material) => {
               return(
                 <div key={(material.element as FoodObject)._id}>

@@ -1,0 +1,23 @@
+.main {
+  background-color: #AC4F20;
+  padding: 0.2rem;
+  height: 100vh;
+
+  .menuBar {
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+
+    .beginMenus {
+      align-self: flex-start;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .endMenus {
+      align-self: flex-end;
+      display: flex;
+      gap: 0.4rem;
+    }
+  }
+}

@@ -8,18 +8,25 @@ const checkConnection = require('../utils/authentification');
 
 router.post('/connect', async (req, res) => {
   const { username, password } = req.body;
-  const player = await Player.findOne({username: username.toString()});
+  const player = await Player.findOne({username: username.toString()}).populate('pnj');
   if (player) {
     bcrypt.compare(password, player.password, (err, result) => {
       if (result) {
-        const payload = {
-          username: username
-        };
+        let payload = {};
+        if(player.mj) {
+          payload = {
+            mj: true,
+          };
+        } else {
+          payload = {
+            firstname: player.pnj.firstname,
+            lastname: player.pnj.lastname,
+            mj: false,
+          };
+        }
   
         const token = jwt.sign(payload, process.env.JWT_SECRET);
-        res.cookie('token', token, {
-          httpOnly: true
-        }).send(player);
+        res.cookie('token', token, {}).send(payload);
       } else {
         res.status(404).send('wrong password');
       }
