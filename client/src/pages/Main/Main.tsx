@@ -45,8 +45,8 @@ function Main() {
           </Fab>
         </div>
       </div>
-      { (player as PlayerData).mj ? 
-        <div className='mjMenus'>MJ</div> : null}
+      { player ? (player.mj ? 
+        <div className='mjMenus'>MJ</div> : null) : null}
       <div className='playingSide'>
 
       </div>
