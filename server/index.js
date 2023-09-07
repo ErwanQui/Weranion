@@ -2,6 +2,7 @@ require('dotenv').config();
 // console.log(process.env.HARPERDB_URL); // remove this after you've confirmed it working
 const express = require('express');
 const app = express();
+const Ably = require('ably');
 // const http = require('http');
 const cors = require('cors');
 const cp = require('cookie-parser');
@@ -17,6 +18,10 @@ const TreasurySheet = require('./models/treasurySheet');
 
 
 // const Person = require('./models/person');
+
+const ably = new Ably.Rest({
+  key: process.env.ABLY_API_KEY,
+});
 
 app.use(
   cors({
@@ -52,6 +57,15 @@ app.get('/', async (req, res) => {
   //   .populate('investments');
   // res.json(test);
   res.json('hello');
+});
+
+// Endpoint pour gérer la communication en temps réel
+app.get('/publish', (req, res) => {
+  const channel = ably.channels.get('chat');
+
+  // Envoyer un message à tous les clients connectés au canal
+  channel.publish('message', 'Hello, Ably World!');
+  res.send('Message envoyé');
 });
 
 // app.get('/patate', (req, res) => {
