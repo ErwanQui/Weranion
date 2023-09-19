@@ -15,7 +15,6 @@ function addPlayer(id, firstname, lastname) {
   if (activePlayers.length === count) {
     activePlayers.push([id, firstname, lastname]);
   }
-
   const channel = ably.channels.get('playersList');
   channel.publish('players', activePlayers);
 }
