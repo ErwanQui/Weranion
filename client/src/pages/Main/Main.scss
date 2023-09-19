@@ -20,4 +20,13 @@
       gap: 0.4rem;
     }
   }
+
+  .playContainer {
+    height: 100%;
+    display: flex;
+
+    .playingSide {
+      flex: auto;
+    }
+  }
 }

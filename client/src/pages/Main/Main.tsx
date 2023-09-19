@@ -7,6 +7,8 @@ import { AttachMoney, HomeOutlined, LocationCity, Map, MenuBookOutlined, Person 
 import Ably from 'ably';
 import './Main.scss';
 import { PlayerData } from '../../models/playerData.model';
+import Chat from './Chat/Chat';
+import PlayersList from './PlayersList/PlayersList';
 // import { Button, TextField } from '@mui/material';
 
 function Main() {
@@ -47,65 +49,22 @@ function Main() {
       </div>
       { player ? (player.mj ? 
         <div className='mjMenus'>MJ</div> : null) : null}
-      <div className='playingSide'>
-        <ChatApp></ChatApp>
+      <div className='playContainer'>
+        <div className='playingSide'>
+          <div className='playWindow'>
+          </div>
+          <div className='diceThrow'>
+            <Fab size="small" color="brown"
+              onClick={() => navigate('/main')}>
+              <HomeOutlined/>
+            </Fab>
+          </div>
+        </div>
+        <div className='playersSide'>
+          <PlayersList></PlayersList>
+          <Chat></Chat>
+        </div>
       </div>
-      <div className='playerSide'>
-        <Fab></Fab>
-      </div>
-    </div>
-  );
-}
-
-
-function ChatApp() {
-  const [messages, setMessages] = useState<any[]>([]);
-  const [messageInput, setMessageInput] = useState('');
-  const [ablyClient, setAblyClient] = useState<Ably.Realtime | null>(null);
-
-  useEffect(() => {
-    // Initialisation d'Ably avec vos clés d'API (côté client)
-    const apiKey = process.env.REACT_APP_ABLY_API_KEY;
-    const client = new Ably.Realtime({ key: apiKey });
-    setAblyClient(client);
-
-    // Récupérer le canal de chat
-    const channel = client.channels.get('chat');
-
-    // Écouter les messages entrants
-    channel.subscribe('message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message.data]);
-    });
-
-    return () => {
-      // Fermer la connexion Ably lorsqu'on quitte le composant
-      client.close();
-    };
-  }, []);
-
-  const sendMessage = () => {
-    if (ablyClient) {
-      const channel = ablyClient.channels.get('chat');
-      channel.publish('message', messageInput);
-      setMessageInput('');
-    }
-  };
-
-  return (
-    <div>
-      <h1>Chat en temps réel avec React</h1>
-      <div>
-        {messages.map((message, index) => (
-          <div key={index}>{message}</div>
-        ))}
-      </div>
-      <input
-        type="text"
-        placeholder="Entrez votre message"
-        value={messageInput}
-        onChange={(e) => setMessageInput(e.target.value)}
-      />
-      <button onClick={sendMessage}>Envoyer</button>
     </div>
   );
 }

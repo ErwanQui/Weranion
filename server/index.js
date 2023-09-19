@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 const login = require('./src/login');
 const food = require('./src/food');
 const treasury = require('./src/treasury');
+const activePlayers = require('./src/activePlayers');
 const FoodProduction = require('./models/foodProduction');
 const Food = require('./models/food');
 const TreasurySheet = require('./models/treasurySheet');
@@ -97,6 +98,7 @@ app.get('/publish', (req, res) => {
 app.use('/login', login);
 app.use('/food', food);
 app.use('/treasury', treasury);
+app.use('/activePlayers', activePlayers);
 
 // app.post('/login', (req, res) => {
 //   const { username, password } = req.body;

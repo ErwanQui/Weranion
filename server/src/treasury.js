@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
       .populate('earnings.taxes').populate('earnings.common')
       .populate('earnings.other').populate('losses.other').populate('losses.wages')
       .populate('losses.maintenance').populate('losses.commercialPurchases')
-      .populate('investments');res.json(treasurySheet);
+      .populate('investments');
+    res.json(treasurySheet);
   } catch (error) {
     res.status(403).send(error);
   }
