@@ -42,7 +42,9 @@ router.post('/connect', async (req, res) => {
 
 router.get('/verify', async (req, res) => {
   try {
+    console.log('verifying');
     await checkConnection(req);
+    console.log('verified');
     res.json('Connected');
   } catch (error) {
     res.status(403).send(error);
