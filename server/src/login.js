@@ -53,8 +53,8 @@ router.get('/setCookie', async (req, res) => {
   console.log('cookie added', payload);
   const token = jwt.sign(payload, process.env.JWT_SECRET);
   res.cookie('token', token, {
-    secure: true,
-    samesite: 'None'
+    maxAge: 3600000, // Durée de vie en millisecondes (1 heure dans cet exemple)
+    httpOnly: true,
   }).send(payload);
 });
 
