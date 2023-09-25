@@ -30,6 +30,10 @@ router.post('/connect', async (req, res) => {
 
           addPlayer(player.pnj._id, player.pnj.firstname, player.pnj.lastname);
         }
+  
+        const token = jwt.sign(payload, process.env.JWT_SECRET);
+        res.cookie('token', token, {}).send(payload);
+        // res.status(200).send('valid password');
       } else {
         res.status(404).send('wrong password');
       }
@@ -39,10 +43,10 @@ router.post('/connect', async (req, res) => {
   }
 });
 
-router.get('/setCookie', async (req, res) => {
-  const token = jwt.sign(payload, process.env.JWT_SECRET);
-  res.cookie('token', token, {}).send(payload);
-});
+// router.get('/setCookie', async (req, res) => {
+//   const token = jwt.sign(payload, process.env.JWT_SECRET);
+//   res.cookie('token', token, {}).send(payload);
+// });
 
 router.get('/verify', async (req, res) => {
   try {

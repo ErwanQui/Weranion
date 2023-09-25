@@ -24,22 +24,21 @@ function Login() {
     updatePassword(event.target.value);
   }
 
-  function setCookie() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
+  // function setCookie() {
+  //   const headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+  //   headers.append('Accept', 'application/json');
 
-    return fetch('login/setCookie', {
-      method: 'POST',
-      mode: 'same-origin',
-      redirect: 'follow',
-      credentials: 'include',
-      headers: headers,
-      body: JSON.stringify({
-        yep: 'true'
-      })
-    });
-  }
+  //   axios.post('login/setCookie', {
+  //     mode: 'same-origin',
+  //     redirect: 'follow',
+  //     credentials: 'include',
+  //     headers: headers,
+  //     body: JSON.stringify({
+  //       yep: 'true'
+  //     })
+  //   });
+  // }
 
   async function connect() {
     axios.post('login/connect', {
@@ -51,7 +50,7 @@ function Login() {
       .then(response => {
         console.log(response.data);
         if (response.data) {
-          setCookie();
+          // setCookie();
           navigate('/main', { replace: true });
         } else {
           updateFailed(true); 

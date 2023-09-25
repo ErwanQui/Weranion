@@ -28,7 +28,8 @@ app.use(
   cors({
     origin: process.env.CLIENT_PATH,
     methods: ['GET', 'POST'],
-    credentials: true
+    credentials: true,
+    'Access-Control-Allow-Credentials': true
   }),
   express.json(),
   cp()
