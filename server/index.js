@@ -57,7 +57,7 @@ app.get('/', async (req, res) => {
   //   .populate('losses.maintenance').populate('losses.commercialPurchases')
   //   .populate('investments');
   // res.json(test);
-  res.json('hello');
+  res.json(process.env.CLIENT_PATH);
 });
 
 // Endpoint pour gérer la communication en temps réel
