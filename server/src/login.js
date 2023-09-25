@@ -30,7 +30,10 @@ router.post('/connect', async (req, res) => {
         }
   
         const token = jwt.sign(payload, process.env.JWT_SECRET);
-        res.cookie('token', token, {}).send(payload);
+        res.cookie('token', token, {
+          // expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+          // domain: process.env.CLIENT_PATH
+        }).send(payload);
       } else {
         res.status(404).send('wrong password');
       }
