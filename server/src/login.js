@@ -53,8 +53,8 @@ router.get('/setCookie', async (req, res) => {
   console.log('cookie added', payload);
   const token = jwt.sign(payload, process.env.JWT_SECRET);
   res.cookie('token', token, {
-    Secure: true,
-    Samesite: 'None'
+    secure: true,
+    samesite: 'None'
   }).send(payload);
 });
 
