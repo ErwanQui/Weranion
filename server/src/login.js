@@ -31,6 +31,9 @@ router.post('/connect', async (req, res) => {
   
         const token = jwt.sign(payload, process.env.JWT_SECRET);
         res.cookie('token', token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'none'
           // expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
           // domain: process.env.CLIENT_PATH
         }).send(payload);
