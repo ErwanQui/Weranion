@@ -34,7 +34,11 @@ function Login() {
       .then(response => {
         console.log(response.data);
         if (response.data) {
-          navigate('/main', { replace: true });
+          axios.get('login/setCookie', {
+            withCredentials: true
+          }).then(() => {
+            navigate('/main', { replace: true });
+          });
         } else {
           updateFailed(true); 
         }
