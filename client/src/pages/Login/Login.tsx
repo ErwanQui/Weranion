@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useState } from 'react';
-import axios from '../../api';
+import instance from '../../api';
 import { useCookies } from 'react-cookie';
 
 import './Login.scss';
@@ -25,7 +25,7 @@ function Login() {
   }
 
   async function connect() {
-    axios.post('login/connect', {
+    instance.post('login/connect', {
       username: username,
       password: password
     }, {
@@ -34,11 +34,8 @@ function Login() {
       .then(response => {
         console.log(response.data);
         if (response.data) {
-          axios.get('login/setCookie', {
-            withCredentials: true
-          }).then(() => {
-            navigate('/main', { replace: true });
-          });
+          // localStorage.setItem('token', token);
+          navigate('/main', { replace: true });
         } else {
           updateFailed(true); 
         }
