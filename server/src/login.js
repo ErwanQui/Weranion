@@ -8,13 +8,15 @@ const Player = require('./../models/player');
 const checkConnection = require('../utils/authentification');
 const { addPlayer } = require('../services/activePlayers.service');
 
+let payload = {};
+
 router.post('/connect', async (req, res) => {
   const { username, password } = req.body;
   const player = await Player.findOne({username: username.toString()}).populate('pnj');
   if (player) {
     bcrypt.compare(password, player.password, async (err, result) => {
       if (result) {
-        let payload = {};
+        // let payload = {};
         if(player.mj) {
           payload = {
             mj: true,
@@ -28,9 +30,6 @@ router.post('/connect', async (req, res) => {
 
           addPlayer(player.pnj._id, player.pnj.firstname, player.pnj.lastname);
         }
-  
-        const token = jwt.sign(payload, process.env.JWT_SECRET);
-        res.cookie('token', token, {}).send(payload);
       } else {
         res.status(404).send('wrong password');
       }
@@ -38,6 +37,11 @@ router.post('/connect', async (req, res) => {
   } else {
     res.status(404).send('wrong user');
   }
+});
+
+router.get('/setCookie', async (req, res) => {
+  const token = jwt.sign(payload, process.env.JWT_SECRET);
+  res.cookie('token', token, {}).send(payload);
 });
 
 router.get('/verify', async (req, res) => {
