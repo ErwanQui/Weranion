@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useState } from 'react';
-import axios from '../../api';
-import checkConnection from '../../utils/authentification';
+import { axiosInstance } from '../../utils/api';
+import { checkConnection } from '../../utils/authentification';
 import { Button, Fab } from '@mui/material';
 import { AttachMoney } from '@mui/icons-material';
 import { connect } from 'socket.io-client';

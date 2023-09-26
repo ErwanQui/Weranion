@@ -1,17 +1,18 @@
-import { useNavigate } from 'react-router-dom'; // Add this
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import instance from '../../api';
-import { useCookies } from 'react-cookie';
+import { axiosInstance, updateInstance } from '../../utils/api';
+import jwt_decode from 'jwt-decode';
 
 import './Login.scss';
 import { Button, TextField } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setFirstname, setLastname, setMJ, connectPlayer } from '../../redux/reducers/player.reducer';
+import { PlayerData } from '../../models/playerData.model';
 
 function Login() {
 
-  // const [removeCookie] = useCookies(['token']);
-  // removeCookie('token');
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, updateUsername] = useState('');
   const [password, updatePassword] = useState('');
   const [failed, updateFailed] = useState(false);
@@ -24,8 +25,21 @@ function Login() {
     updatePassword(event.target.value);
   }
 
+  function setPlayerData(token: any) {
+    console.log('fdsffds');
+    localStorage.setItem('token', token);
+    updateInstance(token);
+    const decodedToken: PlayerData = jwt_decode(token);
+    console.log(decodedToken);
+      
+    dispatch(setFirstname(decodedToken.firstname));
+    dispatch(setLastname(decodedToken.lastname));
+    dispatch(setMJ(decodedToken.mj));
+    dispatch(connectPlayer());
+  }
+
   async function connect() {
-    instance.post('login/connect', {
+    axiosInstance.post('login/connect', {
       username: username,
       password: password
     }, {
@@ -34,7 +48,7 @@ function Login() {
       .then(response => {
         console.log(response.data);
         if (response.data) {
-          // localStorage.setItem('token', token);
+          setPlayerData(response.data.token);
           navigate('/main', { replace: true });
         } else {
           updateFailed(true); 

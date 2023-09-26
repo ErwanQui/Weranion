@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useEffect, useState } from 'react';
-import axios from '../../api';
-import checkConnection from '../../utils/authentification';
+import { axiosInstance } from '../../utils/api';
+import { checkConnection } from '../../utils/authentification';
 import { Fab } from '@mui/material';
 import { AttachMoney } from '@mui/icons-material';
 import { TreasurySheet } from '../../models/treasury.model';
@@ -26,7 +26,7 @@ function Treasury() {
 
   
   useEffect(() => {
-    axios.get('treasury/', {
+    axiosInstance.get('treasury/', {
       params: { year: year, month: month },
       withCredentials: true
     })

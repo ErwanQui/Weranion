@@ -1,36 +1,40 @@
 import { useNavigate } from 'react-router-dom'; // Add this
-import React, { useEffect, useState } from 'react';
-import axios from '../../api';
-import checkConnection from '../../utils/authentification';
+import React, { useEffect } from 'react';
 import { Fab } from '@mui/material';
 import { AttachMoney, HomeOutlined, LocationCity, Map, MenuBookOutlined, Person } from '@mui/icons-material';
-import Ably from 'ably';
 import './Main.scss';
-import { PlayerData } from '../../models/playerData.model';
 import Chat from './Chat/Chat';
 import PlayersList from './PlayersList/PlayersList';
-// import { Button, TextField } from '@mui/material';
+import {  useSelector } from 'react-redux';
 
 function Main() {
-  const player = checkConnection();
   const navigate = useNavigate();
+  const { firstname, lastname, mj, connected } = useSelector((state: any) => state.player);
+  
+  useEffect(() => {
+    if (!connected) {
+      console.log('bah');
+      navigate('/');
+    }
+  });
   
   return (
     <div className='main'>
+      {lastname}
       <div className='menuBar'>
         <div className='beginMenus'>
           <Fab size="small" color="brown"
             onClick={() => navigate('/main')}>
             <HomeOutlined/>
           </Fab>
-          <Fab size="small" color="brown"
+          {/* <Fab size="small" color="brown"
             onClick={() => navigate('/treasury')}>
             <AttachMoney/>
           </Fab>
           <Fab size="small" color="brown"
             onClick={() => navigate('/inventory')}>
             <MenuBookOutlined/>
-          </Fab>
+          </Fab> */}
         </div>
         <div className='endMenus'>
           <Fab size="small" color="brown"
@@ -47,7 +51,7 @@ function Main() {
           </Fab>
         </div>
       </div>
-      { player ? (player.mj ? 
+      { firstname !== '' ? (mj ? 
         <div className='mjMenus'>MJ</div> : null) : null}
       <div className='playContainer'>
         <div className='playingSide'>

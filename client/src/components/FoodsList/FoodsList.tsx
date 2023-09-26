@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../api';
+import { axiosInstance } from '../../utils/api';
 import { FoodObject } from '../../models/food.model';
 
 import './FoodsList.scss';
@@ -13,7 +13,7 @@ function FoodsList(props: {
   console.log('foodslist');
 
   useEffect(() => {
-    axios.get('food', {
+    axiosInstance.get('food', {
       withCredentials: true
     })
       .then(response => {

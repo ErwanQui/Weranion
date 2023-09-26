@@ -1,13 +1,16 @@
-import axios from '../api';
+import { axiosInstance } from './api';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import { PlayerData } from '../models/playerData.model';
+import { useDispatch } from 'react-redux';
+import { setFirstname, setLastname, setMJ } from '../redux/reducers/player.reducer';
 
-function checkConnection(): PlayerData | null {
+function checkConnection(): boolean {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  axios.get('login/verify', {
+  axiosInstance.get('login/verify', {
     withCredentials: true
   })
     .then(response => {
@@ -23,15 +26,14 @@ function checkConnection(): PlayerData | null {
   if (token) {
     const decodedToken: PlayerData = jwt_decode(token);
     console.log(decodedToken);
-    const player: PlayerData = {
-      firstname: decodedToken.firstname,
-      lastname: decodedToken.lastname,
-      mj: decodedToken.mj,
-    };
-    return(player);
+    
+    dispatch(setFirstname(decodedToken.firstname));
+    dispatch(setLastname(decodedToken.lastname));
+    dispatch(setMJ(decodedToken.mj));
+    return(true);
   } else {
-    return(null);
+    return(false);
   }
 }
 
-export default checkConnection;
+export { checkConnection };

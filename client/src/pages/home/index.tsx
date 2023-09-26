@@ -1,7 +1,7 @@
 // client/src/pages/home/index.js
 import { useNavigate } from 'react-router-dom'; // Add this
 import React from 'react';
-import axios from './../../api';
+import axios from 'axios';
 // import http from httpC;
 
 import './styles.module.scss';

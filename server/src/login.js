@@ -2,10 +2,8 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-// const Ably = require('ably');
 
 const Player = require('./../models/player');
-const checkConnection = require('../utils/authentification');
 const { addPlayer } = require('../services/activePlayers.service');
 
 let payload = {};
@@ -31,42 +29,14 @@ router.post('/connect', async (req, res) => {
           addPlayer(player.pnj._id, player.pnj.firstname, player.pnj.lastname);
         }
   
-        // const token = jwt.sign(payload, process.env.JWT_SECRET);
-        // res.cookie('token', token, {
-        //   httpOnly: true,
-        //   secure: true,
-        //   sameSite: 'none'
-        //   // expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        //   // domain: process.env.CLIENT_PATH
-        // }).send(payload);
-        res.send(payload);
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h'});
+        res.json({ token });
       } else {
         res.status(404).send('wrong password');
       }
     });
   } else {
     res.status(404).send('wrong user');
-  }
-});
-
-router.get('/setCookie', async (req, res) => {
-  console.log('cookie added', payload);
-  const token = jwt.sign(payload, process.env.JWT_SECRET);
-  res.cookie('token', token, {
-    maxAge: 3600000, // Durée de vie en millisecondes (1 heure dans cet exemple)
-    httpOnly: true,
-  }).send(payload);
-});
-
-router.get('/verify', async (req, res) => {
-  try {
-    console.log(req.cookies);
-    console.log('verifying');
-    await checkConnection(req);
-    console.log('verified');
-    res.json('Connected');
-  } catch (error) {
-    res.status(403).send(error);
   }
 });
 

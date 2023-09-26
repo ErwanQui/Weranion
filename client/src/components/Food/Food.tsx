@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useEffect, useState } from 'react';
-import axios from '../../api';
-import checkConnection from '../../utils/authentification';
+import { axiosInstance } from '../../utils/api';
+import { checkConnection } from '../../utils/authentification';
 import { Fab } from '@mui/material';
 import { AttachMoney } from '@mui/icons-material';
 import { FoodObject } from '../../models/food.model';
@@ -17,7 +17,7 @@ function Food(props: {
   console.log('food');
 
   useEffect(() => {
-    axios.get('food/id', {
+    axiosInstance.get('food/id', {
       params: { id: foodId },
       withCredentials: true
     })

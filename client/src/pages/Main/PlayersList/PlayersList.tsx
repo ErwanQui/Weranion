@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useEffect, useState } from 'react';
 import { Button, Fab } from '@mui/material';
 import Ably from 'ably';
-import axios from '../../../api';
+import { axiosInstance } from '../../../utils/api';
 // import './Chat.scss';
 
 function PlayersList() {
@@ -26,7 +26,7 @@ function PlayersList() {
       updatePlayersList(activePlayers.data);
     });
 
-    axios.get('activePlayers/list', {
+    axiosInstance.get('activePlayers/list', {
       withCredentials: true
     })
       .then(response => {
