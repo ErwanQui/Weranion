@@ -1,27 +1,7 @@
-
 const jwt = require('jsonwebtoken');
-
-// async function checkConnection(req) {
-//   return new Promise((resolve, reject) => {
-//     const token = req.cookies.token;
-//     // resolve(true);
-//     if (token) {
-//       jwt.verify(token, process.env.JWT_SECRET, (err) => {
-//         if (err) {
-//           reject('Not connected');
-//         } else {
-//           resolve(true);
-//         }
-//       });
-//     } else {
-//       reject('Not connected');
-//     }
-//   });
-// }
 
 function verifyToken(req, res, next) {
   const token = req.header('Authorization');
-  console.log(token);
   if (!token) {
     return res.status(401).json({ message: 'Accès non autorisé' });
   }

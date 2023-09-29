@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { axiosInstance, updateInstance } from '../../utils/api';
+import { axiosInstance, initPing, updateInstance } from '../../utils/api';
 import jwt_decode from 'jwt-decode';
 
 import './Login.scss';
 import { Button, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { setFirstname, setLastname, setMJ, connectPlayer } from '../../redux/reducers/player.reducer';
+import { setFirstname, setLastname, setMJ } from '../../redux/reducers/player.reducer';
 import { PlayerData } from '../../models/playerData.model';
 
 function Login() {
@@ -25,17 +25,18 @@ function Login() {
     updatePassword(event.target.value);
   }
 
-  function setPlayerData(token: any) {
-    console.log('fdsffds');
+  function setPlayerData(token: string) {
+    // Update token and data
     localStorage.setItem('token', token);
     updateInstance(token);
     const decodedToken: PlayerData = jwt_decode(token);
-    console.log(decodedToken);
       
     dispatch(setFirstname(decodedToken.firstname));
     dispatch(setLastname(decodedToken.lastname));
     dispatch(setMJ(decodedToken.mj));
-    dispatch(connectPlayer());
+
+    // Init Ping
+    initPing(decodedToken.id);
   }
 
   async function connect() {

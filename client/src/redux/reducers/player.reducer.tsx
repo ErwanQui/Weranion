@@ -6,8 +6,7 @@ import { PlayerData } from '../../models/playerData.model';
 export interface PlayerState {
   firstname: string,
   lastname: string,
-  mj: boolean,
-  connected: boolean
+  mj: boolean
 }
 
 let initialState: PlayerState;
@@ -17,15 +16,13 @@ if (localStorage.getItem('token')) {
   initialState = {
     firstname: decodedToken.firstname,
     lastname: decodedToken.lastname,
-    mj: decodedToken.mj,
-    connected: true
+    mj: decodedToken.mj
   };
 } else {
   initialState = {
     firstname: '',
     lastname: '',
-    mj: false,
-    connected: false
+    mj: false
   };
 }
 
@@ -41,13 +38,10 @@ export const playerSlice = createSlice({
     },
     setMJ: (state, mj: PayloadAction<boolean>) => {
       state.mj = mj.payload;
-    },
-    connectPlayer: (state) => {
-      state.connected = true;
     }
   },
 });
 
-export const { setFirstname, setLastname, setMJ, connectPlayer } = playerSlice.actions;
+export const { setFirstname, setLastname, setMJ } = playerSlice.actions;
 
 export default playerSlice.reducer;

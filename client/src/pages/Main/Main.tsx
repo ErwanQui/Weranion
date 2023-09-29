@@ -9,14 +9,7 @@ import {  useSelector } from 'react-redux';
 
 function Main() {
   const navigate = useNavigate();
-  const { firstname, lastname, mj, connected } = useSelector((state: any) => state.player);
-  
-  useEffect(() => {
-    if (!connected) {
-      console.log('bah');
-      navigate('/');
-    }
-  });
+  const { firstname, lastname, mj } = useSelector((state: any) => state.player);
   
   return (
     <div className='main'>
