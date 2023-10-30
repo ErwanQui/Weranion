@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 import { PlayerData } from '../models/playerData.model';
 import { useDispatch } from 'react-redux';
 import { setFirstname, setLastname, setMJ } from '../redux/reducers/player.reducer';
+import { setYear, setMonth, setCurrentCrown } from '../redux/reducers/data.reducer';
 
 function checkConnection(): boolean {
   const navigate = useNavigate();
@@ -14,22 +15,28 @@ function checkConnection(): boolean {
     withCredentials: true
   })
     .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
     })
     .catch(error => {
       console.log(error);
       navigate('/', { replace: true });
     });
 
-  const [cookies] = useCookies(['token']);
-  const token = cookies.token;
-  if (token) {
-    const decodedToken: PlayerData = jwt_decode(token);
-    console.log(decodedToken);
+
+  if (localStorage.getItem('token')) {
+    // const decodedToken: PlayerData = jwt_decode(token);
+    // console.log(decodedToken);
+    const decodedToken: { player: PlayerData, data: any } = jwt_decode(localStorage.getItem('token') as string);
+    // console.log(decodedToken);
+      
+    dispatch(setFirstname(decodedToken.player.firstname));
+    dispatch(setLastname(decodedToken.player.lastname));
+    dispatch(setMJ(decodedToken.player.mj));
+
+    dispatch(setYear(decodedToken.data.year));
+    dispatch(setMonth(decodedToken.data.month));
+    dispatch(setCurrentCrown(decodedToken.data.currentCrown));
     
-    dispatch(setFirstname(decodedToken.firstname));
-    dispatch(setLastname(decodedToken.lastname));
-    dispatch(setMJ(decodedToken.mj));
     return(true);
   } else {
     return(false);

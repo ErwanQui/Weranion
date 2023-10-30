@@ -7,6 +7,7 @@ import './Login.scss';
 import { Button, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setFirstname, setLastname, setMJ } from '../../redux/reducers/player.reducer';
+import { setYear, setMonth, setCurrentCrown } from '../../redux/reducers/data.reducer';
 import { PlayerData } from '../../models/playerData.model';
 
 function Login() {
@@ -29,14 +30,19 @@ function Login() {
     // Update token and data
     localStorage.setItem('token', token);
     updateInstance(token);
-    const decodedToken: PlayerData = jwt_decode(token);
+    const decodedToken: { player: PlayerData, data: any } = jwt_decode(token);
+    console.log(decodedToken);
       
-    dispatch(setFirstname(decodedToken.firstname));
-    dispatch(setLastname(decodedToken.lastname));
-    dispatch(setMJ(decodedToken.mj));
+    dispatch(setFirstname(decodedToken.player.firstname));
+    dispatch(setLastname(decodedToken.player.lastname));
+    dispatch(setMJ(decodedToken.player.mj));
+
+    dispatch(setYear(decodedToken.data.year));
+    dispatch(setMonth(decodedToken.data.month));
+    dispatch(setCurrentCrown(decodedToken.data.currentCrown));
 
     // Init Ping
-    initPing(decodedToken.id);
+    initPing(decodedToken.player.id);
   }
 
   async function connect() {

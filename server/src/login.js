@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const Player = require('./../models/player');
+const Data = require('./../models/data');
 const { addPlayer, updatePlayerActivity } = require('../services/activePlayers.service');
 const { verifyToken } = require('../utils/authentification');
 
@@ -15,16 +16,25 @@ router.post('/connect', async (req, res) => {
   if (player) {
     bcrypt.compare(password, player.password, async (err, result) => {
       if (result) {
+        const data = await Data.findOne({});
+        console.log(data);
         if(player.mj) {
           payload = {
             mj: true,
           };
         } else {
           payload = {
-            id: player._id,
-            firstname: player.pnj.firstname,
-            lastname: player.pnj.lastname,
-            mj: false,
+            player: {
+              id: player._id,
+              firstname: player.pnj.firstname,
+              lastname: player.pnj.lastname,
+              mj: false
+            },
+            data: {
+              currentCrown: data.currentCrown,
+              year: data.currentYear,
+              month: data.currentMonth
+            }
           };
 
           addPlayer(player._id, player.pnj.firstname, player.pnj.lastname);
@@ -42,7 +52,7 @@ router.post('/connect', async (req, res) => {
 });
 
 router.get('/verify', verifyToken, (req, res) => {
-  res.json(req.user.id);
+  res.json(req.user.player.id);
 });
 
 router.get('/ping', verifyToken, (req, res) => {

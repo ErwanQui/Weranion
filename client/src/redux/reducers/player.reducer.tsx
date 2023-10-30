@@ -39,7 +39,7 @@ export const playerSlice = createSlice({
     setMJ: (state, mj: PayloadAction<boolean>) => {
       state.mj = mj.payload;
     }
-  },
+  }
 });
 
 export const { setFirstname, setLastname, setMJ } = playerSlice.actions;

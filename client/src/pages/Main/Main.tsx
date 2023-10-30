@@ -5,7 +5,7 @@ import { AttachMoney, HomeOutlined, LocationCity, Map, MenuBookOutlined, Person 
 import './Main.scss';
 import Chat from './Chat/Chat';
 import PlayersList from './PlayersList/PlayersList';
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Main() {
   const navigate = useNavigate();
@@ -13,21 +13,21 @@ function Main() {
   
   return (
     <div className='main'>
-      {lastname}
+      {/* {lastname} */}
       <div className='menuBar'>
         <div className='beginMenus'>
           <Fab size="small" color="brown"
             onClick={() => navigate('/main')}>
             <HomeOutlined/>
           </Fab>
-          {/* <Fab size="small" color="brown"
+          <Fab size="small" color="brown"
             onClick={() => navigate('/treasury')}>
             <AttachMoney/>
           </Fab>
           <Fab size="small" color="brown"
             onClick={() => navigate('/inventory')}>
             <MenuBookOutlined/>
-          </Fab> */}
+          </Fab>
         </div>
         <div className='endMenus'>
           <Fab size="small" color="brown"

@@ -6,18 +6,22 @@ export interface TreasurySheet {
   beginCrown: number,
   endCrown: number,
   transactions: [CrownTransaction],
-  earnings: {
-    taxes: [CrownTransaction],
-    common: [CrownTransaction],
-    other: [CrownTransaction]
-  },
-  losses: {
-    wages: CrownTransaction,
-    maintenance: CrownTransaction,
-    commercialPurchases: CrownTransaction,
-    other: [CrownTransaction]
-  },
+  earnings: Earnings,
+  losses: Losses,
   investments: [Investment]
+}
+
+export interface Earnings {
+  taxes: [CrownTransaction],
+  common: [CrownTransaction],
+  other: [CrownTransaction]
+}
+
+export interface Losses {
+  wages: CrownTransaction,
+  maintenance: CrownTransaction,
+  commercialPurchases: CrownTransaction,
+  other: [CrownTransaction]
 }
 
 export interface CrownTransaction {

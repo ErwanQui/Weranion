@@ -14,7 +14,7 @@ function Food(props: {
 }): JSX.Element {
   const { foodId } = props;
   const [food, updateFood] = useState<FoodObject>();
-  console.log('food');
+  // console.log('food');
 
   useEffect(() => {
     axiosInstance.get('food/id', {
@@ -22,11 +22,11 @@ function Food(props: {
       withCredentials: true
     })
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         updateFood(response.data);
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
   }, [foodId]);
 

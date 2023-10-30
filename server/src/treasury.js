@@ -1,17 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const checkConnection = require('../utils/authentification');
-const TreasurySheet = require('../models/treasurySheet');
+const { verifyToken } = require('../utils/authentification');
+const { getTreasurySheet, updateTransaction } = require('../services/treasury.service');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
-    await checkConnection(req);
-    const treasurySheet = await TreasurySheet.findOne().populate('transactions')
-      .populate('earnings.taxes').populate('earnings.common')
-      .populate('earnings.other').populate('losses.other').populate('losses.wages')
-      .populate('losses.maintenance').populate('losses.commercialPurchases')
-      .populate('investments');
+    const { year, month } = req.query;
+    const treasurySheet = await getTreasurySheet(year, month);
     res.json(treasurySheet);
   } catch (error) {
     res.status(403).send(error);
@@ -27,5 +23,11 @@ router.get('/', async (req, res) => {
 //     res.status(403).send(error);
 //   }
 // });
+
+router.post('/updateTransaction', verifyToken, async (req, res) => {
+  const { id, value } = req.body;
+  const updatedTransaction = await updateTransaction(id, value);
+  res.json(updatedTransaction);
+});
 
 module.exports = router;
