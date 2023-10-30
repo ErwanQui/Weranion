@@ -17,7 +17,7 @@ router.get('/id', async (req, res) => {
   const { id } = req.query;
   try {
     await checkConnection(req);
-    const food = await Food.findOne({_id: id.toString()}).populate('craft.element');
+    const food = await Food.findOne({_id: id.toString()}).populate('craft.element', 'name');
     res.json(food);
   } catch (error) {
     res.status(403).send(error);

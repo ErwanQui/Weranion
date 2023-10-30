@@ -1,0 +1,15 @@
+.lossesBlock {
+  width: 40%;
+  
+  .lossesTable, .lossesTitle {
+    border: 1px solid #6A3013;
+    margin: 5px;
+
+    >* {
+      border-bottom: 1px solid #6A3013;
+      &:last-child {
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
+}

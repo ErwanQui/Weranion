@@ -1,0 +1,44 @@
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+// import jwt_decode from 'jwt-decode';
+// import { PlayerData } from '../../models/playerData.model';
+
+export interface DataState {
+  currentCrown: number,
+  year: number,
+  month: number
+}
+
+const initialState: DataState = {
+  currentCrown: 0,
+  year: 1,
+  month: 1
+};
+
+export const dataSlice = createSlice({
+  name: 'player',
+  initialState,
+  reducers: {
+    increaseTime: (state) => {
+      if(state.month === 12) {
+        state.month = 1;
+        state.year += 1;
+      } else {
+        state.month += 1;
+      }
+    },
+    setCurrentCrown: (state, currentCrown: PayloadAction<number>) => {
+      state.currentCrown = currentCrown.payload;
+    },
+    setYear: (state, year: PayloadAction<number>) => {
+      state.year = year.payload;
+    },
+    setMonth: (state, month: PayloadAction<number>) => {
+      state.month = month.payload;
+    }
+  }
+});
+
+export const { increaseTime, setCurrentCrown, setYear, setMonth } = dataSlice.actions;
+
+export default dataSlice.reducer;

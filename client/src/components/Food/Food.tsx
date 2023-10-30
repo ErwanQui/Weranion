@@ -1,27 +1,32 @@
+import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useEffect, useState } from 'react';
-import axios from '../../api';
+import { axiosInstance } from '../../utils/api';
+import { checkConnection } from '../../utils/authentification';
+import { Fab } from '@mui/material';
+import { AttachMoney } from '@mui/icons-material';
 import { FoodObject } from '../../models/food.model';
 
 import './Food.scss';
+// import { Button, TextField } from '@mui/material';
 
 function Food(props: {
   foodId: string;
 }): JSX.Element {
   const { foodId } = props;
   const [food, updateFood] = useState<FoodObject>();
-  console.log('food');
+  // console.log('food');
 
   useEffect(() => {
-    axios.get('food/id', {
+    axiosInstance.get('food/id', {
       params: { id: foodId },
       withCredentials: true
     })
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         updateFood(response.data);
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
   }, [foodId]);
 
@@ -30,7 +35,7 @@ function Food(props: {
       {
         food ?
           <div key={food._id}>
-            Nom : {food.name}, Prix : {food.price}
+            Nom : {food.name}, Stock: {} Prix : {food.price}
             {food.craft.map((material) => {
               return(
                 <div key={(material.element as FoodObject)._id}>

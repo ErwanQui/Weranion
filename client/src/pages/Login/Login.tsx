@@ -1,17 +1,19 @@
-import { useNavigate } from 'react-router-dom'; // Add this
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import axios from '../../api';
-import { useCookies } from 'react-cookie';
+import { axiosInstance, initPing, updateInstance } from '../../utils/api';
+import jwt_decode from 'jwt-decode';
 
 import './Login.scss';
 import { Button, TextField } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setFirstname, setLastname, setMJ } from '../../redux/reducers/player.reducer';
+import { setYear, setMonth, setCurrentCrown } from '../../redux/reducers/data.reducer';
+import { PlayerData } from '../../models/playerData.model';
 
 function Login() {
 
-  // const [removeCookie] = useCookies(['token']);
-  // removeCookie('token');
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, updateUsername] = useState('');
   const [password, updatePassword] = useState('');
   const [failed, updateFailed] = useState(false);
@@ -24,8 +26,27 @@ function Login() {
     updatePassword(event.target.value);
   }
 
+  function setPlayerData(token: string) {
+    // Update token and data
+    localStorage.setItem('token', token);
+    updateInstance(token);
+    const decodedToken: { player: PlayerData, data: any } = jwt_decode(token);
+    console.log(decodedToken);
+      
+    dispatch(setFirstname(decodedToken.player.firstname));
+    dispatch(setLastname(decodedToken.player.lastname));
+    dispatch(setMJ(decodedToken.player.mj));
+
+    dispatch(setYear(decodedToken.data.year));
+    dispatch(setMonth(decodedToken.data.month));
+    dispatch(setCurrentCrown(decodedToken.data.currentCrown));
+
+    // Init Ping
+    initPing(decodedToken.player.id);
+  }
+
   async function connect() {
-    axios.post('login/connect', {
+    axiosInstance.post('login/connect', {
       username: username,
       password: password
     }, {
@@ -34,6 +55,7 @@ function Login() {
       .then(response => {
         console.log(response.data);
         if (response.data) {
+          setPlayerData(response.data.token);
           navigate('/main', { replace: true });
         } else {
           updateFailed(true); 

@@ -1,11 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useState } from 'react';
-import checkConnection from '../../utils/authentification';
-import { Button } from '@mui/material';
+import { axiosInstance } from '../../utils/api';
+import { checkConnection } from '../../utils/authentification';
+import { Button, Fab } from '@mui/material';
+import { AttachMoney } from '@mui/icons-material';
+import { connect } from 'socket.io-client';
 import Food from '../../components/Food/Food';
 
 import './Inventory.scss';
 import FoodsList from '../../components/FoodsList/FoodsList';
+// import { Button, TextField } from '@mui/material';
 
 function Inventory() {
   checkConnection();
