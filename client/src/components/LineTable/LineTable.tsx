@@ -9,7 +9,7 @@ function LineTable(props: {
   properties: any
 }): JSX.Element {
   const { id, values, properties } = props;
-  console.log('values', values);
+  // console.log('values', values);
 
   return (
     <div className='lineTable'>

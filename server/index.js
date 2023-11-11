@@ -6,9 +6,11 @@ const cp = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const login = require('./src/login');
+const main = require('./src/main');
 const food = require('./src/food');
 const treasury = require('./src/treasury');
 const activePlayers = require('./src/activePlayers');
+const messages = require('./src/messages');
 
 const { removeInactivePlayers } = require('./services/activePlayers.service');
 
@@ -50,9 +52,11 @@ app.get('/', async (req, res) => {
 
 // Add api files
 app.use('/login', login);
+app.use('/main', main);
 app.use('/food', food);
 app.use('/treasury', treasury);
 app.use('/activePlayers', activePlayers);
+app.use('/messages', messages);
 
 // Other functions
 

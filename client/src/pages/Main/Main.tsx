@@ -6,44 +6,21 @@ import './Main.scss';
 import Chat from './Chat/Chat';
 import PlayersList from './PlayersList/PlayersList';
 import { useSelector } from 'react-redux';
+import MenuBar from '../../components/MenuBar/MenuBar';
+// import { checkConnection } from '../../utils/authentification';
 
 function Main() {
+  // checkConnection();
   const navigate = useNavigate();
   const { firstname, lastname, mj } = useSelector((state: any) => state.player);
+  console.log('MAIN ENCORE');
+
+  // console.log('test', firstname, lastname, mj);
   
   return (
     <div className='main'>
       {/* {lastname} */}
-      <div className='menuBar'>
-        <div className='beginMenus'>
-          <Fab size="small" color="brown"
-            onClick={() => navigate('/main')}>
-            <HomeOutlined/>
-          </Fab>
-          <Fab size="small" color="brown"
-            onClick={() => navigate('/treasury')}>
-            <AttachMoney/>
-          </Fab>
-          <Fab size="small" color="brown"
-            onClick={() => navigate('/inventory')}>
-            <MenuBookOutlined/>
-          </Fab>
-        </div>
-        <div className='endMenus'>
-          <Fab size="small" color="brown"
-            onClick={() => navigate('/')}>
-            <LocationCity/>
-          </Fab>
-          <Fab size="small" color="brown"
-            onClick={() => navigate('/')}>
-            <Map/>
-          </Fab>
-          <Fab size="small" color="brown"
-            onClick={() => navigate('/')}>
-            <Person/>
-          </Fab>
-        </div>
-      </div>
+      <MenuBar></MenuBar>
       { firstname !== '' ? (mj ? 
         <div className='mjMenus'>MJ</div> : null) : null}
       <div className='playContainer'>

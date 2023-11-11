@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useState } from 'react';
 import { axiosInstance } from '../../utils/api';
-import { checkConnection } from '../../utils/authentification';
+// import { checkConnection } from '../../utils/authentification';
 import { Button, Fab } from '@mui/material';
 import { AttachMoney } from '@mui/icons-material';
 import { connect } from 'socket.io-client';
@@ -12,7 +12,7 @@ import FoodsList from '../../components/FoodsList/FoodsList';
 // import { Button, TextField } from '@mui/material';
 
 function Inventory() {
-  checkConnection();
+  // checkConnection();
 
   const navigate = useNavigate();
   const [category, updateCategory] = useState('');

@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const Player = require('./../models/player');
 const Data = require('./../models/data');
 const { addPlayer, updatePlayerActivity } = require('../services/activePlayers.service');
-const { verifyToken } = require('../utils/authentification');
+const { verifyToken, isOutdatedToken } = require('../utils/authentification');
 
 let payload = {};
 
@@ -51,8 +51,14 @@ router.post('/connect', async (req, res) => {
   }
 });
 
-router.get('/verify', verifyToken, (req, res) => {
-  res.json(req.user.player.id);
+router.get('/verify', verifyToken, async (req, res) => {
+  // const token = await updateToken(req.user);
+  res.json({ id: req.user.player.id });
+});
+
+router.get('/verifyToken', verifyToken, async (req, res) => {
+  const token = await isOutdatedToken(req.user);
+  res.json({ token: token });
 });
 
 router.get('/ping', verifyToken, (req, res) => {

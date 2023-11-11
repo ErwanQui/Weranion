@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-// import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 // import { PlayerData } from '../../models/playerData.model';
 
 export interface DataState {
@@ -9,11 +9,23 @@ export interface DataState {
   month: number
 }
 
-const initialState: DataState = {
-  currentCrown: 0,
-  year: 1,
-  month: 1
-};
+let initialState: DataState;
+
+if (localStorage.getItem('token')) {
+  const decodedToken: { data: DataState } = jwt_decode(localStorage.getItem('token') as string);
+  initialState = {
+    currentCrown: decodedToken.data.currentCrown,
+    year: decodedToken.data.year,
+    month: decodedToken.data.month
+  };
+  console.log('initialState', decodedToken);
+} else {
+  initialState = {
+    currentCrown: 0,
+    year: 1,
+    month: 1
+  };
+}
 
 export const dataSlice = createSlice({
   name: 'player',

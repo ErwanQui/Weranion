@@ -24,4 +24,16 @@
       gap: 0.4rem;
     }
   }
+
+  .sheetsInterface {
+    display: flex;
+
+    .sheetsList {
+      width: 30%;
+    }
+
+    .sheetDetails {
+      width: 70%;
+    }
+  }
 }

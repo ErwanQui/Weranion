@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setYear, setMonth, setCurrentCrown } from '../redux/reducers/data.reducer';
+import { PlayerData } from '../models/playerData.model';
+import jwt_decode from 'jwt-decode';
 const token = localStorage.getItem('token');
 let pingTimer: ReturnType<typeof setInterval>;
 
@@ -28,8 +32,20 @@ function updateInstance(token: string) {
 }
 
 if (window.location.href !== process.env.REACT_APP_CLIENT_PATH) {
-  axiosInstance.get('login/verify').then((id) => {
-    initPing(id.data);
+  axiosInstance.get('login/verify').then((response) => {
+    initPing(response.data.id);
+    // //Change this in MenuBar
+    // if(response.data.token !== '') {
+    //   console.log(response.data.token);
+    //   localStorage.setItem('token', response.data.token);
+    //   updateInstance(response.data.token);
+    //   // const decodedToken: { player: PlayerData, data: any } = jwt_decode(response.data.token);
+      
+    //   // const dispatch = useDispatch();
+    //   // dispatch(setYear(decodedToken.data.year));
+    //   // dispatch(setMonth(decodedToken.data.month));
+    //   // dispatch(setCurrentCrown(decodedToken.data.currentCrown));
+    // }
   }, () => {
     console.warn('unvalid Token');
     redirect(process.env.REACT_APP_CLIENT_PATH as string);

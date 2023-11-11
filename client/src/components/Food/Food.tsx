@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useEffect, useState } from 'react';
 import { axiosInstance } from '../../utils/api';
-import { checkConnection } from '../../utils/authentification';
+// import { checkConnection } from '../../utils/authentification';
 import { Fab } from '@mui/material';
 import { AttachMoney } from '@mui/icons-material';
 import { FoodObject } from '../../models/food.model';

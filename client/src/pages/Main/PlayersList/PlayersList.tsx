@@ -5,7 +5,7 @@ import Ably from 'ably';
 import { axiosInstance } from '../../../utils/api';
 // import './Chat.scss';
 
-function PlayersList() {
+function PlayersList(): JSX.Element {
   const [playersList, updatePlayersList] = useState<any[]>([]);
   const [messageInput, setMessageInput] = useState('');
   const [ablyClient, setAblyClient] = useState<Ably.Realtime | null>(null);

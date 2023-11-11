@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const CrownTransactionSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  // _id: mongoose.Types.ObjectId,
   name: String,
   value: Number,
   details: String

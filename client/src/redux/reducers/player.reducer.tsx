@@ -12,12 +12,13 @@ export interface PlayerState {
 let initialState: PlayerState;
 
 if (localStorage.getItem('token')) {
-  const decodedToken: PlayerData = jwt_decode(localStorage.getItem('token') as string);
+  const decodedToken: { player: PlayerData } = jwt_decode(localStorage.getItem('token') as string);
   initialState = {
-    firstname: decodedToken.firstname,
-    lastname: decodedToken.lastname,
-    mj: decodedToken.mj
+    firstname: decodedToken.player.firstname,
+    lastname: decodedToken.player.lastname,
+    mj: decodedToken.player.mj
   };
+  console.log('initialState', decodedToken);
 } else {
   initialState = {
     firstname: '',
@@ -41,6 +42,7 @@ export const playerSlice = createSlice({
     }
   }
 });
+console.log('done');
 
 export const { setFirstname, setLastname, setMJ } = playerSlice.actions;
 
