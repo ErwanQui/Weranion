@@ -118,7 +118,7 @@ function MenuBar () {
           <LocationCity/>
         </Fab>
         <Fab size="small" color="brown"
-          onClick={() => navigate('/')}>
+          onClick={() => navigate('/map')}>
           <Map/>
         </Fab>
         <Fab size="small" color="brown"

@@ -7,6 +7,7 @@ import Chat from './Chat/Chat';
 import PlayersList from './PlayersList/PlayersList';
 import { useSelector } from 'react-redux';
 import MenuBar from '../../components/MenuBar/MenuBar';
+// import ImageComponent from '../Map/MapComponent/MapComponent';
 // import { checkConnection } from '../../utils/authentification';
 
 function Main() {
@@ -26,6 +27,7 @@ function Main() {
       <div className='playContainer'>
         <div className='playingSide'>
           <div className='playWindow'>
+            {/* <ImageComponent></ImageComponent> */}
           </div>
           <div className='diceThrow'>
             <Fab size="small" color="brown"
