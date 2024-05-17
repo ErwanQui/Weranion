@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Fab } from '@mui/material';
 import Ably from 'ably';
 import { axiosInstance } from '../../../utils/api';
-// import './Chat.scss';
+import './PlayersList.scss';
 
 function PlayersList(): JSX.Element {
   const [playersList, updatePlayersList] = useState<any[]>([]);
@@ -44,7 +44,7 @@ function PlayersList(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <div className='playersList'>
       <div>
         {playersList.map((playerData, index) => (
           <Button

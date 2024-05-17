@@ -2,13 +2,25 @@
   background-color: #AC4F20;
   padding: 0.2rem;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   .playContainer {
-    height: 100%;
+    // height: 100%;
     display: flex;
+    // flex: 1;
+    flex-grow: 1;
+    overflow: auto;
 
     .playingSide {
       flex: auto;
+    }
+
+    .playersSide {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 400px;
     }
   }
 }

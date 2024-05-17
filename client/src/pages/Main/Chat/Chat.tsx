@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom'; // Add this
 import React, { useEffect, useState } from 'react';
-import { Fab } from '@mui/material';
+import { Fab, InputAdornment, TextField } from '@mui/material';
 import Ably from 'ably';
 import { useSelector } from 'react-redux';
 import { axiosInstance } from '../../../utils/api';
-// import './Chat.scss';
+import './Chat.scss';
+import { Send } from '@mui/icons-material';
 
 function Chat() {
   const [messages, setMessages] = useState<any[]>([]);
@@ -34,7 +35,7 @@ function Chat() {
 
     // Écouter les messages entrants
     channel.subscribe('messages', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message.data]);
+      setMessages((prevMessages) => [message.data, ...prevMessages]);
     });
 
     return () => {
@@ -64,19 +65,40 @@ function Chat() {
   };
 
   return (
-    <div>
-      <div>
+    <div className='chat'>
+      <div className='messageContainer'>
         {messages.map((message, index) => (
-          <div key={index}>{message.player.firstname}: {message.text}</div>
+          <div key={index} className='message'><strong>{message.player.firstname}:</strong> {message.text}</div>
         ))}
       </div>
-      <input
+      <TextField
+        className='messageInput'
+        id="outlined-basic"
+        variant="outlined"
+        value={messageInput}
+        onChange={(e) => setMessageInput(e.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            sendMessage();
+          }}
+        }
+        InputProps={{
+          endAdornment: <InputAdornment position="end">
+            <Fab size="small" color="brown"
+              onClick={sendMessage}>
+              <Send/>
+            </Fab>
+          </InputAdornment>,
+        }}
+      />
+      {/* <input
         type="text"
         placeholder="Entrez votre message"
         value={messageInput}
         onChange={(e) => setMessageInput(e.target.value)}
-      />
-      <button onClick={sendMessage}>Envoyer</button>
+      /> */}
+      {/* <button onClick={sendMessage}>Envoyer</button> */}
     </div>
   );
 }

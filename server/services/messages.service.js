@@ -8,7 +8,7 @@ const Message = require('../models/message');
 async function getMessages() {
   try {
     const projection = { 'text': 1, 'player': 1 };
-    return await Message.find({}, projection).sort({ date: 1 }).populate('player');
+    return await Message.find({}, projection).sort({ date: -1 }).populate('player');
   } catch(error) {
     return (error);
   }
