@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-inventory',
@@ -11,24 +10,22 @@ import { Observable } from 'rxjs';
 export class Inventory {
   
   protected readonly title = signal('client');
-  i = ''
+  i = '';
 
+  /**
+   *
+   * @param httpService
+   */
   constructor(
     private httpService: HttpService
   ) {}
 
+  /**
+   *
+   */
   input() {
-    this.i += 'a'
-    this.httpService.get('food').subscribe((a) => console.log(1, a))
-  }
-
-  login(username: string, password: string): any {
-    this.httpService.create(`login/connect`, 
-      { username, password }
-    ).subscribe((token: any) => {
-      localStorage.setItem('token', token.token);
-      this.httpService.updateToken(token.token)
-    });
+    this.i += 'a';
+    this.httpService.get('food').subscribe((a) => console.log(1, a));
   }
 
   firstname: any;
@@ -36,7 +33,7 @@ export class Inventory {
   mj: any;
   year:  any;
   month: any;
-  currentCrown: any
+  currentCrown: any;
 
 
 }

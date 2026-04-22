@@ -12,6 +12,11 @@ let payload = {};
 
 router.post('/connect', async (req, res) => {
   const { username, password } = req.body;
+  if (!username || !password) { 
+    res.status(404).send('no data');
+    return;
+  }
+
   const player = await Player.findOne({username: username.toString()}).populate('pnj');
   if (player) {
     bcrypt.compare(password, player.password, async (err, result) => {
@@ -48,6 +53,7 @@ router.post('/connect', async (req, res) => {
     });
   } else {
     res.status(404).send('wrong user');
+    return;
   }
 });
 
