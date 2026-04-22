@@ -1,4 +1,7 @@
 require('dotenv').config();
+
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -24,14 +27,14 @@ app.use(
   cp()
 );
 
-// Options de configuration pour la connexion
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+// // Options de configuration pour la connexion
+// const options = {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// };
 
 // Établir la connexion à la base de données
-mongoose.connect(process.env.MONGODB_URL, options)
+mongoose.connect(process.env.MONGODB_URL)
   .then(() => {
     console.log('Connexion à la base de données établie');
   })
