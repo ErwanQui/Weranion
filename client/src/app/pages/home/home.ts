@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-home',
@@ -6,4 +7,21 @@ import { Component } from '@angular/core';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {}
+export class Home {
+
+  /**
+   *
+   * @param navigationService
+   */
+  constructor(
+    private navigationService: NavigationService
+  ) {}
+
+  /**
+   *
+   * @param path
+   */
+  navigate(path) {
+    this.navigationService.navigateTo(path);
+  }
+}

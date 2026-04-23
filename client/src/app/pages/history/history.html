@@ -1,1 +1,47 @@
-<p>history works!</p>
+<div class="historyPage">
+  <div class="timeLine">
+    <div class="a">
+    @for (time of timeLine; track time) {
+      <div class="monthBlock" (click)="selectMonth(time)">
+        @if (time.month === 1) {
+          <span class="yearLabel"> Année {{ time.year }}</span>
+        }
+        <span class="monthLabel">{{ time.month }}</span>
+        @if (time.eventTitle) {
+          <span class="monthMainEvent">{{ time.eventTitle }} de preuse fut-il tel que voila</span>
+        }
+      </div>
+    }
+    </div>
+  </div>
+  <div class="timeDetails">
+  @if (currentHistory) {
+    <div class="currentTimeTitle">Année {{ currentHistory.year }} Mois {{ currentHistory.month }} {{ currentHistory.title }}</div>
+    <div class="currentTimeDetails">{{ currentHistory.details }}</div>
+
+    @if (currentHistory.events && currentHistory.events.length > 0) {
+      <div class="eventsContainer">
+        <div class="eventsTitles">
+        @for (event of currentHistory.events; track event) {
+          <div class="eventTitle" [ngClass]="{ selected: selectedEvent.title === event.title }">
+            <!-- <div> -->
+            {{ event.title }}
+            <!-- </div> -->
+            <!-- <div>
+
+            {{ event.details }}
+            </div> -->
+          </div>
+        }
+        </div>
+        <div class="selectedEventDetails">
+          {{ selectedEvent.details }}
+        </div>
+      </div>
+    } @else {
+      Aucun évènement renseigné
+    }
+  }
+
+  </div>
+</div>

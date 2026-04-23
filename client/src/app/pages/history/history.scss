@@ -1,0 +1,94 @@
+.historyPage {
+  display: flex;
+  flex-direction: column;
+  // width: 800px;
+  overflow: hidden;
+
+  .timeLine {
+    gap: 1px;
+    flex: 1;
+    // overflow: hidden;
+    padding: 10px;
+    overflow: auto ;
+    // width: auto;
+
+    .a {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      overflow: auto ;
+    }
+
+    .monthBlock {
+      background-color: var(--md-sys-color-primary-container);
+      border: black 1px solid;
+      margin-top: 40px;
+      height: 100px;
+      min-width: 200px;
+      // overflow: auto;
+      position: relative;
+      overflow: visible;
+
+      .yearLabel {
+        position: absolute;
+        top: -35px;
+        left: 0;
+        transform: rotate(-45deg);
+        // transform-origin: left bottom;
+        white-space: nowrap;
+        font-size: 0.8rem;
+      }
+
+      display: flex ;
+      flex-direction: column;
+
+      .monthLabel {
+        display: flex;
+        flex: 1;
+        // text-align: center;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .monthMainEvent {
+        flex: 4;
+        text-align: center;
+      }
+
+
+      &:hover {
+        cursor: pointer;
+        color: var(--md-sys-color-primary-container);
+        background-color: var(--md-sys-color-on-primary-container);
+      }
+    }
+  }
+
+  .timeDetails {
+    .currentTimeTitle {
+
+    }
+
+    .currentTimeDetails {
+    }
+
+    .eventsContainer {
+      display: flex;
+
+      .eventsTitles {
+        width: 400px;
+
+        .eventTitle {
+          background-color: var(--md-sys-color-secondary);
+          border-radius: 10px;
+          padding: 10px;
+          color: var(--md-sys-color-on-primary);
+        }
+      }
+
+      .selectedEventDetails {
+        flex: 1;
+      }
+    }
+  }
+}
