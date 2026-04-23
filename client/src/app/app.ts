@@ -20,10 +20,6 @@ export class App implements OnInit {
    *
    */
   ngOnInit() {
-    const currentToken = localStorage.getItem('token');
-    if (currentToken) {
-      console.log('u');
-      this.httpService.updateToken(currentToken);
-    }
+    console.log('app');
   }
 }

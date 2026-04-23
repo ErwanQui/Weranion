@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../services/auth.service';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -17,15 +18,17 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.css',
 })
 export class Login {
-  username;
-  password;
+  username: string = '';
+  password: string = '';
 
-  /**
+  /** Constructor of Login
    *
-   * @param authService
+   * @param authService Used to authenticate
+   * @param navigationService
    */
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private navigationService: NavigationService
   ) {}
 
   /**
@@ -33,6 +36,8 @@ export class Login {
    */
   login() {
     console.log(this.username, this.password);
-    this.authService.login(this.username, this.password);
+    this.authService.login(this.username, this.password).subscribe(token => {
+      this.navigationService.navigateTo('home');
+    });
   }
 }

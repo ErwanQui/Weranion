@@ -48,11 +48,12 @@ module.exports = defineConfig([
       "@angular-eslint/prefer-inject": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn", { 
-          "vars": "all",
-          "args": "none",
-          "argsIgnorePattern": '^_'
+          vars: "all",
+          args: "none",
+          argsIgnorePattern: '^_'
         }
       ],
+      '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/explicit-function-return-type': [
         'warn',
         {

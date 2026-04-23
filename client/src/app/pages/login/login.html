@@ -1,9 +1,14 @@
-<mat-form-field>
-  <mat-label>Pseudo</mat-label>
-  <input matInput [(ngModel)]="username">
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Mot de passe</mat-label>
-  <input matInput [(ngModel)]="password">
-</mat-form-field>
-<button matButton (click)="login()">Connexion</button>
+<div class="loginPage">
+  <div class="appTitle">
+    Bienvenue en Weranion
+  </div>
+  <mat-form-field>
+    <mat-label>Pseudo</mat-label>
+    <input matInput [(ngModel)]="username">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Mot de passe</mat-label>
+    <input matInput [(ngModel)]="password">
+  </mat-form-field>
+  <button matButton="filled" (click)="login()">Connexion</button>
+</div>

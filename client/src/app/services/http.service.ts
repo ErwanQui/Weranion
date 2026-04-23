@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { SnackBarService } from './snackBar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,18 @@ export class HttpService {
   /**
    *
    * @param http
+   * @param snackBarService
    */
   constructor(
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private snackBarService: SnackBarService
+  ) {
+    const currentToken = localStorage.getItem('token');
+    if (currentToken) {
+      console.log('u');
+      this.updateToken(currentToken);
+    }
+  }
 
   /**
    *
@@ -34,10 +43,11 @@ export class HttpService {
   /**
    *
    * @param endpoint
+   * @param withoutErrorMessage
    */
-  get<T>(endpoint: string): Observable<T> {
+  get<T>(endpoint: string, withoutErrorMessage: boolean = false): Observable<T> {
     return this.http.get<T>(`${this.apiUrl}/${endpoint}`, { headers: this.headers })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(error => this.handleError(error, withoutErrorMessage)));
   }
 
   /**
@@ -47,7 +57,7 @@ export class HttpService {
    */
   create<T>(endpoint: string, body: any): Observable<T> {
     return this.http.post<T>(`${this.apiUrl}/${endpoint}`, body, { headers: this.headers })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   /**
@@ -57,7 +67,7 @@ export class HttpService {
    */
   update<T>(endpoint: string, body: any): Observable<T> {
     return this.http.put<T>(`${this.apiUrl}/${endpoint}`, body, { headers: this.headers })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   /**
@@ -66,18 +76,22 @@ export class HttpService {
    */
   delete<T>(endpoint: string): Observable<T> {
     return this.http.delete<T>(`${this.apiUrl}/${endpoint}`,{ headers: this.headers })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   /**
    *
    * @param error
+   * @param withoutErrorMessage
    */
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse, withoutErrorMessage: boolean = false) {
     if (error.status === 0) {
       console.error('Erreur réseau :', error.error);
     } else {
       console.error(`Erreur ${error.status} :`, error.error);
+    }
+    if (withoutErrorMessage) {
+      this.snackBarService.failSnackBar({ message: error.error || error.message });
     }
     return throwError(() => new Error(error.message));
   }
