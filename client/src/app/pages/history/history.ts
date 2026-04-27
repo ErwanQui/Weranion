@@ -1,5 +1,7 @@
+import { CdkDrag, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { WeranionEvent, WeranionHistory } from '../../models/history.models';
 import { Month, WeranionDate } from '../../models/utils.models';
 import { HistoryService } from '../../services/history.service';
@@ -7,12 +9,15 @@ import { HistoryService } from '../../services/history.service';
 @Component({
   selector: 'app-history',
   imports: [
-    NgClass
+    NgClass,
+    CdkDrag,
+    DragDropModule,
+    MatIconModule
   ],
   templateUrl: './history.html',
   styleUrl: './history.scss',
 })
-export class HistoryPage implements OnInit {
+export class HistoryPage implements OnInit, AfterViewInit {
   currentDate: WeranionDate = {
     year: 1,
     month: 5
@@ -45,6 +50,24 @@ export class HistoryPage implements OnInit {
         }
       });
     });
+  }
+
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
+  /**
+   *
+   */
+  ngAfterViewInit(): void {
+    this.scrollToRight();
+  }
+
+  /**
+   *
+   */
+  scrollToRight(): void {
+    console.log('beh alors');
+    const el = this.scrollContainer.nativeElement;
+    el.scrollLeft = el.scrollWidth;
   }
 
   /**
@@ -88,5 +111,38 @@ export class HistoryPage implements OnInit {
    */
   selectEvent(event: WeranionEvent): void {
     this.selectedEvent = event;
+  }
+
+  /**
+   *
+   * @param event
+   */
+  test(event: any) {
+    console.log(8, event);
+    moveItemInArray(this.currentHistory?.events as any[], event.previousIndex, event.currentIndex);
+  }
+
+  editMode = false;
+
+  /**
+   *
+   */
+  switchEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  /**
+   *
+   */
+  addEvent() {
+
+  }
+
+  /**
+   *
+   * @param event
+   */
+  deleteEvent(event) {
+    console.log(event);
   }
 }

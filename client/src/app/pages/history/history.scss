@@ -4,14 +4,22 @@
   // width: 800px;
   overflow: hidden;
   height: 100%;
+  
+
+  mat-icon {
+    cursor: pointer;
+    border-radius: 50px;
+    padding: 4px;
+
+    &:hover {
+      background-color: var(--md-sys-color-inverse-primary);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+  }
 
   .timeLine {
-    // gap: 1px;
-    // flex: 1;
-    // overflow: hidden;
     padding: 10px;
     overflow: auto ;
-    // width: auto;
 
     .a {
       display: flex;
@@ -38,10 +46,12 @@
         // transform-origin: left bottom;
         white-space: nowrap;
         font-size: 0.8rem;
+        color: var(--md-sys-color-on-primary-container);
       }
 
       display: flex ;
       flex-direction: column;
+      cursor: pointer;
 
       .monthLabel {
         display: flex;
@@ -58,9 +68,10 @@
 
 
       &:hover {
-        cursor: pointer;
-        color: var(--md-sys-color-primary-container);
-        background-color: var(--md-sys-color-on-primary-container);
+        &:not(.yearLabel) {
+          color: var(--md-sys-color-primary-container);
+          background-color: var(--md-sys-color-on-primary-container);
+        }
       }
     }
 
@@ -99,14 +110,36 @@
       }
     }
 
-    .eventsContainer {
+    .eventsPart {
       display: flex;
+      flex-direction: column;
       flex: 2;
       margin: 10px;
       background-color: var(--md-sys-color-inverse-primary);
-      padding: 10px;
       overflow: hidden;
       gap: 10px;
+      border-radius: 20px;
+
+      .eventsPartBar {
+        background-color: gray;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+
+        .c {
+          flex: 1;
+          font-size: 20px;
+          font-weight: bold;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .eventsContainer {
+      display: flex;
+      flex: 1;
+      gap: 10px;
+      padding: 10px;
 
       .eventsTitles {
         width: 400px;
@@ -122,13 +155,28 @@
           color: var(--md-sys-color-on-primary);
           cursor: pointer;
 
-          &:hover {
-            background-color: var(--md-sys-color-primary);
+          &:not(.modifying) {
+            &:hover {
+              background-color: var(--md-sys-color-primary);
+            }
           }
 
           &.selected {
+            background-color: var(--md-sys-color-primary);
             color: var(--md-sys-color-on-primary);
+          }
 
+          &.modifying {
+            display: flex;
+            align-items: center;
+
+            .title {
+              flex: 1
+            }
+            
+            mat-icon {
+              align-items: flex-end;
+            }
           }
         }
       }
