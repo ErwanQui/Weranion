@@ -21,7 +21,7 @@ const { removeInactivePlayers } = require('./services/activePlayers.service');
 app.use(
   cors({
     origin: process.env.CLIENT_PATH,
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   }),
   express.json(),

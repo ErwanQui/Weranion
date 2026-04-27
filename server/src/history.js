@@ -3,6 +3,7 @@ const router = express.Router();
 
 const History = require('./../models/history');
 const { verifyToken } = require('../utils/authentification');
+const { updateHistory } = require('./../services/history.service');
 
 router.get('/', verifyToken, async (req, res) => {
   try {
@@ -15,21 +16,25 @@ router.get('/', verifyToken, async (req, res) => {
   }
 });
 
-router.post('/', verifyToken, async (req, res) => {
-  try {
-    const { history } = req.body;
-    const result = await updateHistory(text, player);
-    res.json(history);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// router.post('/', verifyToken, async (req, res) => {
+//   try {
+//     const { history } = req.body;
+//     console.log('history', history);
+//     const result = await updateHistory(history);
+//     res.json(history);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
 
 router.put('/', verifyToken, async (req, res) => {
   try {
-    const histories = await History.find().select();
-    res.json(histories);
+    const { history } = req.body;
+    console.log('history', history);
+    const result = await updateHistory(history);
+    res.json(result);
   } catch (error) {
+    console.error('erreur update :', error);
     res.status(500).send(error);
   }
 });

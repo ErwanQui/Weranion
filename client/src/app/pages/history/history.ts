@@ -1,9 +1,11 @@
-import { CdkDrag, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgClass } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { HistoryEventDialog } from '../../components/history-event-dialog/history-event-dialog';
 import { WeranionEvent, WeranionHistory } from '../../models/history.models';
 import { Month, WeranionDate } from '../../models/utils.models';
+import { DialogService } from '../../services/dialog.service';
 import { HistoryService } from '../../services/history.service';
 
 @Component({
@@ -27,18 +29,25 @@ export class HistoryPage implements OnInit, AfterViewInit {
 
   timeLine: WeranionDate[] = [];
 
-  /**
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
+  editMode !: boolean; 
+
+  currentHistory!: WeranionHistory;
+  selectedEvent!: WeranionEvent;
+
+  /** Constructor of HystoryPage
    *
-   * @param historyService
+   * @param historyService Handle Weranion history
+   * @param dialogService
    */
   constructor(
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private dialogService: DialogService,
   ) {}
 
-  /**
-   *
-   */
-  ngOnInit() {
+  /** HystoryPage init */
+  ngOnInit(): void {
     this.createTimeLine();
     this.historyService.getHistories().subscribe(histories => {
       console.log(histories);
@@ -52,28 +61,19 @@ export class HistoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
-
-  /**
-   *
-   */
+  /** HystoryPage after view init */
   ngAfterViewInit(): void {
     this.scrollToRight();
   }
 
-  /**
-   *
-   */
+  /** Call after the init of the page to set the timeline to the right */
   scrollToRight(): void {
-    console.log('beh alors');
     const el = this.scrollContainer.nativeElement;
     el.scrollLeft = el.scrollWidth;
   }
 
-  /**
-   *
-   */
-  createTimeLine() {
+  /** Create the time line object */
+  createTimeLine(): void {
     let year = 0;
     while (year < this.currentDate.year) {
       for (let month = 1; month <= 12; month++) { 
@@ -93,15 +93,12 @@ export class HistoryPage implements OnInit, AfterViewInit {
     }
   }
 
-  currentHistory?: WeranionHistory;
-  selectedEvent?: WeranionEvent;
-
   /**
    *
    * @param time
    */
   selectMonth(time: WeranionDate){
-    this.currentHistory = this.histories.find(history => time.year === history.year && time.month === history.month);
+    this.currentHistory = this.histories.find(history => time.year === history.year && time.month === history.month) ?? this.histories[0];
     this.selectedEvent = this.currentHistory?.events?.[0];
   }
 
@@ -117,25 +114,29 @@ export class HistoryPage implements OnInit, AfterViewInit {
    *
    * @param event
    */
-  test(event: any) {
+  test(event: CdkDragDrop<string[]>): void {
     console.log(8, event);
-    moveItemInArray(this.currentHistory?.events as any[], event.previousIndex, event.currentIndex);
-  }
-
-  editMode = false;
-
-  /**
-   *
-   */
-  switchEditMode() {
+    moveItemInArray(this.currentHistory.events, event.previousIndex, event.currentIndex);
+  } 
+  
+  /** Switch between read and edit mode */
+  switchEditMode(): void {
     this.editMode = !this.editMode;
   }
 
   /**
    *
-   */
+   */ 
   addEvent() {
-
+    this.dialogService.openDialog<HistoryEventDialog, WeranionEvent>({
+      component: HistoryEventDialog
+    }).afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.currentHistory.events.push(result);
+        this.updateHistory(this.currentHistory);
+      }
+    });
   }
 
   /**
@@ -144,5 +145,13 @@ export class HistoryPage implements OnInit, AfterViewInit {
    */
   deleteEvent(event) {
     console.log(event);
+  }
+
+  /**
+   *
+   * @param history
+   */
+  updateHistory(history: WeranionHistory): void {
+    this.historyService.updateHistory(history).subscribe();
   }
 }

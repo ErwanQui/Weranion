@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const HistorySchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   year: Number,
   month: Number,
   title: String,

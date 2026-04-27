@@ -1,7 +1,11 @@
-async function updateHistory(id, value) {
+const History = require('./../models/history');
+
+async function updateHistory(history) {
   return History.findOneAndUpdate(
-    {_id: id.toString()},
-    { $set: { value: value } },
-    { new: true }
+    { year: history.year, month: history.month },
+    { $set: { title: history.title, details: history.details, events: history.events } },
+    { new: true, upsert: true }
   )
 }
+
+module.exports = { updateHistory };

@@ -29,14 +29,14 @@ export class HistoryService {
    * @param history
    */
   createHistory(history: WeranionHistory) {
-    return this.httpService.create<WeranionHistory[]>('history', history);
+    return this.httpService.create<WeranionHistory[]>('history', { history });
   };
 
   /**
    *
    * @param history
    */
-  updateeHistory(history: WeranionHistory) {
-    return this.httpService.update<WeranionHistory[]>('history', history);
+  updateHistory(history: WeranionHistory) {
+    return this.httpService.update<WeranionHistory[]>('history', { history });
   };
 }
