@@ -1,7 +1,7 @@
 <div class="historyPage">
   <div class="timeLine">
     <div class="a">
-    @for (time of timeLine; track time) {
+      @for (time of timeLine; track time) {
       <div class="monthBlock" (click)="selectMonth(time)">
         @if (time.month === 1) {
           <span class="yearLabel"> Année {{ time.year }}</span>
@@ -11,19 +11,27 @@
           <span class="monthMainEvent">{{ time.eventTitle }} de preuse fut-il tel que voila</span>
         }
       </div>
-    }
+      }
+      <div class="finalArrow"></div>
     </div>
   </div>
   <div class="timeDetails">
   @if (currentHistory) {
+    <div class="b">
     <div class="currentTimeTitle">Année {{ currentHistory.year }} Mois {{ currentHistory.month }} {{ currentHistory.title }}</div>
-    <div class="currentTimeDetails">{{ currentHistory.details }}</div>
-
+    <div class="currentTimeDetails">
+      @for (index of [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; track index) {
+        {{ currentHistory.details }}
+      }
+    </div>
+</div>
     @if (currentHistory.events && currentHistory.events.length > 0) {
       <div class="eventsContainer">
         <div class="eventsTitles">
+                @for (index of [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; track index) {
+
         @for (event of currentHistory.events; track event) {
-          <div class="eventTitle" [ngClass]="{ selected: selectedEvent.title === event.title }">
+          <div class="eventTitle" [ngClass]="{ selected: selectedEvent?.title === event.title }" (click)="selectEvent(event)">
             <!-- <div> -->
             {{ event.title }}
             <!-- </div> -->
@@ -33,9 +41,10 @@
             </div> -->
           </div>
         }
+      }
         </div>
         <div class="selectedEventDetails">
-          {{ selectedEvent.details }}
+          {{ selectedEvent?.details }}
         </div>
       </div>
     } @else {

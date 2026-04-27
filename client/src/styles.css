@@ -12,6 +12,13 @@ body {
   color: var(--md-sys-color-on-background);
   font-family: 'MedievalSharp', serif;
   letter-spacing: 0.1em;
+
+  router-outlet + * {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 }
 
 .snackbarFail {

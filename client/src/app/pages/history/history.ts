@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { WeranionHistory } from '../../models/history.models';
+import { WeranionEvent, WeranionHistory } from '../../models/history.models';
 import { Month, WeranionDate } from '../../models/utils.models';
 import { HistoryService } from '../../services/history.service';
 
@@ -71,7 +71,7 @@ export class HistoryPage implements OnInit {
   }
 
   currentHistory?: WeranionHistory;
-  selectedEvent;
+  selectedEvent?: WeranionEvent;
 
   /**
    *
@@ -80,5 +80,13 @@ export class HistoryPage implements OnInit {
   selectMonth(time: WeranionDate){
     this.currentHistory = this.histories.find(history => time.year === history.year && time.month === history.month);
     this.selectedEvent = this.currentHistory?.events?.[0];
+  }
+
+  /**
+   *
+   * @param event
+   */
+  selectEvent(event: WeranionEvent): void {
+    this.selectedEvent = event;
   }
 }

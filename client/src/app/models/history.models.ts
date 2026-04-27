@@ -4,8 +4,10 @@ export interface WeranionHistory {
   month: number,
   title: string,
   details: string,
-  events: [{
-    title: string,
-    details: string,
-  }]
+  events: WeranionEvent[]
+}
+
+export interface WeranionEvent {
+  title: string,
+  details: string,
 }
