@@ -7,9 +7,7 @@ const { updateHistory } = require('./../services/history.service');
 
 router.get('/', verifyToken, async (req, res) => {
   try {
-    console.log(1)
     const histories = await History.find();
-    console.log(2, histories)
     res.json(histories);
   } catch (error) {
     res.status(500).send(error);
@@ -30,7 +28,6 @@ router.get('/', verifyToken, async (req, res) => {
 router.put('/', verifyToken, async (req, res) => {
   try {
     const { history } = req.body;
-    console.log('history', history);
     const result = await updateHistory(history);
     res.json(result);
   } catch (error) {

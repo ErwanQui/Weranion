@@ -1,7 +1,8 @@
 import { CdkDrag, CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgClass } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { HistoryDialog } from '../../components/history-dialog/history-dialog';
 import { HistoryEventDialog } from '../../components/history-event-dialog/history-event-dialog';
 import { WeranionEvent, WeranionHistory } from '../../models/history.models';
 import { Month, WeranionDate } from '../../models/utils.models';
@@ -30,19 +31,19 @@ export class HistoryPage implements OnInit, AfterViewInit {
   };
 
   /** The Weranion histories */
-  histories: WeranionHistory[] = [];
+  histories: WritableSignal<WeranionHistory[]> = signal<WeranionHistory[]>([]);
 
   /** The time line object */
-  timeLine: WeranionDate[] = [];
+  timeLine: WritableSignal<WeranionDate[]> = signal<WeranionDate[]>([]);
 
   /** Whether the page is in edit mode */
-  editMode !: boolean; 
+  editMode: WritableSignal<boolean> = signal<boolean>(false);
 
   /** The selected history */
-  currentHistory!: WeranionHistory;
+  currentHistory: WritableSignal<WeranionHistory | undefined> = signal<WeranionHistory | undefined>(undefined);
 
   /** The selected event */
-  selectedEvent!: WeranionEvent;
+  selectedEvent: WritableSignal<WeranionEvent | undefined> = signal<WeranionEvent | undefined>(undefined);
 
   /** Constructor of HystoryPage
    *
@@ -58,13 +59,14 @@ export class HistoryPage implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.createTimeLine();
     this.historyService.getHistories().subscribe(histories => {
-      this.histories = histories;
-      this.histories.map(history => {
-        const time = this.timeLine.find(time => time.year === history.year && time.month === history.month);
-        if (time) {
-          time.eventTitle = history.title;
-        }
-      });
+      this.histories.set(histories);
+      this.timeLine.update(timeLine =>
+        timeLine.map(time => {
+          const history = histories.find(history => history.year === time.year && history.month === time.month);
+          return history ? { ...time, eventTitle: history.title } : time;
+        })
+      );
+      this.selectHistory({ year: this.currentDate.year, month: this.currentDate.month });
     });
   }
 
@@ -75,38 +77,63 @@ export class HistoryPage implements OnInit, AfterViewInit {
 
   /** Call after the init of the page to set the timeline to the right */
   scrollToRight(): void {
-    const el = this.scrollContainer.nativeElement;
-    el.scrollLeft = el.scrollWidth;
+    const element = this.scrollContainer.nativeElement;
+    element.scrollLeft = element.scrollWidth;
   }
 
   /** Create the time line object */
   createTimeLine(): void {
+    const timeline: WeranionDate[] = [];
     let year = 0;
     while (year < this.currentDate.year) {
-      for (let month = 1; month <= 12; month++) { 
-        this.timeLine.push({
-          year,
-          month: month as Month
-        });
-      } 
+      for (let month = 1; month <= 12; month++) {
+        timeline.push({ year, month: month as Month });
+      }
       year++;
     }
-
     for (let month = 1; month <= this.currentDate.month; month++) {
-      this.timeLine.push({
-        year,
-        month: month as Month
-      });
+      timeline.push({ year, month: month as Month });
     }
+    this.timeLine.set(timeline);
   }
 
   /** Select a month in the timeline
    *
    * @param time The Weranion date
    */
-  selectMonth(time: WeranionDate): void {
-    this.currentHistory = this.histories.find(history => time.year === history.year && time.month === history.month) ?? this.histories[0];
-    this.selectedEvent = this.currentHistory?.events?.[0];
+  selectHistory(time: WeranionDate): void {
+    const history = this.histories().find(history => history.year === time.year && history.month === time.month) 
+      ?? this.createEmptyHistory(time.year, time.month);
+    this.currentHistory.set(history);
+    this.selectedEvent.set(history?.events?.[0]);
+  }
+
+  /** Creates an empty history object for a given year and month
+   * 
+   * @param year The year of the history to create
+   * @param month The month of the history to create
+   * @returns An empty history object
+   */
+  createEmptyHistory(year: number, month: number): WeranionHistory {
+    return {
+      year,
+      month,
+      title: '',
+      details: '',
+      events: []
+    };
+  }
+
+  /** Open a dialog to edit the current history */
+  editHistory(): void {
+    this.dialogService.openDialog<HistoryDialog, WeranionHistory>({
+      component: HistoryDialog,
+      data: this.currentHistory()
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.saveHistory({ ...this.currentHistory()!, ...result });
+      } 
+    });
   }
 
   /** Select an event in the current history
@@ -114,7 +141,7 @@ export class HistoryPage implements OnInit, AfterViewInit {
    * @param event
    */
   selectEvent(event: WeranionEvent): void {
-    this.selectedEvent = event;
+    this.selectedEvent.set(event);
   }
 
   /** Move an event in the month events list
@@ -122,13 +149,14 @@ export class HistoryPage implements OnInit, AfterViewInit {
    * @param eventObject The object that contains the previous and current index of the event in the list
    */
   moveAnEventInTheMonth(eventObject: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.currentHistory.events, eventObject.previousIndex, eventObject.currentIndex);
-    this.updateHistory(this.currentHistory);
+    const events = [...this.currentHistory()!.events];
+    moveItemInArray(events, eventObject.previousIndex, eventObject.currentIndex);
+    this.saveHistory({ ...this.currentHistory()!, events });
   } 
   
   /** Switch between read and edit mode */
   switchEditMode(): void {
-    this.editMode = !this.editMode;
+    this.editMode.update(mode => !mode);
   }
 
   /** Open a dialog to add an event to the current history */ 
@@ -137,8 +165,10 @@ export class HistoryPage implements OnInit, AfterViewInit {
       component: HistoryEventDialog
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.currentHistory.events.push(result);
-        this.updateHistory(this.currentHistory);
+        this.saveHistory({
+          ...this.currentHistory()!,
+          events: [...this.currentHistory()!.events, result]
+        });
       }
     });
   }
@@ -147,15 +177,16 @@ export class HistoryPage implements OnInit, AfterViewInit {
    *
    * @param event The event to update
    */
-  updateEvent(event: WeranionEvent): void {
-    const eventIndex = this.currentHistory.events.findIndex(currentHistoryEvent => currentHistoryEvent.title === event.title);
+  editEvent(event: WeranionEvent): void {
+    const eventIndex = this.currentHistory()!.events.findIndex(historyEvent => historyEvent._id === event._id);
     this.dialogService.openDialog<HistoryEventDialog, WeranionEvent>({
       component: HistoryEventDialog,
       data: event
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.currentHistory.events[eventIndex] = result;
-        this.updateHistory(this.currentHistory);
+        const events = [...this.currentHistory()!.events];
+        events[eventIndex] = result;
+        this.saveHistory({ ...this.currentHistory()!, events });
       }
     });
   }
@@ -167,8 +198,10 @@ export class HistoryPage implements OnInit, AfterViewInit {
   deleteEvent(event: WeranionEvent): void {
     this.dialogService.openConfirmAlert('Suppression d\'un événement', 'Êtes-vous sûr de vouloir supprimer cet événement ?').subscribe(result => {
       if (result) {
-        this.currentHistory.events = this.currentHistory.events.filter(currentHistoryEvent => currentHistoryEvent.title !== event.title);
-        this.updateHistory(this.currentHistory);
+        this.saveHistory({
+          ...this.currentHistory()!,
+          events: this.currentHistory()!.events.filter(historyEvent => historyEvent._id !== event._id)
+        });
       }
     });
   }
@@ -177,7 +210,12 @@ export class HistoryPage implements OnInit, AfterViewInit {
    *
    * @param history The updated history
    */
-  updateHistory(history: WeranionHistory): void {
-    this.historyService.updateHistory(history).subscribe();
+  saveHistory(history: WeranionHistory): void {
+    this.historyService.updateHistory(history).subscribe(updatedHistory => {
+      this.currentHistory.set(updatedHistory);
+      this.histories.update(histories =>
+        histories.map(history => history._id === updatedHistory._id ? updatedHistory : history)
+      );
+    });
   }
 }

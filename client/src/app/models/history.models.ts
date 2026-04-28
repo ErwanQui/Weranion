@@ -1,13 +1,17 @@
-export interface WeranionHistory {
-  _id: string,
+export interface WeranionHistoryData {
+  title: string,
+  details: string
+}
+
+export type WeranionHistory = WeranionHistoryData & {
+  _id?: string,
   year: number,
   month: number,
-  title: string,
-  details: string,
   events: WeranionEvent[]
 }
 
 export interface WeranionEvent {
+  _id?: string,
   title: string,
   details: string,
 }

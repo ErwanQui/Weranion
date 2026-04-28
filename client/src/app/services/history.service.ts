@@ -36,7 +36,7 @@ export class HistoryService {
    *
    * @param history
    */
-  updateHistory(history: WeranionHistory) {
-    return this.httpService.update<WeranionHistory[]>('history', { history });
+  updateHistory(history: WeranionHistory): Observable<WeranionHistory> {
+    return this.httpService.update<WeranionHistory>('history', { history });
   };
 }
