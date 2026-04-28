@@ -1,9 +1,9 @@
-{
+{  
+  "buildCommand": "node build.js",
   "git": {
     "deploymentEnabled": {
       "main": true,
       "develop": true
-    },
-    "buildCommand": "node build.js"
+    }
   }
 }
