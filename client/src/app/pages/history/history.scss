@@ -140,6 +140,7 @@
       flex: 1;
       gap: 10px;
       padding: 10px;
+      overflow: hidden;
 
       .eventsTitles {
         width: 400px;
@@ -166,7 +167,7 @@
             color: var(--md-sys-color-on-primary);
           }
 
-          &.modifying {
+          // &.modifying {
             display: flex;
             align-items: center;
 
@@ -177,7 +178,7 @@
             mat-icon {
               align-items: flex-end;
             }
-          }
+          // }
         }
       }
 

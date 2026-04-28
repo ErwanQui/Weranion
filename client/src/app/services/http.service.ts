@@ -90,7 +90,7 @@ export class HttpService {
     } else {
       console.error(`Erreur ${error.status} :`, error.error);
     }
-    if (withoutErrorMessage) {
+    if (!withoutErrorMessage) {
       this.snackBarService.failSnackBar({ message: error.error || error.message });
     }
     return throwError(() => new Error(error.message));

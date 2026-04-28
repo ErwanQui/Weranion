@@ -20,26 +20,34 @@ import { HistoryService } from '../../services/history.service';
   styleUrl: './history.scss',
 })
 export class HistoryPage implements OnInit, AfterViewInit {
+  /** The scroll container of the time line */
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
+  /** The current date of Weranion */
   currentDate: WeranionDate = {
     year: 1,
     month: 5
   };
 
+  /** The Weranion histories */
   histories: WeranionHistory[] = [];
 
+  /** The time line object */
   timeLine: WeranionDate[] = [];
 
-  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
-
+  /** Whether the page is in edit mode */
   editMode !: boolean; 
 
+  /** The selected history */
   currentHistory!: WeranionHistory;
+
+  /** The selected event */
   selectedEvent!: WeranionEvent;
 
   /** Constructor of HystoryPage
    *
    * @param historyService Handle Weranion history
-   * @param dialogService
+   * @param dialogService Handle the dialogs
    */
   constructor(
     private historyService: HistoryService,
@@ -50,7 +58,6 @@ export class HistoryPage implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.createTimeLine();
     this.historyService.getHistories().subscribe(histories => {
-      console.log(histories);
       this.histories = histories;
       this.histories.map(history => {
         const time = this.timeLine.find(time => time.year === history.year && time.month === history.month);
@@ -93,16 +100,16 @@ export class HistoryPage implements OnInit, AfterViewInit {
     }
   }
 
-  /**
+  /** Select a month in the timeline
    *
-   * @param time
+   * @param time The Weranion date
    */
-  selectMonth(time: WeranionDate){
+  selectMonth(time: WeranionDate): void {
     this.currentHistory = this.histories.find(history => time.year === history.year && time.month === history.month) ?? this.histories[0];
     this.selectedEvent = this.currentHistory?.events?.[0];
   }
 
-  /**
+  /** Select an event in the current history
    *
    * @param event
    */
@@ -110,13 +117,13 @@ export class HistoryPage implements OnInit, AfterViewInit {
     this.selectedEvent = event;
   }
 
-  /**
+  /** Move an event in the month events list
    *
-   * @param event
+   * @param eventObject The object that contains the previous and current index of the event in the list
    */
-  test(event: CdkDragDrop<string[]>): void {
-    console.log(8, event);
-    moveItemInArray(this.currentHistory.events, event.previousIndex, event.currentIndex);
+  moveAnEventInTheMonth(eventObject: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.currentHistory.events, eventObject.previousIndex, eventObject.currentIndex);
+    this.updateHistory(this.currentHistory);
   } 
   
   /** Switch between read and edit mode */
@@ -124,14 +131,11 @@ export class HistoryPage implements OnInit, AfterViewInit {
     this.editMode = !this.editMode;
   }
 
-  /**
-   *
-   */ 
-  addEvent() {
+  /** Open a dialog to add an event to the current history */ 
+  addEvent(): void {
     this.dialogService.openDialog<HistoryEventDialog, WeranionEvent>({
       component: HistoryEventDialog
     }).afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.currentHistory.events.push(result);
         this.updateHistory(this.currentHistory);
@@ -139,17 +143,39 @@ export class HistoryPage implements OnInit, AfterViewInit {
     });
   }
 
-  /**
+  /** Update an event
    *
-   * @param event
+   * @param event The event to update
    */
-  deleteEvent(event) {
-    console.log(event);
+  updateEvent(event: WeranionEvent): void {
+    const eventIndex = this.currentHistory.events.findIndex(currentHistoryEvent => currentHistoryEvent.title === event.title);
+    this.dialogService.openDialog<HistoryEventDialog, WeranionEvent>({
+      component: HistoryEventDialog,
+      data: event
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.currentHistory.events[eventIndex] = result;
+        this.updateHistory(this.currentHistory);
+      }
+    });
   }
 
-  /**
+  /** Delete an event from the current history
    *
-   * @param history
+   * @param event The event to delete
+   */
+  deleteEvent(event: WeranionEvent): void {
+    this.dialogService.openConfirmAlert('Suppression d\'un événement', 'Êtes-vous sûr de vouloir supprimer cet événement ?').subscribe(result => {
+      if (result) {
+        this.currentHistory.events = this.currentHistory.events.filter(currentHistoryEvent => currentHistoryEvent.title !== event.title);
+        this.updateHistory(this.currentHistory);
+      }
+    });
+  }
+
+  /** Update the current history
+   *
+   * @param history The updated history
    */
   updateHistory(history: WeranionHistory): void {
     this.historyService.updateHistory(history).subscribe();

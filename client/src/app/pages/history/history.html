@@ -33,10 +33,10 @@
           <mat-icon (click)="addEvent()">add</mat-icon>
         </div>
         <div class="eventsContainer">
-          <div cdkDropList class="eventsTitles" (cdkDropListDropped)="test($event)">
+          <div cdkDropList class="eventsTitles" (cdkDropListDropped)="moveAnEventInTheMonth($event)">
           @for (event of currentHistory.events; track event) {
             @if (editMode) {
-              <div class="eventTitle modifying" [ngClass]="{ selected: selectedEvent?.title === event.title }" cdkDrag>
+              <div class="eventTitle modifying" [ngClass]="{ selected: selectedEvent.title === event.title }" cdkDrag>
                 <div class="title">
                   {{ event.title }}
                 </div>
@@ -45,15 +45,20 @@
                 </mat-icon>
               </div>
             } @else {
-            <div class="eventTitle" [ngClass]="{ selected: selectedEvent?.title === event.title }" (click)="selectEvent(event)">
-              {{ event.title }}
-            </div>
+            <div class="eventTitle" [ngClass]="{ selected: selectedEvent.title === event.title }" (click)="selectEvent(event)">
+              <div class="title">  
+                {{ event.title }}
+              </div>
+              <mat-icon (click)="updateEvent(event)">
+                edit          
+              </mat-icon>
+            </div>  
             }
             
           }
           </div>
           <div class="selectedEventDetails">
-            {{ selectedEvent?.details }}
+            {{ selectedEvent.details }}
           </div>
         </div>
       </div>

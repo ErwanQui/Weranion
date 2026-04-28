@@ -10,18 +10,19 @@ import { NavigationService } from '../services/navigation.service';
 })
 export class LoginGuard {
 
-  /**
+  /** Constructor of LoginGuard
    *
-   * @param authService
-   * @param navigationService
+   * @param authService Handle the authentication
+   * @param navigationService Handle the navigation
    */
   constructor(
     private authService: AuthService,
     private navigationService: NavigationService
   ) {}
 
-  /**
+  /** Check whether the user is authenticated and can access the app
    *
+   * @returns An Observable that emits true if the user is authenticated, false otherwise. If the user is not authenticated, it also navigates to the login page.
    */
   canActivateChild(): Observable<boolean> {
     return this.authService.verifyAccess().pipe(

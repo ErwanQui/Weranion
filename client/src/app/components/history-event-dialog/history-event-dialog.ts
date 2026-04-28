@@ -20,8 +20,10 @@ export class HistoryEventDialog implements OnInit {
   /** HistoryEventDialog init */
   ngOnInit(): void {
     if (this.data) {
-      this.form.title = this.data.title;
-      this.form.details = this.data.details;
+      this.form = {
+        title: this.data.title,
+        details: this.data.details
+      };
     } else {
       this.form = {
         title: '',
