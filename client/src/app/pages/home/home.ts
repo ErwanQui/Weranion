@@ -7,7 +7,7 @@ import { NavigationService } from '../../services/navigation.service';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
+export class HomePage {
 
   /**
    *
