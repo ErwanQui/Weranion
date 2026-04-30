@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginGuard } from './guards/login.guard';
-import { BuildingsPage } from './pages/buildings/buildings';
+import { CityPage } from './pages/city/city';
 import { FoodPage } from './pages/food/food';
 import { HistoryPage } from './pages/history/history';
 import { HomePage } from './pages/home/home';
@@ -44,8 +44,8 @@ export const routes: Routes = [
         component: WeaponsPage
       },
       {
-        path: 'buildings',
-        component: BuildingsPage
+        path: 'city',
+        component: CityPage
       },
       {
         path: 'history',

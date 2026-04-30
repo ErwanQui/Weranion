@@ -15,6 +15,7 @@ const treasury = require('./src/treasury');
 const activePlayers = require('./src/activePlayers');
 const messages = require('./src/messages');
 const history = require('./src/history');
+const city = require('./src/city');
 
 const { removeInactivePlayers } = require('./services/activePlayers.service');
 
@@ -56,9 +57,11 @@ app.get('/', async (req, res) => {
 
 // Add api files
 app.use('/login', login);
+app.use('/history', history);
+app.use('/city', city);
+
 app.use('/main', main);
 app.use('/food', food);
-app.use('/history', history);
 app.use('/treasury', treasury);
 app.use('/activePlayers', activePlayers);
 app.use('/messages', messages);

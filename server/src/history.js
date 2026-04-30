@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const { verifyToken } = require('../utils/authentification');
 
 const History = require('./../models/history');
-const { verifyToken } = require('../utils/authentification');
 const { updateHistory } = require('./../services/history.service');
 
 router.get('/', verifyToken, async (req, res) => {
