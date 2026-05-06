@@ -5,6 +5,7 @@ import { FoodPage } from './pages/food/food';
 import { HistoryPage } from './pages/history/history';
 import { HomePage } from './pages/home/home';
 import { Login } from './pages/login/login';
+import { Main } from './pages/main/main';
 import { MapPage } from './pages/map/map';
 import { PeoplePage } from './pages/people/people';
 import { TreasuryPage } from './pages/treasury/treasury';
@@ -17,6 +18,7 @@ export const routes: Routes = [
   },
   {
     path: 'app',
+    component: Main,
     canActivateChild: [LoginGuard],
     children: [
       {

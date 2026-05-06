@@ -1,4 +1,9 @@
 .appMain {
   display: flex;
   height: 100%;
+  width: 100%;
+
+  :not(router-outlet) {
+    flex: 1;
+  }
 }
