@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const PersonSchema = new mongoose.Schema({
-  name: String
+  _id: mongoose.Schema.Types.ObjectId,
+  firstname: String,
+  lastname: String
 });
 
 const Person = mongoose.model('Person', PersonSchema);

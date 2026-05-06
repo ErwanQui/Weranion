@@ -1,0 +1,4 @@
+.formHistory {
+  display: flex;
+  flex-direction: column;
+}

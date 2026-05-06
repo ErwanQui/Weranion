@@ -1,0 +1,10 @@
+.lineTable {
+  display: flex;
+    
+  >* {
+    border-right: 1px solid #6A3013; // Bordure entre les enfants
+    &:last-child {
+      border-right: 1px solid transparent; // Supprime la bordure à droite du dernier enfant
+    }
+  }
+}
