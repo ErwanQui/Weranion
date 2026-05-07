@@ -43,10 +43,12 @@ export class HttpService {
   /**
    *
    * @param endpoint
+   * @param params
    * @param withoutErrorMessage
    */
-  get<T>(endpoint: string, withoutErrorMessage: boolean = false): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}/${endpoint}`, { headers: this.headers })
+  get<T, S>(endpoint: string, params?: S, withoutErrorMessage: boolean = false): Observable<T> {
+    const httpParams = { ...params };
+    return this.http.get<T>(`${this.apiUrl}/${endpoint}`, { headers: this.headers, params: httpParams })
       .pipe(catchError(error => this.handleError(error, withoutErrorMessage)));
   }
 
@@ -55,8 +57,9 @@ export class HttpService {
    * @param endpoint
    * @param body
    */
-  create<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.post<T>(`${this.apiUrl}/${endpoint}`, body, { headers: this.headers })
+  create<T, S>(endpoint: string, body: S): Observable<T> {
+    const httpBody = body;
+    return this.http.post<T>(`${this.apiUrl}/${endpoint}`, httpBody, { headers: this.headers })
       .pipe(catchError(error => this.handleError(error)));
   }
 
@@ -65,17 +68,20 @@ export class HttpService {
    * @param endpoint
    * @param body
    */
-  update<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.put<T>(`${this.apiUrl}/${endpoint}`, body, { headers: this.headers })
+  update<T, S>(endpoint: string, body: S): Observable<T> {
+    const httpBody = body;
+    return this.http.put<T>(`${this.apiUrl}/${endpoint}`, httpBody, { headers: this.headers })
       .pipe(catchError(error => this.handleError(error)));
   }
 
   /**
    *
    * @param endpoint
+   * @param params
    */
-  delete<T>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.apiUrl}/${endpoint}`,{ headers: this.headers })
+  delete<T, S>(endpoint: string, params?: S): Observable<T> {
+    const httpParams = { ...params };
+    return this.http.delete<T>(`${this.apiUrl}/${endpoint}`,{ headers: this.headers, params: httpParams })
       .pipe(catchError(error => this.handleError(error)));
   }
 

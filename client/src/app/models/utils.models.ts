@@ -19,3 +19,8 @@ export interface WeranionDate {
   month: Month;
   eventTitle?: string
 }
+
+export interface LoginData {
+  username: string;
+  password: string;
+}

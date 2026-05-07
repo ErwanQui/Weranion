@@ -1,0 +1,34 @@
+<div class="cityContainer">
+  <div class="cityFilters">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="cityFilters.name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Duché</mat-label>
+      <mat-select [(ngModel)]="cityFilters.duchyId">
+        <mat-option [value]="null">-</mat-option>
+        @for (duchy of duchies$ | async; track duchy._id) {
+          <mat-option [value]="duchy._id">{{ duchy.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Baronnie</mat-label>
+      <mat-select [(ngModel)]="cityFilters.baronyId">
+        <mat-option [value]="null">-</mat-option>
+        @for (barony of baronies$ | async; track barony._id) {
+          <mat-option [value]="barony._id">{{ barony.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="fetchCities()">Apply Filters</button>
+  </div>
+  <div class="cityList">
+    @for (city of cities; track city._id) {
+      <h2>{{ city.name }}</h2>
+      <p>Details: {{ city.details }}</p>
+      <p>DuchyId: {{ city.duchyId }}</p>
+      <p>Id: {{ city._id }}</p>
+    }
+  </div>

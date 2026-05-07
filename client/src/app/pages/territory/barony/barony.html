@@ -1,0 +1,14 @@
+<div class="baronyContainer">
+  <div class="baronyFilters">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="baronyFilters.name" (selectionchange)="fetchBaronies()" />
+    </mat-form-field>
+  </div>
+  <div class="baronyList">
+    @for (barony of baronies$ | async; track barony._id) {
+      <h2>{{ barony.name }}</h2>
+      <p>Details: {{ barony.details }}</p>
+      <p>Id: {{ barony._id }}</p>
+    }
+  </div>
