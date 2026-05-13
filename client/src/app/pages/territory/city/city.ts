@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
-import { Barony, City, CityFilters, Duchy } from '../../../models/city.models';
+import { Barony, City, CityFilters, Duchy } from '../../../models/territory.models';
 import { TerritoryService } from '../../../services/territory.service';
 
 @Component({

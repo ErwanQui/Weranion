@@ -17,18 +17,20 @@ export interface City {
   _id: string;
   name: string;
   details: string;
-  duchyId: string;
+  duchy: Duchy;
 }
 
 export interface Duchy {
   _id: string;
   name: string;
   details: string;
-  baronyId: string;
+  barony: Barony;
+  cities: City[];
 }
 
 export interface Barony {
   _id: string;
   name: string;
   details: string;
+  duchies: Duchy[];
 }

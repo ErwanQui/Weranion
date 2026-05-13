@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { BehaviorSubject } from 'rxjs';
-import { Barony, BaronyFilters } from '../../../models/city.models';
+import { Barony, BaronyFilters } from '../../../models/territory.models';
 import { NavigationService } from '../../../services/navigation.service';
 import { TerritoryService } from '../../../services/territory.service';
 

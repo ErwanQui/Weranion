@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, Observable, shareReplay } from 'rxjs';
-import { Barony, BaronyFilters, CityFilters, Duchy, DuchyFilters } from '../models/city.models';
+import { Barony, BaronyFilters, CityFilters, Duchy, DuchyFilters } from '../models/territory.models';
 import { HttpService } from './http.service';
 
 @Injectable({

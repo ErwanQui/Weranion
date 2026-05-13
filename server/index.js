@@ -16,6 +16,7 @@ const activePlayers = require('./src/activePlayers');
 const messages = require('./src/messages');
 const history = require('./src/history');
 const territory = require('./src/territory');
+const person = require('./src/person');
 
 const { removeInactivePlayers } = require('./services/activePlayers.service');
 
@@ -59,6 +60,7 @@ app.get('/', async (req, res) => {
 app.use('/login', login);
 app.use('/history', history);
 app.use('/territory', territory);
+app.use('/person', person);
 
 app.use('/main', main);
 app.use('/food', food);

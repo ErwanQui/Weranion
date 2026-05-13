@@ -10,7 +10,7 @@ const Barony = require('../models/barony');
 router.get('/city', verifyToken, async (req, res) => {
   try {
     const { cityName } = req.query;
-    const city = await City.findOne({ name: cityName });
+    const city = await City.findOne({ name: cityName }).lean();
     res.json(city);
   } catch (error) {
     console.error('erreur update :', error);
@@ -21,8 +21,8 @@ router.get('/city', verifyToken, async (req, res) => {
 router.get('/cities', verifyToken, async (req, res) => {
   try {
     const cities = await City.find()
-      .populate('duchy_id')
-      .populate('duchy_id.barony_id');
+      .populate('duchy')
+      .populate('duchy.barony').lean();
       console.log('ok')
     res.json(cities);
   } catch (error) {
@@ -43,7 +43,7 @@ router.get('/duchies', verifyToken, async (req, res) => {
       };
     }
 
-    const duchies = await Duchy.find(filter)
+    const duchies = await Duchy.find(filter).lean();
     res.json(duchies);
   } catch (error) {
     console.error('erreur get duchies :', error);
@@ -64,7 +64,7 @@ router.get('/baronies', verifyToken, async (req, res) => {
       };
     }
 
-    const baronies = await Barony.find(filter)
+    const baronies = await Barony.find(filter).lean();
     res.json(baronies);
   } catch (error) {
     console.error('erreur get baronies :', error);
@@ -81,12 +81,17 @@ router.get('/barony', verifyToken, async (req, res) => {
     }
     // // const barony = await Barony.findById(id);
 
-    const barony = await Barony.findById(id);
-    const duchies = await Duchy.find({ barony_id: id });
-    const duchyIds = duchies.map(d => d._id);
-    const cities = await City.find({ duchy_id: { $in: duchyIds } });
+    const barony = await Barony.findById(id).lean();
+    const duchies = await Duchy.find({ barony: id }).lean();
+    const duchyIds = duchies.map(duchy => duchy._id);
+    const cities = await City.find({ duchy: { $in: duchyIds } }).lean();
 
-    res.json({ ...barony.toObject(), duchies, cities });
+    const duchiesWithCities = duchies.map(duchy => ({
+      ...duchy,
+      cities: cities.filter(city => city.duchy.toString() === duchy._id.toString())
+    }));
+
+    res.json({ ...barony, duchies: duchiesWithCities });
   } catch (error) {
     console.error(`erreur get barony`, error);
     res.status(500).send(error);

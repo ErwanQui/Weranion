@@ -1,1 +1,25 @@
-<p>barony works!</p>
+<div>
+  @if (currentBarony$ | async; as barony) {
+    <h1>{{ barony.name }}</h1>
+    <p>Details: {{ barony.details }}</p>
+    <p>Id: {{ barony._id }}</p>
+
+    @for (duchy of barony.duchies; track duchy._id) {
+      <div class="duchyItem">
+        <h2>{{ duchy.name }}</h2>
+        <p>Details: {{ duchy.details }}</p>
+        <p>Id: {{ duchy._id }}</p>
+
+        <div class="citiesContainer">
+          @for (city of duchy.cities; track city._id) {
+            <div class="cityItem">
+              <h3>{{ city.name }}</h3>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  } @else {
+    <p>Loading...</p>
+  }
+</div>

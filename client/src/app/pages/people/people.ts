@@ -1,9 +1,59 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Person, PersonFilters } from '../../models/person.models';
+import { Duchy } from '../../models/territory.models';
+import { PersonService } from '../../services/people.service';
+import { TerritoryService } from '../../services/territory.service';
 
 @Component({
   selector: 'app-people',
-  imports: [],
+  imports: [MatFormFieldModule, MatInput, FormsModule, MatIcon, MatSelectModule, CommonModule, MatCheckboxModule],
   templateUrl: './people.html',
   styleUrl: './people.css',
 })
-export class PeoplePage {}
+export class PeoplePage implements OnInit {
+
+  protected personFilters: PersonFilters = {};
+  protected duchies$!: Observable<Duchy[]>;
+
+  // protected people: any[] = [];
+  protected people$: BehaviorSubject<Person[]> = new BehaviorSubject<Person[]>([]);
+
+  /**
+   *
+   * @param territoryService
+   * @param personService
+   */
+  constructor(
+    private territoryService: TerritoryService,
+    private personService: PersonService
+  ) {
+  }
+
+  /**
+   *
+   */
+  ngOnInit(): void {
+    this.duchies$ = this.territoryService.getDuchiesObservable();
+    this.fetchPeople();
+
+  }
+
+  /**
+   *
+   */
+  fetchPeople() {
+    this.personService.getPeople(this.personFilters).subscribe(people => {
+      // this.people = people;
+      console.log(people);
+      this.people$.next(people);
+    });
+  }
+}

@@ -7,7 +7,7 @@ import { Login } from './pages/login/login';
 import { Main } from './pages/main/main';
 import { MapPage } from './pages/map/map';
 import { PeoplePage } from './pages/people/people';
-import { Barony } from './pages/territory/baronies/barony/barony';
+import { BaronyPage } from './pages/territory/baronies/barony/barony';
 import { TerritoryPage } from './pages/territory/territory';
 import { TreasuryPage } from './pages/treasury/treasury';
 import { WeaponsPage } from './pages/weapons/weapons';
@@ -55,7 +55,7 @@ export const routes: Routes = [
           },
           {
             path: 'barony/:id',
-            component: Barony
+            component: BaronyPage
           }
         ]
       },

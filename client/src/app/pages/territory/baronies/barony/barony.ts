@@ -1,14 +1,19 @@
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { Barony } from '../../../../models/territory.models';
 import { TerritoryService } from '../../../../services/territory.service';
 
 @Component({
   selector: 'app-barony',
-  imports: [],
+  imports: [AsyncPipe, CommonModule],
   templateUrl: './barony.html',
   styleUrl: './barony.css',
 })
-export class Barony implements OnInit {
+export class BaronyPage implements OnInit {
+
+  currentBarony$!: Observable<Barony>;
 
   /**
    *
@@ -26,11 +31,12 @@ export class Barony implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log('Received route params:', params);
-      this.territoryService.getBarony(params['id']).subscribe(barony => {
-        console.log('Received barony:', barony);
-      });
-      // const id = params['id'];
-      // console.log('Barony ID from route:', id);
+      this.currentBarony$ = this.territoryService.getBarony(params['id']).pipe(
+        tap(data => console.log(data))
+      );
+    // });
+    // const id = params['id'];
+    // console.log('Barony ID from route:', id);
     });
   }
 }
