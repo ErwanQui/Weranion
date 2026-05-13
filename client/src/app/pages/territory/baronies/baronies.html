@@ -1,0 +1,23 @@
+<div class="baronyContainer">
+  <div class="baronyHeader">
+    <div class="baronyFilters">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="baronyFilters.name" (selectionchange)="fetchBaronies()" />
+      </mat-form-field>
+    </div>
+    <div class="">
+      <button mat-raised-button color="primary" (click)="fetchBaronies()">Ajouter une baronnie</button>
+    </div>
+  </div>
+  <div class="baronyList">
+    @for (item of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,33,55]; track $index) {
+      @for (barony of baronies$ | async; track barony._id) {
+        <diV class="baronyItem" (click)="navigateToBarony(barony._id)">
+          <h2>{{ barony.name }}</h2>
+          <p>Details: {{ barony.details }}</p>
+          <p>Id: {{ barony._id }}</p>
+        </diV>
+      }
+    }
+  </div>

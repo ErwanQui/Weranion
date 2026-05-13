@@ -83,7 +83,6 @@ export class TerritoryService {
     return this.baronies$;
   }
 
-
   /**
    *
    * @param filters
@@ -106,5 +105,15 @@ export class TerritoryService {
    */
   getBaronies(filters: BaronyFilters): Observable<any[]> {
     return this.httpService.get<any[], BaronyFilters>('territory/baronies', filters);
+  }
+
+  /** Get the details of a specific barony by its id.
+   *
+   * @param id The id
+   * @returns The barony details as an Observable
+   */
+  getBarony(id: string): Observable<Barony> {
+    console.log('go', id);
+    return this.httpService.get<Barony, { id: string }>('territory/barony', { id }, true);
   }
 }

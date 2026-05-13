@@ -1,0 +1,23 @@
+.territoryPage {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+
+  mat-tab-group {
+    flex: 1;
+    overflow: hidden;
+
+    ::ng-deep {
+      .mat-mdc-tab-body-wrapper {
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .mat-mdc-tab-body-content {
+        height: 100%;
+        overflow: hidden;
+      }
+    }
+  }
+}

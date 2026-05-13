@@ -13,11 +13,16 @@ body {
   font-family: 'MedievalSharp', serif;
   letter-spacing: 0.1em;
 
+  * {
+    box-sizing: border-box;
+  }
+  
   router-outlet + * {
     height: 100%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    flex: 1;
   }
 }
 
