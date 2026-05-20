@@ -33,7 +33,8 @@ router.get('/cities', verifyToken, async (req, res) => {
 
 router.get('/duchies', verifyToken, async (req, res) => {
   try {
-    const { name } = req.query;
+    console.log(req.query)
+    const { name, baronyId } = req.query;
     
     const filter = {};
     if (name) {
@@ -41,6 +42,9 @@ router.get('/duchies', verifyToken, async (req, res) => {
         $regex: name,
         $options: 'i'
       };
+    }
+    if (baronyId && mongoose.Types.ObjectId.isValid(baronyId)) {
+      filter.barony = baronyId;
     }
 
     const duchies = await Duchy.find(filter).lean();

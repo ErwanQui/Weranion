@@ -1,0 +1,31 @@
+<div class="duchyContainer">
+  <div class="duchyHeader">
+    <div class="duchyFilters">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="duchyFilters.name" (selectionchange)="fetchDuchies()"/>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Baronnie</mat-label>
+      <mat-select [(ngModel)]="duchyFilters.baronyId" (selectionChange)="fetchDuchies()">
+        <mat-option [value]="null">-</mat-option>
+        @for (barony of baronies$ | async; track barony._id) {
+          <mat-option [value]="barony._id">{{ barony.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <div class="">
+      <button mat-raised-button color="primary" (click)="fetchDuchies()">Ajouter un duché</button>
+      <!-- <button mat-raised-button color="primary" (click)="addDuchy()">Ajouter un duché</button> -->
+    </div>
+  </div>
+  <div class="duchyList">
+    @for (duchy of duchies$ | async; track duchy._id) {
+      <diV class="duchyItem" (click)="navigateToDuchy(duchy._id)">
+        <h2>{{ duchy.name }}</h2>
+        <p>Details: {{ duchy.details }}</p>
+        <p>Id: {{ duchy._id }}</p>
+      </diV>
+    }
+  </div>

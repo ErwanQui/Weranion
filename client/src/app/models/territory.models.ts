@@ -1,3 +1,5 @@
+import { Id } from './utils.models';
+
 export interface CityFilters {
   name?: string;
   duchyId?: string;
@@ -28,9 +30,10 @@ export interface Duchy {
   cities: City[];
 }
 
-export interface Barony {
-  _id: string;
+export interface BaronySkeleton {
   name: string;
   details: string;
   duchies: Duchy[];
 }
+
+export interface Barony extends BaronySkeleton, Id {}

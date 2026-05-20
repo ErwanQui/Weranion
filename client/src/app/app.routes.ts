@@ -8,6 +8,7 @@ import { Main } from './pages/main/main';
 import { MapPage } from './pages/map/map';
 import { PeoplePage } from './pages/people/people';
 import { BaronyPage } from './pages/territory/baronies/barony/barony';
+import { DuchyPage } from './pages/territory/duchies/duchy/duchy';
 import { TerritoryPage } from './pages/territory/territory';
 import { TreasuryPage } from './pages/treasury/treasury';
 import { WeaponsPage } from './pages/weapons/weapons';
@@ -54,8 +55,16 @@ export const routes: Routes = [
             component: TerritoryPage
           },
           {
+            path: 'barony',
+            component: BaronyPage
+          },
+          {
             path: 'barony/:id',
             component: BaronyPage
+          },
+          {
+            path: 'duchy/:id',
+            component: DuchyPage
           }
         ]
       },

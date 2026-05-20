@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './duchy.html',
   styleUrl: './duchy.css',
 })
-export class DuchyComponent {}
+export class DuchyPage {}

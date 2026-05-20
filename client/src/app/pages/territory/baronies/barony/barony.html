@@ -1,10 +1,10 @@
 <div>
-  @if (currentBarony$ | async; as barony) {
-    <h1>{{ barony.name }}</h1>
-    <p>Details: {{ barony.details }}</p>
-    <p>Id: {{ barony._id }}</p>
+  @if (currentBarony()) {
+    <h1>{{ currentBarony()!.name }}</h1>
+    <p>Details: {{ currentBarony()!.details }}</p>
+    <!-- <p>Id: {{ currentBarony()?._id }}</p> -->
 
-    @for (duchy of barony.duchies; track duchy._id) {
+    @for (duchy of currentBarony()!.duchies; track duchy._id) {
       <div class="duchyItem">
         <h2>{{ duchy.name }}</h2>
         <p>Details: {{ duchy.details }}</p>

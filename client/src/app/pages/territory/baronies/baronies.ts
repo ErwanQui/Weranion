@@ -48,4 +48,11 @@ export class BaroniesComponent {
   navigateToBarony(id: string): void {
     this.navigationService.navigateTo(`app/territories/barony/${id}`);
   }
+
+  /**
+   *
+   */
+  addBarony() {
+    this.navigationService.navigateTo('app/territories/barony');
+  }
 }
