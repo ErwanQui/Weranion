@@ -1,7 +1,7 @@
 <div class="baronyContainer">
   <div class="baronyHeader">
     <div class="baronyFilters">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="rowAlign">
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="baronyFilters.name" (selectionchange)="fetchBaronies()" />
       </mat-form-field>

@@ -1,12 +1,12 @@
 <div class="duchyContainer">
   <div class="duchyHeader">
     <div class="duchyFilters">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="rowAlign">
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="duchyFilters.name" (selectionchange)="fetchDuchies()"/>
       </mat-form-field>
     </div>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="rowAlign">
       <mat-label>Baronnie</mat-label>
       <mat-select [(ngModel)]="duchyFilters.baronyId" (selectionChange)="fetchDuchies()">
         <mat-option [value]="null">-</mat-option>

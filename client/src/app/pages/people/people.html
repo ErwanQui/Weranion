@@ -5,11 +5,11 @@
     </div>
     <div class="personHeader">
       <div class="personFilters">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="rowAlign">
           <mat-label>Name</mat-label>
           <input matInput [(ngModel)]="personFilters.name" (selectionchange)="fetchPeople()" />
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="rowAlign">
           <mat-label>Duché</mat-label>
           <mat-select [(ngModel)]="personFilters.duchyId" (ngModelChange)="fetchPeople()">
             <mat-option [value]="null">-</mat-option>

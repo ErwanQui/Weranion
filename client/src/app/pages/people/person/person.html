@@ -1,42 +1,83 @@
 <div class="personContainer">
   @if (currentPerson()) {
-
-    @if (!editMode) {
       <div class="personHeader">
         <div>
-          return
+          <mat-icon (click)="return()" [ngClass]="{ isDisabled: !hasNavigationHistory() }">
+            keyboard_return          
+          </mat-icon>
         </div>
         <div class="personName">
-          {{ currentPerson()!.name }}
+          @if (editMode) {
+            Modification de {{ currentPerson()!.name }}
+          } @else {
+            {{ currentPerson()!.name }}
+          }
         </div>
         <div>
-          modify
+          <mat-icon (click)="switchEditMode()">
+            edit          
+          </mat-icon>
         </div>
       </div>
+    @if (!editMode) {
       <div class="mainDetails">
-        <div class="b">
-          Statut: {{ currentPerson()!.alive ? 'Vivant' : 'Décédé' }}
-        </div>
-        <div class="ageContainer">
-          {{ currentPerson()!.age }} ans
-        </div>
-        <div class="a">
+        <div>
           Duché de {{ currentPerson()!.duchy?.name }}
         </div>
+        <div>
+          @if (currentPerson()!.alive) {
+            Vivant
+          } @else {
+            <mat-icon fontSet="material-symbols-outlined">skull</mat-icon>
+          }
+        </div>
+        <div>
+          {{ currentPerson()!.age }} ans
+        </div>
       </div>
-      <div>
+      <div class="personDetails">
         {{ currentPerson()!.details }}
       </div>
     } @else {
+      <div class="personEditForm">
+        <div class="mainEdit">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom</mat-label>
+            <input matInput [ngModel]="currentPerson().name"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Âge</mat-label>
+            <input matInput [ngModel]="currentPerson().age"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Vivant</mat-label>
+            <input matInput [ngModel]="currentPerson().alive"/>
+          </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Duché</mat-label>
-        <mat-select [ngModel]="currentPerson().duchy" [compareWith]="compareDuchy">
-          @for (duchy of duchies$ | async; track duchy._id) {
-            <mat-option [value]="duchy">{{ duchy.name }}</mat-option>
+          <mat-form-field appearance="outline">
+            <mat-label>Duché</mat-label>
+            <mat-select [ngModel]="currentPerson().duchy" [compareWith]="compareDuchy">
+              @for (duchy of duchies$ | async; track duchy._id) {
+                <mat-option [value]="duchy">{{ duchy.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="personEditDetails">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom</mat-label>
+            <textarea matInput [ngModel]="currentPerson().details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="actionButtons">
+          <button mat-raised-button color="error" (click)="switchEditMode()">Annuler</button>
+          @if (!personId) {
+            <button mat-raised-button color="primary" (click)="createPerson()">Créer</button>
+          } @else {
+            <button mat-raised-button color="primary" (click)="updatePerson()">Valider</button>
           }
-        </mat-select>
-      </mat-form-field>
+        </div>
+      </div>
     }
   } @else {
     <p>Loading...</p>

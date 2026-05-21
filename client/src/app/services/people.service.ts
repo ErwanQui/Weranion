@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, Observable, shareReplay } from 'rxjs';
-import { Person, PersonFilters } from '../models/person.models';
+import { Person, PersonFilters, PersonSkeleton } from '../models/person.models';
 import { Id } from '../models/utils.models';
 import { HttpService } from './http.service';
 
@@ -67,4 +67,20 @@ export class PersonService {
   getPerson(_id: string): Observable<Person> {
     return this.httpService.get<Person, Id>('person', { _id });
   }
+  
+  /**
+   *
+   * @param newPerson
+   */
+  createPerson(newPerson: PersonSkeleton): Observable<Person> {
+    return this.httpService.create<Person, PersonSkeleton>('person', newPerson);
+  };
+
+  /**
+   *
+   * @param personToUpdate
+   */
+  updatePerson(personToUpdate: Person): Observable<Person> {
+    return this.httpService.update<Person, Person>('person', personToUpdate);
+  };
 }
