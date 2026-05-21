@@ -1,26 +1,34 @@
 <div class="peopleContainer">
   <div class="peopleHeader">
-    <div class="personFilters">
-      <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="personFilters.name" (selectionchange)="fetchPeople()" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Duché</mat-label>
-        <mat-select [(ngModel)]="personFilters.duchyId" (ngModelChange)="fetchPeople()">
-          <mat-option [value]="null">-</mat-option>
-          @for (duchy of duchies$ | async; track duchy._id) {
-            <mat-option [value]="duchy._id">{{ duchy.name }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-checkbox [(ngModel)]="personFilters.alive" (change)="fetchPeople()">Vivant</mat-checkbox>
+    <div class="peopleTitle">
+      Habitants de Weranion
+    </div>
+    <div class="personHeader">
+      <div class="personFilters">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="personFilters.name" (selectionchange)="fetchPeople()" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Duché</mat-label>
+          <mat-select [(ngModel)]="personFilters.duchyId" (ngModelChange)="fetchPeople()">
+            <mat-option [value]="null">-</mat-option>
+            @for (duchy of duchies$ | async; track duchy._id) {
+              <mat-option [value]="duchy._id">{{ duchy.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="personFilters.alive" (change)="fetchPeople()">Vivant</mat-checkbox>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="addPerson()">Ajouter une personne</button>
+      </div>
     </div>
   </div>
   <div class="peopleTable">
     <div class="peopleList">
       @for (person of people$ | async; track person._id) {
-        <diV class="personItem">
+        <diV class="personItem" (click)="navigateToPerson(person._id)">
           <div class="deadIcon">
             @if (!person.alive) {
               <mat-icon fontSet="material-symbols-outlined">skull</mat-icon>

@@ -19,7 +19,7 @@ router.get('/people', verifyToken, async (req, res) => {
     if (mongoose.Types.ObjectId.isValid(duchyId)) {
       filters.duchy = duchyId;
     }
-    if (alive) {
+    if (alive && alive !== 'false') {
       filters.alive = alive;
     }
 

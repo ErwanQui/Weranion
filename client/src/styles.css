@@ -24,13 +24,17 @@ body {
     overflow: hidden;
     flex: 1;
   }
+
+  mat-form-field {
+    flex-direction: row!important;
+  }
 }
 
 .snackbarFail {
   .mdc-snackbar__surface {
     background-color: var(--md-sys-color-error) !important;
     color: var(--md-sys-color-on-error) !important;
-}
+  }
 
   .mdc-snackbar__label {
     color: var(--md-sys-color-on-error) !important;

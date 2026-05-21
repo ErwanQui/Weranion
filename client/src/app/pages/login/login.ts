@@ -24,7 +24,7 @@ export class Login {
   /** Constructor of Login
    *
    * @param authService Used to authenticate
-   * @param navigationService
+   * @param navigationService Handle the navigation
    */
   constructor(
     private authService: AuthService,

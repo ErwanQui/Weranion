@@ -24,8 +24,8 @@ export class DuchiesComponent {
     
   /**
    *
-   * @param territoryService
-   * @param navigationService
+   * @param territoryService Handle territories actions
+   * @param navigationService Handle the navigation
    */
   constructor(
         private territoryService: TerritoryService,

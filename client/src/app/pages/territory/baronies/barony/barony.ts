@@ -24,7 +24,7 @@ export class BaronyPage implements OnInit {
   /**
    *
    * @param route
-   * @param territoryService
+   * @param territoryService Handle territories actions
    */
   constructor(
     private route: ActivatedRoute,

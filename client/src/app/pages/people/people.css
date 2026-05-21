@@ -3,11 +3,33 @@
   flex-direction: column;
   padding: 10px;
   overflow: hidden;
+  gap: 10px;
 
-  .personFilters {
+  .peopleHeader {
+    gap: 20px;
     display: flex;
-    gap: 10px;
-    align-items: center;
+    flex-direction: column;
+
+    .peopleTitle {
+      font-size: 34px;
+      font-weight: bold;
+      height: 34px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+    }
+
+    .personHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .personFilters {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    }
   }
 
   .peopleTable {

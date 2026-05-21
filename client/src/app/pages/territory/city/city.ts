@@ -24,7 +24,7 @@ export class CityComponent implements OnInit {
 
   /**
    *
-   * @param territoryService
+   * @param territoryService Handle territories actions
    */
   constructor(
     private territoryService: TerritoryService

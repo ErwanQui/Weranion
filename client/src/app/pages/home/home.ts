@@ -11,7 +11,7 @@ export class HomePage {
 
   /**
    *
-   * @param navigationService
+   * @param navigationService Handle the navigation
    */
   constructor(
     private navigationService: NavigationService
