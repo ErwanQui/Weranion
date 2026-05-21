@@ -1,20 +1,20 @@
 <mat-toolbar class="toolbarContainer">
-  <button mat-icon-button (click)="navigateTo('app/home')">
+  <button mat-icon-button (click)="navigateTo('app/home')" [disabled]="true">
     <mat-icon>home</mat-icon>
   </button>
-  <button mat-icon-button (click)="navigateTo('app/map')">
+  <button mat-icon-button (click)="navigateTo('app/map')" [disabled]="true">
     <mat-icon>map</mat-icon>
   </button>
   <button mat-icon-button (click)="navigateTo('app/people')">
     <mat-icon>people</mat-icon>
   </button>
-  <button mat-icon-button (click)="navigateTo('app/treasury')">
+  <button mat-icon-button (click)="navigateTo('app/treasury')" [disabled]="true">
     <mat-icon fontSet="material-symbols-outlined">crown</mat-icon>
   </button>
-  <button mat-icon-button (click)="navigateTo('app/food')">
+  <button mat-icon-button (click)="navigateTo('app/food')" [disabled]="true">
     <mat-icon>lunch_dining</mat-icon>
   </button>
-  <button mat-icon-button (click)="navigateTo('app/weapons')">
+  <button mat-icon-button (click)="navigateTo('app/weapons')" [disabled]="true">
     <mat-icon fontSet="material-symbols-outlined">swords</mat-icon>
   </button>
   <button mat-icon-button (click)="navigateTo('app/territories')">

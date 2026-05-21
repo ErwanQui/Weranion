@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, Observable, shareReplay } from 'rxjs';
 import { Barony, BaronyFilters, CityFilters, Duchy, DuchyFilters } from '../models/territory.models';
+import { Id } from '../models/utils.models';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -109,11 +110,10 @@ export class TerritoryService {
 
   /** Get the details of a specific barony by its id.
    *
-   * @param id The id
+   * @param _id The id
    * @returns The barony details as an Observable
    */
-  getBarony(id: string): Observable<Barony> {
-    console.log('go', id);
-    return this.httpService.get<Barony, { id: string }>('territory/barony', { id }, true);
+  getBarony(_id: string): Observable<Barony> {
+    return this.httpService.get<Barony, Id>('territory/barony', { _id }, true);
   }
 }

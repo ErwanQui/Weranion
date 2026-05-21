@@ -13,7 +13,7 @@ router.get('/city', verifyToken, async (req, res) => {
     const city = await City.findOne({ name: cityName }).lean();
     res.json(city);
   } catch (error) {
-    console.error('erreur update :', error);
+    console.error('erreur get :', error);
     res.status(500).send(error);
   }
 });
@@ -26,7 +26,7 @@ router.get('/cities', verifyToken, async (req, res) => {
       console.log('ok')
     res.json(cities);
   } catch (error) {
-    console.error('erreur update :', error);
+    console.error('erreur get :', error);
     res.status(500).send(error);
   }
 });
@@ -78,15 +78,14 @@ router.get('/baronies', verifyToken, async (req, res) => {
 
 router.get('/barony', verifyToken, async (req, res) => {
   try {
-    const { id } = req.query;
+    const { _id } = req.query;
     
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
       return res.status(404).json({ message: 'Baronnie non trouvée' });
     }
-    // // const barony = await Barony.findById(id);
 
-    const barony = await Barony.findById(id).lean();
-    const duchies = await Duchy.find({ barony: id }).lean();
+    const barony = await Barony.findById(_id).lean();
+    const duchies = await Duchy.find({ barony: _id }).lean();
     const duchyIds = duchies.map(duchy => duchy._id);
     const cities = await City.find({ duchy: { $in: duchyIds } }).lean();
 

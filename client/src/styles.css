@@ -25,8 +25,12 @@ body {
     flex: 1;
   }
 
-  mat-form-field {
+  mat-form-field:not(mat-dialog-content mat-form-field) {
     flex-direction: row!important;
+  }
+
+  mat-dialog-content mat-form-field {
+    flex-direction: column!important;
   }
 }
 

@@ -45,7 +45,7 @@ export class BaronyPage implements OnInit {
           console.log(barony);
           this.currentBarony.set(barony);
         })
-      );
+      ).subscribe();
     } else {
       this.currentBarony.set({
         name: '',

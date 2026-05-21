@@ -1,1 +1,44 @@
-<p>person works!</p>
+<div class="personContainer">
+  @if (currentPerson()) {
+
+    @if (!editMode) {
+      <div class="personHeader">
+        <div>
+          return
+        </div>
+        <div class="personName">
+          {{ currentPerson()!.name }}
+        </div>
+        <div>
+          modify
+        </div>
+      </div>
+      <div class="mainDetails">
+        <div class="b">
+          Statut: {{ currentPerson()!.alive ? 'Vivant' : 'Décédé' }}
+        </div>
+        <div class="ageContainer">
+          {{ currentPerson()!.age }} ans
+        </div>
+        <div class="a">
+          Duché de {{ currentPerson()!.duchy?.name }}
+        </div>
+      </div>
+      <div>
+        {{ currentPerson()!.details }}
+      </div>
+    } @else {
+
+      <mat-form-field appearance="outline">
+        <mat-label>Duché</mat-label>
+        <mat-select [ngModel]="currentPerson().duchy" [compareWith]="compareDuchy">
+          @for (duchy of duchies$ | async; track duchy._id) {
+            <mat-option [value]="duchy">{{ duchy.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+  } @else {
+    <p>Loading...</p>
+  }
+</div>

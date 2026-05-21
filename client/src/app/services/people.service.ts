@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, Observable, shareReplay } from 'rxjs';
 import { Person, PersonFilters } from '../models/person.models';
+import { Id } from '../models/utils.models';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -56,5 +57,14 @@ export class PersonService {
    */
   getPeople(filters: PersonFilters): Observable<Person[]> {
     return this.httpService.get<Person[], PersonFilters>('person/people', filters);
+  }
+
+  /** Get a person details
+   *
+   * @param _id The id
+   * @returns The person
+   */
+  getPerson(_id: string): Observable<Person> {
+    return this.httpService.get<Person, Id>('person', { _id });
   }
 }

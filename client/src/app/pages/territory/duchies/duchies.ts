@@ -28,8 +28,8 @@ export class DuchiesComponent {
    * @param navigationService Handle the navigation
    */
   constructor(
-        private territoryService: TerritoryService,
-        private navigationService: NavigationService
+    private territoryService: TerritoryService,
+    private navigationService: NavigationService
   ) {
     this.baronies$ = this.territoryService.getBaroniesObservable();
     
