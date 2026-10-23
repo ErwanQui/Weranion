@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const z = require('zod')
 
 const BaronySchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -8,4 +9,9 @@ const BaronySchema = new mongoose.Schema({
 
 const Barony = mongoose.model('Barony', BaronySchema, 'baronies');
 
-module.exports = Barony;
+const BaronyZodeSchema = z.object({
+  name: z.string().min(1),
+  details: z.string().optional()
+});
+
+module.exports = { Barony, BaronyZodeSchema };

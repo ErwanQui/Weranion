@@ -60,7 +60,7 @@ export class HttpService {
   create<T, S>(endpoint: string, body: S): Observable<T> {
     const httpBody = body;
     return this.http.post<T>(`${this.apiUrl}/${endpoint}`, httpBody, { headers: this.headers })
-      .pipe(catchError(error => this.handleError(error)));
+      .pipe(catchError(error => this.handleError(error.error)));
   }
 
   /**

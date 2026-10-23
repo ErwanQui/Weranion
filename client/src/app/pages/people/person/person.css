@@ -1,10 +1,13 @@
 .personContainer {
-  display: flex;
-  flex-direction: column;
   padding: 10px;
-  overflow: hidden;
-  gap: 10px;
-  flex: 1;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 10px;
+    flex: 1;
+  }
 
   .personHeader {
     font-size: 34px;

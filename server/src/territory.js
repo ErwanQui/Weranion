@@ -4,8 +4,8 @@ const { verifyToken } = require('../utils/authentification');
 const mongoose = require('mongoose');
 
 const City = require('../models/city');
-const Duchy = require('../models/duchy');
-const Barony = require('../models/barony');
+const { Duchy } = require('../models/duchy');
+const { Barony } = require('../models/barony');
 
 router.get('/city', verifyToken, async (req, res) => {
   try {

@@ -15,4 +15,6 @@ export interface PersonSkeleton {
   alive: boolean;
 }
 
+export const PERSON_KEYS: (keyof PersonSkeleton)[] = ['name', 'age', 'duchy', 'details', 'alive'];
+
 export interface Person extends PersonSkeleton, Id {}

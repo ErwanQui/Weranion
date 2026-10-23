@@ -1,6 +1,14 @@
 const jwt = require('jsonwebtoken');
 const Data = require('./../models/data');
 
+/** Function called immediately when assigning an endpoint
+ * Used to check user's endpoint
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 function verifyToken(req, res, next) {
   const token = req.header('Authorization');
   if (!token) {

@@ -3,6 +3,7 @@ import { BehaviorSubject, distinctUntilChanged, filter, Observable, shareReplay 
 import { Person, PersonFilters, PersonSkeleton } from '../models/person.models';
 import { Id } from '../models/utils.models';
 import { HttpService } from './http.service';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,11 @@ export class PersonService {
   /**
    *
    * @param httpService
+   * @param utilsService
    */
   constructor(
-    private httpService: HttpService
+    private httpService: HttpService,
+    private utilsService: UtilsService
   ) {
     this.people$ = this.peopleSubject.asObservable().pipe(
       filter(people => !!people),
@@ -73,7 +76,8 @@ export class PersonService {
    * @param newPerson
    */
   createPerson(newPerson: PersonSkeleton): Observable<Person> {
-    return this.httpService.create<Person, PersonSkeleton>('person', newPerson);
+    console.log(5, newPerson);
+    return this.httpService.create<Person, PersonSkeleton>('person', this.utilsService.toPayload(newPerson));
   };
 
   /**
@@ -81,6 +85,7 @@ export class PersonService {
    * @param personToUpdate
    */
   updatePerson(personToUpdate: Person): Observable<Person> {
-    return this.httpService.update<Person, Person>('person', personToUpdate);
+    console.log(6, personToUpdate);
+    return this.httpService.update<Person, Person>('person', this.utilsService.toPayload(personToUpdate));
   };
 }

@@ -1,4 +1,11 @@
 import { ComponentType } from '@angular/cdk/overlay';
+import { FormControl, ValidatorFn } from '@angular/forms';
+
+export type ControlsOf<T> = {
+  [K in keyof T]: FormControl<T[K]>;
+};
+
+export type ValidatorsOf<T> = Partial<Record<keyof T, ValidatorFn[]>>;
 
 export interface SnackBarParameters {
   message: string;
