@@ -56,6 +56,8 @@ app.get('/', async (req, res) => {
   res.json('hello');
 });
 
+app.get('/health', (req, res) => res.json({ ok: true }));
+
 // Add api files
 app.use('/login', login);
 app.use('/history', history);
