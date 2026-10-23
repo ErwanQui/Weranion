@@ -1,12 +1,16 @@
 import { Routes } from '@angular/router';
 import { LoginGuard } from './guards/login.guard';
-import { CityPage } from './pages/city/city';
 import { FoodPage } from './pages/food/food';
 import { HistoryPage } from './pages/history/history';
 import { HomePage } from './pages/home/home';
 import { Login } from './pages/login/login';
+import { Main } from './pages/main/main';
 import { MapPage } from './pages/map/map';
 import { PeoplePage } from './pages/people/people';
+import { PersonPage } from './pages/people/person/person';
+import { BaronyPage } from './pages/territory/baronies/barony/barony';
+import { DuchyPage } from './pages/territory/duchies/duchy/duchy';
+import { TerritoryPage } from './pages/territory/territory';
 import { TreasuryPage } from './pages/treasury/treasury';
 import { WeaponsPage } from './pages/weapons/weapons';
 
@@ -17,6 +21,7 @@ export const routes: Routes = [
   },
   {
     path: 'app',
+    component: Main,
     canActivateChild: [LoginGuard],
     children: [
       {
@@ -29,7 +34,20 @@ export const routes: Routes = [
       },
       {
         path: 'people',
-        component: PeoplePage
+        children: [
+          {
+            path: '',
+            component: PeoplePage
+          },
+          {
+            path: 'person',
+            component: PersonPage
+          },
+          {
+            path: 'person/:id',
+            component: PersonPage
+          }
+        ]
       },
       {
         path: 'treasury',
@@ -44,8 +62,25 @@ export const routes: Routes = [
         component: WeaponsPage
       },
       {
-        path: 'city',
-        component: CityPage
+        path: 'territories',
+        children: [
+          {
+            path: '',
+            component: TerritoryPage
+          },
+          {
+            path: 'barony',
+            component: BaronyPage
+          },
+          {
+            path: 'barony/:id',
+            component: BaronyPage
+          },
+          {
+            path: 'duchy/:id',
+            component: DuchyPage
+          }
+        ]
       },
       {
         path: 'history',

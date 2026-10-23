@@ -1,0 +1,25 @@
+<div>
+  @if (currentBarony()) {
+    <h1>{{ currentBarony()!.name }}</h1>
+    <p>Details: {{ currentBarony()!.details }}</p>
+    <!-- <p>Id: {{ currentBarony()?._id }}</p> -->
+
+    @for (duchy of currentBarony()!.duchies; track duchy._id) {
+      <div class="duchyItem">
+        <h2>{{ duchy.name }}</h2>
+        <p>Details: {{ duchy.details }}</p>
+        <p>Id: {{ duchy._id }}</p>
+
+        <div class="citiesContainer">
+          @for (city of duchy.cities; track city._id) {
+            <div class="cityItem">
+              <h3>{{ city.name }}</h3>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  } @else {
+    <p>Loading...</p>
+  }
+</div>

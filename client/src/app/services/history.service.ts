@@ -21,7 +21,7 @@ export class HistoryService {
    *
    */
   getHistories(): Observable<WeranionHistory[]> {
-    return this.httpService.get<WeranionHistory[]>('history');
+    return this.httpService.get<WeranionHistory[], never>('history');
   }
 
   /**
@@ -29,7 +29,7 @@ export class HistoryService {
    * @param history
    */
   createHistory(history: WeranionHistory) {
-    return this.httpService.create<WeranionHistory[]>('history', { history });
+    return this.httpService.create<WeranionHistory[], WeranionHistory>('history', history);
   };
 
   /**
@@ -37,6 +37,6 @@ export class HistoryService {
    * @param history
    */
   updateHistory(history: WeranionHistory): Observable<WeranionHistory> {
-    return this.httpService.update<WeranionHistory>('history', { history });
+    return this.httpService.update<WeranionHistory, WeranionHistory>('history', history);
   };
 }

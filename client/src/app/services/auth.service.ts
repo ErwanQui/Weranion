@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { LoginData } from '../models/utils.models';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class AuthService {
    * @param password
    */
   login(username: string, password: string): Observable<string> {
-    return this.httpService.create<string>('login/connect', 
+    return this.httpService.create<string, LoginData>('login/connect', 
       { username, password }
     ).pipe(tap(token => {
       window.localStorage.setItem('token', token);
@@ -33,6 +34,6 @@ export class AuthService {
    *
    */
   verifyAccess() {
-    return this.httpService.get<string>('login/verify', true);
+    return this.httpService.get<string, never>('login/verify', undefined, true);
   }
 }

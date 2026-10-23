@@ -8,6 +8,7 @@
     cursor: pointer;
     border-radius: 50px;
     padding: 4px;
+    box-sizing: content-box;
 
     &:hover {
       background-color: var(--md-sys-color-inverse-primary);

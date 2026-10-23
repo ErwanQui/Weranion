@@ -1,0 +1,8 @@
+.citiesContainer {
+  display: flex;
+
+  .cityItem {
+    background-color: aquamarine;
+    border-radius: 50px;
+  }
+}
