@@ -56,7 +56,14 @@ app.get('/', async (req, res) => {
   res.json('hello');
 });
 
-app.get('/health', (req, res) => res.json({ ok: true }));
+app.get('/health/db', async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.json({ db: 'ok', state: mongoose.connection.readyState });
+  } catch (e) {
+    res.status(500).json({ db: 'ko', error: e.message });
+  }
+});
 
 // Add api files
 app.use('/login', login);
