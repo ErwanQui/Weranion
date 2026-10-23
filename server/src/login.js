@@ -11,49 +11,54 @@ const { verifyToken, isOutdatedToken } = require('../utils/authentification');
 // let payload = {};
 
 router.post('/connect', async (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) { 
-    res.status(404).send('Données incorrectes.');
-    return;
-  }
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) { 
+      res.status(404).send('Données incorrectes.');
+      return;
+    }
 
-  const player = await Player.findOne({username: username.toString()}).populate('pnj');
-  if (player) {
-    bcrypt.compare(password, player.password, async (err, result) => {
-      if (result) {
-        // const data = await Data.findOne({});
-        // console.log(data);
-        if(player.mj) {
-          // payload = {
-          //   mj: true,
-          // };
+    const player = await Player.findOne({username: username.toString()}).populate('pnj');
+    if (player) {
+      bcrypt.compare(password, player.password, async (err, result) => {
+        if (result) {
+          // const data = await Data.findOne({});
+          // console.log(data);
+          if(player.mj) {
+            // payload = {
+            //   mj: true,
+            // };
+          } else {
+            // payload = {
+            //   player: {
+            //     id: player._id,
+            //     firstname: player.pnj.firstname,
+            //     lastname: player.pnj.lastname,
+            //     mj: false
+            //   },
+            //   data: {
+            //     currentCrown: data.currentCrown,
+            //     year: data.currentYear,
+            //     month: data.currentMonth
+            //   }
+            // };
+
+            addPlayer(player._id, player.pnj.firstname, player.pnj.lastname);
+          }
+    
+          const token = jwt.sign({ player }, process.env.JWT_SECRET, { expiresIn: '24h'});
+          res.json(token);
         } else {
-          // payload = {
-          //   player: {
-          //     id: player._id,
-          //     firstname: player.pnj.firstname,
-          //     lastname: player.pnj.lastname,
-          //     mj: false
-          //   },
-          //   data: {
-          //     currentCrown: data.currentCrown,
-          //     year: data.currentYear,
-          //     month: data.currentMonth
-          //   }
-          // };
-
-          addPlayer(player._id, player.pnj.firstname, player.pnj.lastname);
+          res.status(404).send('Le mot de passe est incorrect.');
         }
-  
-        const token = jwt.sign({ player }, process.env.JWT_SECRET, { expiresIn: '24h'});
-        res.json(token);
-      } else {
-        res.status(404).send('Le mot de passe est incorrect.');
-      }
-    });
-  } else {
-    res.status(404).send(`L'utilisateur n'existe pas.`);
-    return;
+      });
+    } else {
+      res.status(404).send(`L'utilisateur n'existe pas.`);
+      return;
+    }
+  } catch (error) {
+    console.error('erreur login :', error);
+    res.status(500).send(error);
   }
 });
 
