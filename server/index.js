@@ -37,13 +37,18 @@ app.use(
 // };
 
 // Établir la connexion à la base de données
-mongoose.connect(process.env.MONGODB_URL)
-  .then(() => {
-    console.log('Connexion à la base de données établie');
-  })
-  .catch((error) => {
-    console.error('Erreur de connexion à la base de données :', error);
-  });
+const connection = mongoose.connect(process.env.MONGODB_URL, {
+  serverSelectionTimeoutMS: 10000,
+});
+
+app.use(async (req, res, next) => {
+  try {
+    await connection;
+    next();
+  } catch (e) {
+    res.status(500).json({ message: 'DB indisponible', error: e.message });
+  }
+});
 
 app.get('/', async (req, res) => {
   // const test = await FoodProduction.find().populate('city').populate('name');
@@ -83,4 +88,6 @@ app.use('/messages', messages);
 
 setInterval(removeInactivePlayers, 100000);
 
-app.listen(4000, () => 'Server is running on port 4000');
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(4000, () => console.log('Server is running on port 4000'));
+}
