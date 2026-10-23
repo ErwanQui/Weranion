@@ -20,45 +20,44 @@ router.post('/connect', async (req, res) => {
 
     const player = await Player.findOne({username: username.toString()}).populate('pnj');
     if (player) {
-      bcrypt.compare(password, player.password, async (err, result) => {
-        if (result) {
-          // const data = await Data.findOne({});
-          // console.log(data);
-          if(player.mj) {
-            // payload = {
-            //   mj: true,
-            // };
-          } else {
-            // payload = {
-            //   player: {
-            //     id: player._id,
-            //     firstname: player.pnj.firstname,
-            //     lastname: player.pnj.lastname,
-            //     mj: false
-            //   },
-            //   data: {
-            //     currentCrown: data.currentCrown,
-            //     year: data.currentYear,
-            //     month: data.currentMonth
-            //   }
-            // };
-
-            addPlayer(player._id, player.pnj.firstname, player.pnj.lastname);
-          }
-    
-          const token = jwt.sign({ player }, process.env.JWT_SECRET, { expiresIn: '24h'});
-          res.json(token);
+      const isOk = await bcrypt.compare(password, player.password);
+      if (isOk) {
+        // const data = await Data.findOne({});
+        // console.log(data);
+        if(player.mj) {
+        // payload = {
+          //   mj: true,
+          // };
         } else {
-          res.status(404).send('Le mot de passe est incorrect.');
+          // payload = {
+          //   player: {
+          //     id: player._id,
+          //     firstname: player.pnj.firstname,
+          //     lastname: player.pnj.lastname,
+          //     mj: false
+          //   },
+          //   data: {
+          //     currentCrown: data.currentCrown,
+          //     year: data.currentYear,
+          //     month: data.currentMonth
+          //   }
+          // };
+
+          addPlayer(player._id, player.pnj.firstname, player.pnj.lastname);
         }
-      });
+  
+        const token = jwt.sign({ player }, process.env.JWT_SECRET, { expiresIn: '24h'});
+        res.json(token);
+      } else {
+        res.status(404).send('Le mot de passe est incorrect.');
+      }
     } else {
       res.status(404).send(`L'utilisateur n'existe pas.`);
       return;
     }
   } catch (error) {
     console.error('erreur login :', error);
-    res.status(500).send(error);
+    res.status(500).json({ message: error.message });
   }
 });
 
