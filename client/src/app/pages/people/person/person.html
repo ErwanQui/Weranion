@@ -1,0 +1,90 @@
+<div class="personContainer">
+  @if (currentPersonForm) {
+    <form [formGroup]="currentPersonForm">
+      <div class="personHeader">
+        <div>
+          <!-- <mat-icon (click)="return()" [ngClass]="{ isDisabled: !hasNavigationHistory() }"> -->
+          <mat-icon (click)="return()">
+            keyboard_return          
+          </mat-icon>
+        </div>
+        <div class="personName">
+          @if (editMode()) {
+            @if (personId) {
+              Modification de {{ currentPersonForm.get('name')?.value }}
+            } @else {
+              Ajout d'un nouveau personnage
+            }
+          } @else {
+            {{ currentPersonForm.get('name')?.value }}
+          }
+        </div>
+        <div>
+          <mat-icon (click)="switchEditMode()">
+            edit          
+          </mat-icon>
+        </div>
+      </div>
+    @if (!editMode()) {
+      <div class="mainDetails">
+        <div>
+          Duché de {{ currentPersonForm.get('duchy')?.value?.name }}
+        </div>
+        <div>
+          @if (currentPersonForm.get('alive')?.value) {
+            Vivant
+          } @else {
+            <mat-icon fontSet="material-symbols-outlined">skull</mat-icon>
+          }
+        </div>
+        <div>
+          {{ currentPersonForm.get('age')?.value }} ans
+        </div>
+      </div>
+      <div class="personDetails">
+        {{ currentPersonForm.get('details')?.value }}
+      </div>
+    } @else {
+      <div class="personEditForm">
+        <div class="mainEdit">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="name"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Âge</mat-label>
+            <input matInput formControlName="age"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Duché</mat-label>
+            <mat-select formControlName="duchy" [compareWith]="compareDuchy">
+              @for (duchy of duchies$ | async; track duchy._id) {
+                <mat-option [value]="duchy">{{ duchy.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-checkbox formControlName="alive">
+            Vivant
+          </mat-checkbox>
+        </div>
+        <div class="personEditDetails">
+          <mat-form-field appearance="outline">
+            <mat-label>Détails</mat-label>
+            <textarea matInput formControlName="details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="actionButtons">
+          <button mat-raised-button color="error" (click)="personId ? switchEditMode() : return()">Annuler</button>
+          @if (!personId) {
+            <button mat-raised-button color="primary" (click)="createPerson()">Créer</button>
+          } @else {
+            <button mat-raised-button color="primary" (click)="updatePerson()">Valider</button>
+          }
+        </div>
+      </div>
+    }
+  </form>
+  } @else {
+    <p>Loading...</p>
+  }
+</div>

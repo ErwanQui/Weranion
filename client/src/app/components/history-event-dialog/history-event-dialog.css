@@ -1,0 +1,4 @@
+.formEvent {
+  display: flex;
+  flex-direction: column;
+}

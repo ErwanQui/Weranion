@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>
+  Modification de l'intitulé du mois {{ data.month }} de l'année {{ data.year }}
+</h2>
+<mat-dialog-content class="formHistory">
+  <mat-form-field appearance="outline">
+    <mat-label>Intitulé</mat-label>
+    <input matInput [(ngModel)]="form.title" placeholder="Intitulé du mois" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Détais</mat-label>
+    <textarea matInput [(ngModel)]="form.details" rows="5" placeholder="Détails du mois"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Annuler</button>
+  <button mat-flat-button (click)="confirm()">Confirmer</button>
+</mat-dialog-actions>

@@ -3,7 +3,7 @@ const CrownTransaction = require('./crownTransaction');
 const Investment = require('./investment');
 
 const TreasurySheetSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  // _id: mongoose.Schema.Types.ObjectId,
   year: Number,
   month: Number,
   ended: Boolean,

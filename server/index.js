@@ -1,4 +1,7 @@
 require('dotenv').config();
+
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -6,30 +9,35 @@ const cp = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const login = require('./src/login');
+const main = require('./src/main');
 const food = require('./src/food');
 const treasury = require('./src/treasury');
 const activePlayers = require('./src/activePlayers');
+const messages = require('./src/messages');
+const history = require('./src/history');
+const territory = require('./src/territory');
+const person = require('./src/person');
 
 const { removeInactivePlayers } = require('./services/activePlayers.service');
 
 app.use(
   cors({
     origin: process.env.CLIENT_PATH,
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   }),
   express.json(),
   cp()
 );
 
-// Options de configuration pour la connexion
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+// // Options de configuration pour la connexion
+// const options = {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// };
 
 // Établir la connexion à la base de données
-mongoose.connect(process.env.MONGODB_URL, options)
+mongoose.connect(process.env.MONGODB_URL)
   .then(() => {
     console.log('Connexion à la base de données établie');
   })
@@ -50,9 +58,15 @@ app.get('/', async (req, res) => {
 
 // Add api files
 app.use('/login', login);
+app.use('/history', history);
+app.use('/territory', territory);
+app.use('/person', person);
+
+app.use('/main', main);
 app.use('/food', food);
 app.use('/treasury', treasury);
 app.use('/activePlayers', activePlayers);
+app.use('/messages', messages);
 
 // Other functions
 

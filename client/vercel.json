@@ -1,0 +1,10 @@
+{  
+  "buildCommand": "node build.js",
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "develop": true,
+      "staging": true
+    }
+  }
+}

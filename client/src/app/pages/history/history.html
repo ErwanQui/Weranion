@@ -1,0 +1,90 @@
+<div class="historyPage">
+  <div class="timeLine">
+    <div #scrollContainer class="timeLineScrollContainer">
+      @for (time of timeLine(); track time) {
+      <div class="monthBlock" (click)="selectHistory(time)">
+        @if (time.month === 1) {
+          <span class="yearLabel"> Année {{ time.year }}</span>
+        }
+        <span class="monthLabel">{{ time.month }}</span>
+        @if (time.eventTitle) {
+          <span class="monthMainEvent">{{ time.eventTitle }}</span>
+        }
+      </div>
+      }
+      <div class="finalArrow"></div>
+    </div>
+  </div>
+  <div class="timeDetails">
+  @if (currentHistory()) {
+    <div class="b">
+      <div class="currentTimeTitleContainer">
+        <div class="currentTimeTitle">
+          Année {{ currentHistory()!.year }} Mois {{ currentHistory()!.month }} : 
+          @if (currentHistory()?.title) {
+            {{ currentHistory()!.title }}
+          } @else {
+            Aucun intitulé
+          }
+        </div>
+        <mat-icon (click)="editHistory()">edit</mat-icon>
+      </div>
+      <div class="currentTimeDetails">
+        @if (currentHistory()?.details) {
+          {{ currentHistory()!.details }}
+        } @else {
+          Aucune information pour ce mois
+        }
+      </div>
+    </div>
+      <div class="eventsPart">
+        <div class="eventsPartBar">
+          <div class="c">
+          Evènements majeurs du mois
+          </div>
+          <mat-icon (click)="switchEditMode()">edit</mat-icon>
+          <mat-icon (click)="addEvent()">add</mat-icon>
+        </div>
+        <div class="eventsContainer">
+          @if (currentHistory()?.events!.length > 0) {
+            <div cdkDropList class="eventsTitles" (cdkDropListDropped)="moveAnEventInTheMonth($event)">
+            @for (event of currentHistory()!.events; track event) {
+              @if (editMode()) {
+                <div class="eventTitle modifying" [ngClass]="{ selected: selectedEvent()?.title === event.title }" cdkDrag>
+                  <div class="title">
+                    {{ event.title }}
+                  </div>
+                  <mat-icon (click)="deleteEvent(event)">
+                    delete          
+                  </mat-icon>
+                </div>
+              } @else {
+              <div class="eventTitle" [ngClass]="{ selected: selectedEvent()?.title === event.title }" (click)="selectEvent(event)">
+                <div class="title">  
+                  {{ event.title }}
+                </div>
+                <mat-icon (click)="editEvent(event)">
+                  edit          
+                </mat-icon>
+              </div>  
+              }
+              
+            }
+            </div>
+            <div class="selectedEventDetails">
+              @if (selectedEvent()) {
+                @if (selectedEvent()!.details) {
+                  {{ selectedEvent()!.details }}
+                } @else {
+                  Aucun détail n'a été renseigné pour cet évènement
+                }
+              }
+            </div>
+          } @else {
+            Aucun évènement renseigné
+          }
+        </div>
+      </div>
+  }
+  </div>
+</div>

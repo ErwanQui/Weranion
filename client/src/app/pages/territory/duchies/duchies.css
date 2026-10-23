@@ -1,0 +1,40 @@
+.duchyContainer {
+  padding: 20px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .duchyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .duchyFilters {
+      display: flex;
+      gap: 20px;
+    }
+  }
+
+  .duchyList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    overflow: auto;
+    flex: 1;
+
+    .duchyItem {
+      background-color: var(--mat-sys-on-tertiary-fixed-variant);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--mat-sys-on-tertiary);
+      }
+    }
+  }
+}

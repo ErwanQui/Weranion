@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { verifyToken } = require('../utils/authentification');
-const { getTreasurySheet, updateTransaction } = require('../services/treasury.service');
+const { getTreasurySheet, updateTransaction, getTreasurySheetsList } = require('../services/treasury.service');
 
 router.get('/', verifyToken, async (req, res) => {
   try {
@@ -10,24 +10,31 @@ router.get('/', verifyToken, async (req, res) => {
     const treasurySheet = await getTreasurySheet(year, month);
     res.json(treasurySheet);
   } catch (error) {
+    console.log(error);
     res.status(403).send(error);
   }
 });
-// router.get('/id', async (req, res) => {
-//   const { id } = req.query;
-//   try {
-//     await checkConnection(req);
-//     const food = await Food.findOne({_id: id.toString()}).populate('craft.element', 'name');
-//     res.json(food);
-//   } catch (error) {
-//     res.status(403).send(error);
-//   }
-// });
+
+router.get('/sheetsList', verifyToken, async (req, res) => {
+  try {
+    const treasurySheet = await getTreasurySheetsList();
+    res.json(treasurySheet);
+  } catch (error) {
+    res.status(403).send(error);
+  }
+});
 
 router.post('/updateTransaction', verifyToken, async (req, res) => {
   const { id, value } = req.body;
   const updatedTransaction = await updateTransaction(id, value);
   res.json(updatedTransaction);
 });
+
+// router.post('/createNextSheet', verifyToken, async (req, res) => {
+//   const { year, month } = req.body;
+//   const newSheetId = await createNextSheet(year, month);
+//   const newSheet = await getTreasurySheetById(newSheetId);
+//   res.json(newSheet);
+// });
 
 module.exports = router;

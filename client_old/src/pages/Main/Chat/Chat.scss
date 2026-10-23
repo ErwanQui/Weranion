@@ -1,0 +1,32 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+//  flex: 1;
+  align-content: flex-end;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 5px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  border-style: solid;
+  // padding: 5px;
+  border-color: bisque;
+  margin: 5px;
+
+  .messageContainer {
+    background-color: antiquewhite;
+    border-radius: 10px;
+    border-style: solid;
+    padding: 5px;
+    border-color: bisque;
+    flex-grow: 1;
+    overflow: auto;
+    // justify-content: flex-end;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .messageInput {
+
+  }
+}
